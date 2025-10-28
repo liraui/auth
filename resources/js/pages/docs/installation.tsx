@@ -1,6 +1,6 @@
-import { Alert, Code, CodeHighlight, H1, H3, P, Small, Step, Stepper, Underlined } from '@docs/components/typography';
+import { Alert, Code, CodeHighlight, H1, H3, P, Step, Stepper, Underlined } from '@docs/components/typography';
 import { Layout } from '@docs/layout';
-import { ArrowRightIcon, LightbulbIcon } from 'lucide-react';
+import { LightbulbIcon } from 'lucide-react';
 import React from 'react';
 
 export default function Installation() {
@@ -14,9 +14,23 @@ export default function Installation() {
                 <H3>Prerequisites</H3>
                 <P>The packages are built for Laravel, Inertia, and React applications. More importantly, they work best with our Lira ecosystem.</P>
                 <P>
-                    The <Underlined>starter kit</Underlined> is a perfect starting point for building applications with Lira. We recommend using the
-                    starter kit for your applications since we will be regularly updating it.
+                    The{' '}
+                    <Underlined href="https://github.com/liraui/starter-kit" target="_blank">
+                        starter kit
+                    </Underlined>{' '}
+                    is a perfect starting point for building applications with Lira. We recommend using the starter kit for your applications since we
+                    will be regularly updating it.
                 </P>
+                <CodeHighlight className="language-bash">{`# Composer
+"php": "^8.4",
+"jenssegers/agent": "^2.6",
+"laravolt/avatar": "^6.3",
+"laravel/wayfinder": "^0.1.12",
+"pragmarx/google2fa": "^9.0",
+"spatie/laravel-route-attributes": "^1.25"
+# NPM
+"qrcode.react": "^4.2.0",
+"@laravel/vite-plugin-wayfinder": "^0.1.3"`}</CodeHighlight>
             </div>
             <div id="getting-started" data-section="Getting started" className="flex flex-col gap-8">
                 <H3>Getting started</H3>
@@ -38,15 +52,16 @@ export default function Installation() {
                         description={
                             <div className="flex flex-col gap-4">
                                 <P>
-                                    To publish the configuration files for the documentation package, we will utilize the <Code>Core</Code> package
-                                    configuration.
+                                    To publish the configuration files for the documentation package, we will utilize the <Code>vendor:publish</Code>{' '}
+                                    command.
                                 </P>
-                                <CodeHighlight className="language-bash">{`php artisan vendor:publish --tag=liraui-config`}</CodeHighlight>
+                                <CodeHighlight className="language-bash">{`php artisan vendor:publish --tag=liraui-auth-config`}</CodeHighlight>
                                 <Alert
                                     icon={<LightbulbIcon />}
                                     description={
                                         <P>
-                                            All of the configuration for our packages are located inside one config file <Code>liraui.php</Code>.
+                                            Configuration for the authentication package will be located in the file{' '}
+                                            <Code>config/liraui-auth.php</Code>.
                                         </P>
                                     }
                                 />
@@ -83,37 +98,52 @@ export default function Installation() {
                         description={
                             <div className="flex flex-col gap-4">
                                 <P>
-                                    Register the tsx files for the documentation package in the <Code>resources/js/app.tsx</Code> file. This will
-                                    allow you to use the <Code>resolvePageComponent</Code> function to resolve the pages for the documentation
-                                    package.
+                                    Register the tsx files for the docs packages in the <Code>resources/js/app.tsx</Code> file. Your code should look
+                                    something like this in the <Code>resolve</Code> function.
                                 </P>
                                 <CodeHighlight className="language-tsx">
                                     {`// ...
-
 const packagePages = {
-    ...import.meta.glob('/vendor/liraui/auth/src/resources/js/pages/**/*.tsx'),
-    ...import.meta.glob('/vendor/@docs/pages/**/*.tsx'),
+    ...import.meta.glob('@auth/pages/**/*.tsx'),
 };
 
 // ...
+createInertiaApp({
+    title: (title) => \`\${title} - \${appName}\`,
+    resolve: (name) => {
+        const [namespace, namespaceFilename] = name.includes('::') ? name.split('::') : [null, name];
 
-resolve: (name) => {
-    const [namespace, namespaceFilename] = name.includes('::') ? name.split('::') : [null, name];
+        if (namespace) {
+            const [vendorName, vendorPackageName] = namespace.split('-');
 
-    if (namespace) {
-        const [vendorName, vendorPackageName] = namespace.split('-');
+            const packagePath = \`/vendor/\${vendorName}/\${vendorPackageName}/resources/js/pages/\${namespaceFilename}.tsx\`;
 
-        const packagePath = '/vendor/\${vendorName}/\${vendorPackageName}/src/resources/js/pages/\${namespaceFilename}.tsx';
+            return resolvePageComponent(packagePath, packagePages);
+        }
 
-        return resolvePageComponent(packagePath, packagePages);
-    }
-
-    return resolvePageComponent('./pages/\${name}.tsx', import.meta.glob('./pages/**/*.tsx'));
-},`}
+        return resolvePageComponent(\`./pages/\${name}.tsx\`, import.meta.glob('./pages/**/*.tsx'));
+    },
+    // ...`}
                                 </CodeHighlight>
                             </div>
                         }
                         step="4"
+                    />
+                    <Step
+                        state="active"
+                        title="app.css"
+                        description={
+                            <div className="flex flex-col gap-4">
+                                <P>
+                                    Add the following line to the <Code>app.css</Code> file.
+                                </P>
+                                <CodeHighlight className="language-css">
+                                    {`/* ... */
+@source '../../vendor/liraui/**/resources/js/**/*.tsx';`}
+                                </CodeHighlight>
+                            </div>
+                        }
+                        step="5"
                     />
                     <Step
                         state="active"
@@ -128,7 +158,7 @@ resolve: (name) => {
 resolve: {
     alias: {
         // ...
-        'liraui': resolve(__dirname, 'vendor/liraui'),
+        '@auth': resolve(__dirname, 'vendor/liraui/auth/resources/js'),
     },
 }`}
                                 </CodeHighlight>
@@ -137,15 +167,6 @@ resolve: {
                         step="5"
                     />
                 </Stepper>
-            </div>
-            <div className="flex flex-col gap-8">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2"></div>
-                    <div className="flex items-center gap-2">
-                        <Small className="text-primary font-bold">Login</Small>
-                        <ArrowRightIcon size={16} />
-                    </div>
-                </div>
             </div>
         </div>
     );
