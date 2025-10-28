@@ -1,0 +1,193 @@
+<?php
+
+namespace LiraUi\Auth\Http\Controllers;
+
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
+use Jenssegers\Agent\Agent;
+use LiraUi\Auth\Contracts\BrowserSessionInvalidated;
+use LiraUi\Auth\Contracts\ChangesUserPassword;
+use LiraUi\Auth\Contracts\ConfirmsTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\DeletesUser;
+use LiraUi\Auth\Contracts\DisablesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\EnablesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\InvalidatesBrowserSession;
+use LiraUi\Auth\Contracts\RecoveryCodes;
+use LiraUi\Auth\Contracts\TwoFactorAuthenticationConfirmed;
+use LiraUi\Auth\Contracts\TwoFactorAuthenticationDisabled;
+use LiraUi\Auth\Contracts\TwoFactorAuthenticationEnabled;
+use LiraUi\Auth\Contracts\UpdatesUserInformation;
+use LiraUi\Auth\Contracts\UserInformationUpdated;
+use LiraUi\Auth\Contracts\UserPasswordChanged;
+use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
+use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
+use LiraUi\Auth\Http\Requests\DeleteAccountRequest;
+use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
+use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
+use LiraUi\Auth\Http\Requests\InvalidateBrowserSessionRequest;
+use LiraUi\Auth\Http\Requests\RecoveryCodesRequest;
+use LiraUi\Auth\Http\Requests\UpdateProfileRequest;
+use LiraUi\Auth\Otp\OtpStore;
+use Spatie\RouteAttributes\Attributes\Delete;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+use Symfony\Component\HttpFoundation\Response;
+
+class ProfileController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct(
+        protected Agent $agent,
+        protected OtpStore $otpStore
+    ) {
+        //
+    }
+
+    #[Get(
+        uri: '/profile/settings',
+        name: 'liraui-auth::profile.settings',
+        middleware: ['web', 'auth', 'verified']
+    )]
+    public function show(): InertiaResponse
+    {
+        $user = Auth::user();
+
+        $sessions = DB::table('sessions')
+            ->where('user_id', $user->id)
+            ->orderBy('last_activity', 'desc')
+            ->get()
+            ->map(function ($session) {
+                $this->agent->setUserAgent($session->user_agent ?? '');
+
+                return [
+                    'id' => $session->id,
+                    'agent' => [
+                        'platform' => $this->agent->platform() ?: 'Unknown',
+                        'browser' => $this->agent->browser() ?: 'Unknown',
+                    ],
+                    'ip_address' => $session->ip_address,
+                    'is_current_device' => $session->id === session()->getId(),
+                    'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
+                ];
+            })
+            ->values()
+            ->toArray();
+
+        $email_changed = $this->otpStore->identifier('user:'.$user->id.':email-update')->retrieve();
+
+        return Inertia::render('liraui-auth::profile/settings', [
+            'emailChangedTo' => [
+                'newEmail' => isset($email_changed['otp']) ? $email_changed['otp']->newEmail : null,
+                'expiresIn' => isset($email_changed['expires']) ? $email_changed['expires']->diffForHumans() : null,
+            ],
+            'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),
+            'sessions' => $sessions,
+            'flash' => fn () => Inertia::lazy(fn () => session('flash')),
+        ]);
+    }
+
+    #[Post(
+        uri: '/profile/information',
+        name: 'profile.information.update',
+        middleware: ['web', 'auth', 'verified', 'throttle:10,1']
+    )]
+    public function updateProfileInformation(UpdateProfileRequest $request, UpdatesUserInformation $updater): Response
+    {
+        $user = $updater->update($request);
+
+        return app(UserInformationUpdated::class)->toResponse($request);
+    }
+
+    #[Post(
+        uri: '/profile/password',
+        name: 'profile.password.update',
+        middleware: ['web', 'auth']
+    )]
+    public function updatePassword(ChangePasswordRequest $request, ChangesUserPassword $changer): Response
+    {
+        $changer->handle($request);
+
+        return app(UserPasswordChanged::class)->toResponse($request);
+    }
+
+    #[Post(
+        uri: '/profile/two-factor/enable',
+        name: 'profile.two-factor.enable',
+        middleware: ['web', 'auth', 'verified', 'throttle:5,1']
+    )]
+    public function enableTwoFactor(EnableTwoFactorRequest $request, EnablesTwoFactorAuthentication $enabler): Response
+    {
+        $data = $enabler->enable($request);
+
+        return app(TwoFactorAuthenticationEnabled::class)->toResponse($request, $data);
+    }
+
+    #[Post(
+        uri: '/profile/two-factor/confirm',
+        name: 'profile.two-factor.confirm',
+        middleware: ['web', 'auth', 'verified', 'throttle:5,1']
+    )]
+    public function confirmTwoFactor(ConfirmTwoFactorRequest $request, ConfirmsTwoFactorAuthentication $confirmer): Response
+    {
+        $recoveryCodes = $confirmer->confirm($request);
+
+        return app(TwoFactorAuthenticationConfirmed::class)->toResponse($request, $recoveryCodes);
+    }
+
+    #[Post(
+        uri: '/profile/two-factor/disable',
+        name: 'profile.two-factor.disable',
+        middleware: ['web', 'auth', 'verified', 'throttle:3,1']
+    )]
+    public function disableTwoFactor(DisableTwoFactorRequest $request, DisablesTwoFactorAuthentication $disabler): Response
+    {
+        $disabler->disable($request);
+
+        return app(TwoFactorAuthenticationDisabled::class)->toResponse($request);
+    }
+
+    #[Post(
+        uri: '/profile/two-factor/recovery-codes/show',
+        name: 'profile.two-factor.recovery-codes.show',
+        middleware: ['web', 'auth', 'verified', 'throttle:6,1']
+    )]
+    public function showRecoveryCodes(RecoveryCodesRequest $request): Response
+    {
+        $user = $request->user();
+
+        return app(RecoveryCodes::class)->toResponse(
+            $request,
+            json_decode(decrypt($user->two_factor_recovery_codes), true)
+        );
+    }
+
+    #[Delete(
+        uri: '/profile/browser-sessions/{session_id}',
+        name: 'profile.browser-sessions.invalidate',
+        middleware: ['web', 'auth', 'verified', 'throttle:10,1']
+    )]
+    public function invalidateBrowserSession(InvalidateBrowserSessionRequest $request, InvalidatesBrowserSession $invalidater): Response
+    {
+        $invalidater->invalidate($request);
+
+        return app(BrowserSessionInvalidated::class)->toResponse($request);
+    }
+
+    #[Delete(
+        uri: '/profile/account',
+        name: 'profile.account.destroy',
+        middleware: ['web', 'auth', 'verified', 'throttle:3,1']
+    )]
+    public function destroyAccount(DeleteAccountRequest $request, DeletesUser $deleter): RedirectResponse
+    {
+        $deleter->delete($request);
+
+        return redirect('/');
+    }
+}

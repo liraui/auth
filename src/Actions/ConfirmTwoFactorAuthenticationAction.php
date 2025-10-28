@@ -1,0 +1,60 @@
+<?php
+
+namespace LiraUi\Auth\Actions;
+
+use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
+use LiraUi\Auth\Contracts\ConfirmsTwoFactorAuthentication;
+use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
+use PragmaRX\Google2FA\Google2FA;
+
+class ConfirmTwoFactorAuthenticationAction implements ConfirmsTwoFactorAuthentication
+{
+    /**
+     * Confirm two-factor authentication for the user.
+     *
+     * @return array Recovery codes for the user
+     *
+     * @throws ValidationException
+     */
+    public function confirm(ConfirmTwoFactorRequest $request): array
+    {
+        $pending = $request->session()->get('two_factor_secret_pending');
+
+        if (! $pending || now()->gt($pending['expires_at'])) {
+            throw ValidationException::withMessages([
+                'code' => ['Setup session expired. Please start again.'],
+            ]);
+        }
+
+        /** @var \PragmaRX\Google2FA\Google2FA $google_2fa */
+        $google_2fa = app(Google2FA::class);
+
+        $valid = $google_2fa->verifyKey($pending['secret'], $request->code);
+
+        if (! $valid) {
+            throw ValidationException::withMessages([
+                'code' => ['The provided code is invalid.'],
+            ]);
+        }
+
+        $recovery_codes = Collection::times(8, function () {
+            return strtoupper(substr(str_replace(['-', '_'], '', base64_encode(random_bytes(32))), 0, 10));
+        })->all();
+
+        /** @var \App\Models\User $user */
+        $user = $request->user();
+
+        $user->forceFill([
+            'two_factor_secret' => encrypt($pending['secret']),
+            'two_factor_recovery_codes' => encrypt(json_encode($recovery_codes)),
+            'two_factor_confirmed_at' => now(),
+        ])->save();
+
+        $request->session()->forget('two_factor_secret_pending');
+
+        $request->session()->put('two_factor_verified', true);
+
+        return $recovery_codes;
+    }
+}
