@@ -1,7 +1,7 @@
+import { submitRevealRecoveryCodes } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
-import { submitRevealRecoveryCodes } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 interface ShowTwoFactorRecoveryCodesButtonProps {
     setRecoveryCodes: (codes: string[]) => void;

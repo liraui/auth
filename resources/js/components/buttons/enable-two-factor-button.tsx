@@ -1,7 +1,7 @@
+import { submitEnableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
-import { submitEnableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 interface EnableTwoFactorButtonProps {
     setQrCodeUrl: (url: string) => void;

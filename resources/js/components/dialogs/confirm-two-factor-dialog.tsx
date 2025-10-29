@@ -53,7 +53,12 @@ export function ConfirmTwoFactorDialog({
                             <code className="bg-muted rounded px-3 py-1 font-mono text-sm">{secret}</code>
                         </div>
                     )}
-                    <Form {...submitConfirmTwoFactor.form()} options={{ preserveScroll: true }} onSuccess={handleSuccess} className="flex w-full flex-col gap-4">
+                    <Form
+                        {...submitConfirmTwoFactor.form()}
+                        options={{ preserveScroll: true }}
+                        onSuccess={handleSuccess}
+                        className="flex w-full flex-col gap-4"
+                    >
                         {({ processing, errors }) => (
                             <>
                                 <div className="flex flex-col gap-y-2">

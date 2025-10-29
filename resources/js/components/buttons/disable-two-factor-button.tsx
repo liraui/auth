@@ -1,7 +1,7 @@
+import { submitDisableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
-import { submitDisableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 export function DisableTwoFactorButton() {
     const [showPasswordDialog, setShowPasswordDialog] = useState(false);

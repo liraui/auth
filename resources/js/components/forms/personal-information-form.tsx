@@ -1,3 +1,5 @@
+import { submitResendEmailVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { submitProfileInformation } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,8 +9,6 @@ import { Spinner } from '@/components/ui/spinner';
 import { SharedData } from '@/types';
 import { Form, usePage } from '@inertiajs/react';
 import { VerifyEmailButton } from '../buttons/verify-email-button';
-import { submitResendEmailVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
-import { submitProfileInformation } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 function FormField({
     id,

@@ -1,7 +1,7 @@
+import { submitUpdateAccountPassword } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { ChangePasswordDialog } from '../dialogs/change-password-dialog';
-import { submitUpdateAccountPassword } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 interface ChangePasswordButtonProps {
     buttonVariant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';

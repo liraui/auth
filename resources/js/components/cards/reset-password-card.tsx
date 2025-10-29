@@ -14,7 +14,7 @@ interface ResetPasswordCardProps {
 function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
     return (
         <div className="w-sm">
-            <div className="outline outline-border/50 outline-offset-4 m-4 from-border/70 to-border/70 relative h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px">
+            <div className="outline-border/50 from-border/70 to-border/70 relative m-4 h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px outline outline-offset-4">
                 <Card className="bg-primary-foreground h-full w-full rounded-2xl border-0 shadow-none">
                     <CardHeader className="gap-3">
                         <CardTitle className="text-2xl">Reset password</CardTitle>
@@ -42,7 +42,13 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                                         </div>
                                         <div className="flex w-full flex-col gap-y-2">
                                             <Label htmlFor="password_confirmation">Confirm Password</Label>
-                                            <Input tabIndex={2} id="password_confirmation" type="password" placeholder="•••••••••" name="password_confirmation" />
+                                            <Input
+                                                tabIndex={2}
+                                                id="password_confirmation"
+                                                type="password"
+                                                placeholder="•••••••••"
+                                                name="password_confirmation"
+                                            />
                                             {errors.password_confirmation && (
                                                 <span className="text-sm text-red-500">{errors.password_confirmation}</span>
                                             )}

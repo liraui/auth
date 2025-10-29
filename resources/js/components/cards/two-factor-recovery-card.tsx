@@ -9,7 +9,7 @@ import { Form, Link } from '@inertiajs/react';
 export function TwoFactorRecoveryCard() {
     return (
         <div className="w-sm">
-            <div className="outline outline-border/50 outline-offset-4 m-4 from-border/70 to-border/70 relative h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px">
+            <div className="outline-border/50 from-border/70 to-border/70 relative m-4 h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px outline outline-offset-4">
                 <Card className="bg-primary-foreground h-full w-full rounded-2xl border-0 shadow-none">
                     <CardHeader className="gap-3">
                         <CardTitle className="text-2xl">Recovery code</CardTitle>
@@ -23,7 +23,14 @@ export function TwoFactorRecoveryCard() {
                                 <>
                                     <div className="flex w-full flex-col gap-y-2">
                                         <Label htmlFor="recover-code">Recovery code</Label>
-                                        <Input tabIndex={1} id="recover-code" type="text" placeholder="Enter your recovery code" name="recovery_code" autoFocus />
+                                        <Input
+                                            tabIndex={1}
+                                            id="recover-code"
+                                            type="text"
+                                            placeholder="Enter your recovery code"
+                                            name="recovery_code"
+                                            autoFocus
+                                        />
                                         {errors.recovery_code && <span className="text-sm text-red-500">{errors.recovery_code}</span>}
                                     </div>
                                     <Button tabIndex={2} type="submit" className="w-full" disabled={processing}>

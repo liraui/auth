@@ -1,7 +1,7 @@
+import { submitVerifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { AccessCodeConfirmationDialog } from '../dialogs/access-code-confirmation-dialog';
-import { submitVerifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
 
 interface VerifyEmailButtonProps {
     email: string;
