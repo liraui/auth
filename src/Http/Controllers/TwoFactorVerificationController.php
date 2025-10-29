@@ -26,7 +26,7 @@ class TwoFactorVerificationController extends Controller
         name: 'two-factor.verify',
         middleware: ['web']
     )]
-    public function showVerify(Request $request): InertiaResponse|RedirectResponse
+    public function showTwoFactorLogin(Request $request): InertiaResponse|RedirectResponse
     {
         if (! $this->hasPendingTwoFactorSession($request)) {
             return redirect()->route('auth.login');
@@ -47,7 +47,7 @@ class TwoFactorVerificationController extends Controller
         name: 'two-factor.verify.store',
         middleware: ['web', 'throttle:6,1']
     )]
-    public function verify(VerifyTwoFactorRequest $request, VerifiesTwoFactorAuthentication $verifier): Response
+    public function submitTwoFactorLogin(VerifyTwoFactorRequest $request, VerifiesTwoFactorAuthentication $verifier): Response
     {
         $verifier->verify($request);
 
@@ -59,7 +59,7 @@ class TwoFactorVerificationController extends Controller
         name: 'two-factor.recovery',
         middleware: ['web']
     )]
-    public function showVerifyRecoveryCode(Request $request): InertiaResponse|RedirectResponse
+    public function showTwoFactorRecoveryCode(Request $request): InertiaResponse|RedirectResponse
     {
         if (! $this->hasPendingTwoFactorSession($request)) {
             return redirect()->route('auth.login');
@@ -80,7 +80,7 @@ class TwoFactorVerificationController extends Controller
         name: 'two-factor.recovery.store',
         middleware: ['web', 'throttle:6,1']
     )]
-    public function verifyRecovery(VerifyTwoFactorRecoveryCodeRequest $request, VerifiesTwoFactorRecoveryCode $verifier): Response
+    public function submitTwoFactorRecoveryCode(VerifyTwoFactorRecoveryCodeRequest $request, VerifiesTwoFactorRecoveryCode $verifier): Response
     {
         $verifier->verify($request);
 

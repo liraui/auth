@@ -1,9 +1,9 @@
+import { submitConfirmTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { confirm } from '@/routes/profile/two-factor';
 import { Form } from '@inertiajs/react';
 import { QRCodeSVG } from 'qrcode.react';
 
@@ -53,7 +53,7 @@ export function ConfirmTwoFactorDialog({
                             <code className="bg-muted rounded px-3 py-1 font-mono text-sm">{secret}</code>
                         </div>
                     )}
-                    <Form {...confirm.form()} options={{ preserveScroll: true }} onSuccess={handleSuccess} className="flex w-full flex-col gap-4">
+                    <Form {...submitConfirmTwoFactor.form()} options={{ preserveScroll: true }} onSuccess={handleSuccess} className="flex w-full flex-col gap-4">
                         {({ processing, errors }) => (
                             <>
                                 <div className="flex flex-col gap-y-2">

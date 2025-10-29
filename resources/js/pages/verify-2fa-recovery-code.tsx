@@ -3,10 +3,8 @@ import { Layout } from '../layout';
 
 export default function TwoFactorRecovery() {
     return (
-        <div className="flex min-h-[calc(100vh-7rem)] w-full items-center justify-center px-4">
-            <div className="w-full max-w-md">
-                <TwoFactorRecoveryCard />
-            </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+            <TwoFactorRecoveryCard />
         </div>
     );
 }

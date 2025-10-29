@@ -10,17 +10,13 @@ function Layout({ children, ...props }: LayoutProps) {
         <div className="relative">
             <div className="bg-background">
                 <div {...props}>
-                    <div className="bg-background/80 border-border sticky top-0 z-99 backdrop-blur-md">
+                    <div>
                         <AuthHeader />
-                        <div className="via-border absolute right-0 bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent to-transparent"></div>
                     </div>
-                    <div className="relative mx-auto flex max-w-7xl gap-8">
-                        <div className="flex-1 overflow-x-hidden">
-                            <div className="max-w-full">{children}</div>
-                        </div>
+                    <div className="bg-muted/35 m-2 rounded-md border">
+                        <main className="relative mx-auto min-h-[calc(100svh-8rem)] max-w-7xl flex-col gap-8">{children}</main>
                     </div>
-                    <div className="bg-background/80 relative backdrop-blur-md">
-                        <div className="via-border absolute top-0 right-0 left-0 h-[1px] bg-gradient-to-r from-transparent to-transparent"></div>
+                    <div>
                         <AuthFooter />
                     </div>
                 </div>

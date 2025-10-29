@@ -1,8 +1,8 @@
+import { submitResendEmailVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { showProfileSettings } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { settings as showSettings } from '@/routes/namespaced/liraui-auth/profile';
-import { send as sendVerification } from '@/routes/verification';
 import { Form, Link } from '@inertiajs/react';
 
 interface VerifyEmailProps {
@@ -12,8 +12,8 @@ interface VerifyEmailProps {
 
 function VerifyEmailCard({ email, status }: VerifyEmailProps) {
     return (
-        <div className="flex h-full w-full max-w-sm items-stretch gap-6">
-            <div className="from-border/70 to-border/70 relative h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px">
+        <div className="w-sm">
+            <div className="outline outline-border/50 outline-offset-4 m-4 from-border/70 to-border/70 relative h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px">
                 <Card className="bg-primary-foreground h-full w-full rounded-2xl border-0 shadow-none">
                     <CardHeader className="gap-3">
                         <CardTitle className="text-2xl">Verify your email address</CardTitle>
@@ -31,7 +31,7 @@ function VerifyEmailCard({ email, status }: VerifyEmailProps) {
                                 </p>
                             )}
                         </div>
-                        <Form {...sendVerification.form()} options={{ preserveScroll: true }}>
+                        <Form {...submitResendEmailVerification.form()} options={{ preserveScroll: true }}>
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <Button type="submit" className="w-full" disabled={processing}>
                                     {processing && <Spinner />} Resend Verification Email
@@ -41,9 +41,9 @@ function VerifyEmailCard({ email, status }: VerifyEmailProps) {
                     </CardContent>
                     <CardFooter className="mx-auto flex justify-between">
                         <p className="text-sm">
-                            Need to change your email?{' '}
-                            <Link href={showSettings()} className="text-primary font-medium underline">
-                                Go to Profile
+                            Verify your email?{' '}
+                            <Link href={showProfileSettings()} className="text-primary font-medium underline">
+                                Profile settings
                             </Link>
                         </p>
                     </CardFooter>

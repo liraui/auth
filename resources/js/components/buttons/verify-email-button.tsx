@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { verify } from '@/routes/verification';
 import { useState } from 'react';
 import { AccessCodeConfirmationDialog } from '../dialogs/access-code-confirmation-dialog';
+import { submitVerifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
 
 interface VerifyEmailButtonProps {
     email: string;
@@ -26,7 +26,7 @@ export function VerifyEmailButton({ email, buttonVariant = 'outline', buttonSize
                 }}
                 title="Verify Email Address"
                 description={`Please enter the 6-digit verification code sent to ${email}.`}
-                form={verify.form()}
+                form={submitVerifyEmail.form()}
                 success={() => {
                     setShowAccessCodeDialog(false);
                 }}

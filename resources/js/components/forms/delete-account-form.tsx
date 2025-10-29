@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { destroy } from '@/routes/profile/account';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
+import { deleteAccount } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 function DeleteAccountForm() {
     const [showPasswordDialog, setShowPasswordDialog] = useState(false);
@@ -28,7 +28,7 @@ function DeleteAccountForm() {
                         }}
                         title="Delete account"
                         description="This action cannot be undone. Please enter your password to confirm you want to permanently delete your account."
-                        form={destroy.form()}
+                        form={deleteAccount.form()}
                         success={() => {
                             setShowPasswordDialog(false);
                         }}

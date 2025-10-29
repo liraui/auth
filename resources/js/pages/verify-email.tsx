@@ -4,10 +4,8 @@ import { Layout } from '../layout';
 
 export default function VerifyEmail({ email, status }: { email: string; status?: string }) {
     return (
-        <div className="flex min-h-[calc(100vh-7rem)] w-full items-center justify-center px-4">
-            <div className="w-full max-w-md">
-                <VerifyEmailCard email={email} status={status} />
-            </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+            <VerifyEmailCard email={email} status={status} />
         </div>
     );
 }

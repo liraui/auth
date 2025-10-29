@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { show } from '@/routes/profile/two-factor/recovery-codes';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
+import { submitRevealRecoveryCodes } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 interface ShowTwoFactorRecoveryCodesButtonProps {
     setRecoveryCodes: (codes: string[]) => void;
@@ -35,7 +35,7 @@ export function ShowTwoFactorRecoveryCodesButton({ setRecoveryCodes, setShowReco
                 }}
                 title="Show recovery codes"
                 description="Please confirm your password before viewing your recovery codes. These codes can be used to recover access to your account if you lose your two-factor authentication device."
-                form={show.form()}
+                form={submitRevealRecoveryCodes.form()}
                 success={handleSuccess}
                 confirmButtonText="Show Codes"
             />

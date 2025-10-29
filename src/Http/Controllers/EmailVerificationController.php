@@ -22,7 +22,7 @@ class EmailVerificationController extends Controller
         name: 'verification.notice',
         middleware: ['web', 'auth']
     )]
-    public function show(Request $request): InertiaResponse|Response
+    public function showVerifyEmail(Request $request): InertiaResponse|Response
     {
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(route('dashboard'));
@@ -39,7 +39,7 @@ class EmailVerificationController extends Controller
         name: 'verification.verify',
         middleware: ['web', 'auth', 'throttle:6,1']
     )]
-    public function verify(VerifyEmailRequest $request, VerifiesEmail $verifier): Response
+    public function submitVerifyEmail(VerifyEmailRequest $request, VerifiesEmail $verifier): Response
     {
         $verifier->verify($request);
 
@@ -51,7 +51,7 @@ class EmailVerificationController extends Controller
         name: 'verification.send',
         middleware: ['web', 'auth', 'throttle:6,1']
     )]
-    public function store(SendUserEmailVerificationRequest $request, SendsUserEmailVerification $sender): Response
+    public function submitResendEmailVerification(SendUserEmailVerificationRequest $request, SendsUserEmailVerification $sender): Response
     {
         $sender->send($request);
 

@@ -41,7 +41,7 @@ class AuthController extends Controller
         name: 'auth.login.attempt',
         middleware: ['web', 'guest']
     )]
-    public function login(LoginRequest $request, AuthenticatesUser $authenticator): Response
+    public function submitLogin(LoginRequest $request, AuthenticatesUser $authenticator): Response
     {
         $authenticator->handle($request);
 
@@ -53,7 +53,7 @@ class AuthController extends Controller
         name: 'auth.logout',
         middleware: ['web', 'auth']
     )]
-    public function logout(LogoutRequest $request, LogsOutUser $logger): Response
+    public function submitLogout(LogoutRequest $request, LogsOutUser $logger): Response
     {
         $logger->handle($request);
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
         name: 'auth.register.submit',
         middleware: ['web', 'guest', 'throttle:3,1']
     )]
-    public function register(RegisterRequest $request, RegistersUser $registrar): Response
+    public function submitRegister(RegisterRequest $request, RegistersUser $registrar): Response
     {
         $user = $registrar->register($request);
 
@@ -99,7 +99,7 @@ class AuthController extends Controller
         name: 'auth.forgot-password.submit',
         middleware: ['web', 'guest', 'throttle:5,1']
     )]
-    public function forgotPassword(ForgotPasswordRequest $request, SendsUserPasswordResetLink $sender): Response
+    public function submitForgotPassword(ForgotPasswordRequest $request, SendsUserPasswordResetLink $sender): Response
     {
         $status = $sender->send($request);
 
@@ -124,7 +124,7 @@ class AuthController extends Controller
         name: 'password.update',
         middleware: ['web', 'guest', 'throttle:5,1']
     )]
-    public function resetPassword(ResetPasswordRequest $request, ResetsUserPassword $resetter): Response
+    public function submitResetPassword(ResetPasswordRequest $request, ResetsUserPassword $resetter): Response
     {
         $status = $resetter->reset($request);
 

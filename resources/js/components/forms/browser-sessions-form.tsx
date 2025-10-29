@@ -1,11 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { invalidate } from '@/routes/profile/browser-sessions';
 import { SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
+import { deleteInvalidateBrowserSession } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 interface BrowserSession {
     id: string;
@@ -34,7 +34,7 @@ function BrowserSessionsForm() {
         setShowPasswordDialog(true);
     };
 
-    const form = sessionToInvalidate ? invalidate.form({ session_id: sessionToInvalidate.id }) : null;
+    const form = sessionToInvalidate ? deleteInvalidateBrowserSession.form({ session_id: sessionToInvalidate.id }) : null;
 
     return (
         <div className="flex flex-col gap-6 md:flex-row">

@@ -4,11 +4,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
-import { update } from '@/routes/profile/information';
-import { send } from '@/routes/verification';
 import { SharedData } from '@/types';
 import { Form, usePage } from '@inertiajs/react';
 import { VerifyEmailButton } from '../buttons/verify-email-button';
+import { submitResendEmailVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { submitProfileInformation } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 
 function FormField({
     id,
@@ -80,7 +80,7 @@ function PersonalInformationForm() {
                             <p className="text-destructive mt-1">
                                 Your email address is unverified. Would you like to resend email verification for <u>{auth.user.email}</u>?
                             </p>
-                            <Form {...send.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
+                            <Form {...submitResendEmailVerification.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
                                 {({ processing, errors }) => (
                                     <Button type="submit" variant="ghost" className="cursor-pointer">
                                         {processing && <Spinner />} Resend
@@ -94,7 +94,7 @@ function PersonalInformationForm() {
                 <div>
                     <Card className="border-0 bg-transparent py-0 shadow-none">
                         <CardContent className="px-0">
-                            <Form {...update.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
+                            <Form {...submitProfileInformation.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
                                 {({ processing, errors }) => (
                                     <>
                                         <div className="flex flex-col gap-y-4">
