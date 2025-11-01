@@ -2,25 +2,25 @@
 
 namespace LiraUi\Auth\Contracts;
 
-interface OtpStore
+interface OtacStore
 {
     /**
-     * Set identifier for the OTP.
+     * Set identifier for the OTAC.
      */
     public function identifier(string $identifier): static;
 
     /**
-     * Store OTP in cache.
+     * Store OTAC in cache.
      */
-    public function put(array $otp): void;
+    public function put(array $otac): void;
 
     /**
-     * Get OTP from cache.
+     * Get OTAC from cache.
      */
     public function retrieve(): ?array;
 
     /**
-     * Remove OTP from cache.
+     * Remove OTAC from cache.
      */
     public function clear(): void;
 }

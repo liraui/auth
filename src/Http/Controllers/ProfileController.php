@@ -31,7 +31,7 @@ use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\InvalidateBrowserSessionRequest;
 use LiraUi\Auth\Http\Requests\ShowRecoveryCodesRequest;
 use LiraUi\Auth\Http\Requests\UpdateProfileRequest;
-use LiraUi\Auth\Otp\OtpStore;
+use LiraUi\Auth\Otac\OtacStore;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -44,7 +44,7 @@ class ProfileController extends Controller
      */
     public function __construct(
         protected Agent $agent,
-        protected OtpStore $otpStore
+        protected OtacStore $otacStore
     ) {
         //
     }
@@ -79,11 +79,11 @@ class ProfileController extends Controller
             ->values()
             ->toArray();
 
-        $email_changed = $this->otpStore->identifier('user:'.$user->id.':email-update')->retrieve();
+        $email_changed = $this->otacStore->identifier('user:'.$user->id.':email-update')->retrieve();
 
         return Inertia::render('liraui-auth::profile/settings', [
             'emailChangedTo' => [
-                'newEmail' => isset($email_changed['otp']) ? $email_changed['otp']->newEmail : null,
+                'newEmail' => isset($email_changed['otac']) ? $email_changed['otac']->newEmail : null,
                 'expiresIn' => isset($email_changed['expires']) ? $email_changed['expires']->diffForHumans() : null,
             ],
             'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),

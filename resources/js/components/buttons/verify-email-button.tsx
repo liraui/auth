@@ -24,7 +24,7 @@ export function VerifyEmailButton({ email }: { email: string }) {
                     setShowAccessCodeDialog(false);
                 }}
                 confirmButtonText="Verify"
-                confirmButtonVariant="ghost"
+                confirmButtonVariant="default"
             />
         </>
     );

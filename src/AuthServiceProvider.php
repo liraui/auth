@@ -71,8 +71,8 @@ use LiraUi\Auth\Http\Responses\UpdateUserInformationResponse;
 use LiraUi\Auth\Http\Responses\VerifyTwoFactorRecoveryCodeResponse;
 use LiraUi\Auth\Http\Responses\VerifyTwoFactorResponse;
 use LiraUi\Auth\Listeners\SendEmailVerificationNotification;
-use LiraUi\Auth\Otp\Otp;
-use LiraUi\Auth\Otp\OtpStore;
+use LiraUi\Auth\Otac\Otac;
+use LiraUi\Auth\Otac\OtacStore;
 use PragmaRX\Google2FA\Google2FA;
 
 class AuthServiceProvider extends ServiceProvider
@@ -122,8 +122,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->singleton(PasswordChanged::class, ChangeUserPasswordResponse::class);
 
         // Register service bindings
-        $this->app->singleton('liraui-auth-otp', function ($app) {
-            return new Otp($app->make(OtpStore::class));
+        $this->app->singleton('liraui-auth-otac', function ($app) {
+            return new Otac($app->make(OtacStore::class));
         });
         $this->app->singleton(Agent::class, function () {
             return new Agent;

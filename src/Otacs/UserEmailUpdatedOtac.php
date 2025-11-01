@@ -1,26 +1,19 @@
 <?php
 
-namespace LiraUi\Auth\Otps;
+namespace LiraUi\Auth\Otacs;
 
 use App\Models\User;
-use LiraUi\Auth\Contracts\Otp;
+use LiraUi\Auth\Contracts\Otac;
 use LiraUi\Auth\Events\EmailVerifiedEvent;
 
-class UserEmailUpdatedOtp implements Otp
+class UserEmailUpdatedOtac implements Otac
 {
-    /**
-     * Constructs Otp class
-     */
     public function __construct(
         public User $user,
         public readonly string $newEmail
     ) {
-        //
     }
 
-    /**
-     * Processes the Otp when verified
-     */
     public function process(): bool
     {
         $this->user->forceFill([

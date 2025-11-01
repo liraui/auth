@@ -2,10 +2,10 @@
 
 namespace LiraUi\Auth\Contracts;
 
-interface Otp
+interface Otac
 {
     /**
-     * Process the OTP when verified.
+     * Process the OTAC when verified.
      */
     public function process(): bool;
 }

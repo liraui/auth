@@ -5,8 +5,8 @@ namespace LiraUi\Auth\Concerns;
 use Illuminate\Support\Facades\Notification;
 use LiraUi\Auth\Events\EmailVerificationSentEvent;
 use LiraUi\Auth\Events\EmailVerifiedEvent;
-use LiraUi\Auth\Facades\Otp;
-use LiraUi\Auth\Otps\UserEmailUpdatedOtp;
+use LiraUi\Auth\Facades\Otac;
+use LiraUi\Auth\Otacs\UserEmailUpdatedOtac;
 
 trait HasEmailVerification
 {
@@ -17,7 +17,7 @@ trait HasEmailVerification
     {
         $identifier = 'user:'.$this->id.':email-update';
 
-        $requested = Otp::identifier($identifier)->store()->retrieve();
+        $requested = Otac::identifier($identifier)->store()->retrieve();
 
         $email = empty($to) ? $this->email : $to;
 
@@ -25,8 +25,8 @@ trait HasEmailVerification
             return;
         }
 
-        Otp::identifier($identifier)->send(
-            new UserEmailUpdatedOtp(
+        Otac::identifier($identifier)->send(
+            new UserEmailUpdatedOtac(
                 user: $this,
                 newEmail: $email,
             ),
