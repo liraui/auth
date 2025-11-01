@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Contracts;
 
 use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 
-interface SendsUserPasswordResetLink
+interface SendsPasswordResetLink
 {
     /**
      * Send a password reset link to the given user.

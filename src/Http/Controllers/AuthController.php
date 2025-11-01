@@ -9,7 +9,7 @@ use LiraUi\Auth\Contracts\AuthenticatesUser;
 use LiraUi\Auth\Contracts\LogsOutUser;
 use LiraUi\Auth\Contracts\RegistersUser;
 use LiraUi\Auth\Contracts\ResetsUserPassword;
-use LiraUi\Auth\Contracts\SendsUserPasswordResetLink;
+use LiraUi\Auth\Contracts\SendsPasswordResetLink;
 use LiraUi\Auth\Contracts\Authenticated;
 use LiraUi\Auth\Contracts\LoggedOut;
 use LiraUi\Auth\Contracts\PasswordReset;
@@ -99,7 +99,7 @@ class AuthController extends Controller
         name: 'auth.forgot-password.submit',
         middleware: ['web', 'guest', 'throttle:5,1']
     )]
-    public function sendPasswordResetLink(SendPasswordResetLinkRequest $request, SendsUserPasswordResetLink $sender): Response
+    public function sendPasswordResetLink(SendPasswordResetLinkRequest $request, SendsPasswordResetLink $sender): Response
     {
         $status = $sender->send($request);
 

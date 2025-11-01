@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use LiraUi\Auth\Contracts\VerifiedEmail;
-use LiraUi\Auth\Contracts\SendsUserEmailVerification;
+use LiraUi\Auth\Contracts\SendsEmailVerification;
 use LiraUi\Auth\Contracts\EmailVerificationSent;
 use LiraUi\Auth\Contracts\VerifiesEmail;
-use LiraUi\Auth\Http\Requests\SendUserEmailVerificationRequest;
+use LiraUi\Auth\Http\Requests\SendEmailVerificationRequest;
 use LiraUi\Auth\Http\Requests\VerifyEmailRequest;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -51,7 +51,7 @@ class EmailVerificationController extends Controller
         name: 'verification.send',
         middleware: ['web', 'auth', 'throttle:6,1']
     )]
-    public function resendVerification(SendUserEmailVerificationRequest $request, SendsUserEmailVerification $sender): Response
+    public function resendVerification(SendEmailVerificationRequest $request, SendsEmailVerification $sender): Response
     {
         $sender->send($request);
 

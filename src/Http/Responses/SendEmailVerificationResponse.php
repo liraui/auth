@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\EmailVerificationSent;
 use Symfony\Component\HttpFoundation\Response;
 
-class SendUserEmailVerificationResponse implements EmailVerificationSent
+class SendEmailVerificationResponse implements EmailVerificationSent
 {
     /**
      * Create an HTTP response that represents the object.

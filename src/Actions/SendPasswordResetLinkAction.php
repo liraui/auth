@@ -4,11 +4,11 @@ namespace LiraUi\Auth\Actions;
 
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-use LiraUi\Auth\Contracts\SendsUserPasswordResetLink;
+use LiraUi\Auth\Contracts\SendsPasswordResetLink;
 use LiraUi\Auth\Events\PasswordResetLinkSentEvent;
 use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 
-class SendUserPasswordResetLinkAction implements SendsUserPasswordResetLink
+class SendPasswordResetLinkAction implements SendsPasswordResetLink
 {
     /**
      * Send a password reset link to the user.

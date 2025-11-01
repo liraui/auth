@@ -3,17 +3,17 @@
 namespace LiraUi\Auth\Actions;
 
 use Illuminate\Validation\ValidationException;
-use LiraUi\Auth\Contracts\SendsUserEmailVerification;
-use LiraUi\Auth\Http\Requests\SendUserEmailVerificationRequest;
+use LiraUi\Auth\Contracts\SendsEmailVerification;
+use LiraUi\Auth\Http\Requests\SendEmailVerificationRequest;
 
-class SendUserEmailVerificationAction implements SendsUserEmailVerification
+class SendEmailVerificationAction implements SendsEmailVerification
 {
     /**
      * Send an email verification notification to the user.
      *
      * @throws ValidationException
      */
-    public function send(SendUserEmailVerificationRequest $request): void
+    public function send(SendEmailVerificationRequest $request): void
     {
         /** @var \App\Models\User $user */
         $user = $request->user();

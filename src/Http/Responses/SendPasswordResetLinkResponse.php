@@ -6,7 +6,7 @@ use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 use LiraUi\Auth\Contracts\PasswordResetLinkSent;
 use Symfony\Component\HttpFoundation\Response;
 
-class SendUserPasswordResetLinkResponse implements PasswordResetLinkSent
+class SendPasswordResetLinkResponse implements PasswordResetLinkSent
 {
     /**
      * Create an HTTP response that represents the object.
