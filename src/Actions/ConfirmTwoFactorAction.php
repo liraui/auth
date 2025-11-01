@@ -4,11 +4,11 @@ namespace LiraUi\Auth\Actions;
 
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
-use LiraUi\Auth\Contracts\ConfirmsTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\ConfirmsTwoFactor;
 use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
 use PragmaRX\Google2FA\Google2FA;
 
-class ConfirmTwoFactorAuthenticationAction implements ConfirmsTwoFactorAuthentication
+class ConfirmTwoFactorAction implements ConfirmsTwoFactor
 {
     /**
      * Confirm two-factor authentication for the user.

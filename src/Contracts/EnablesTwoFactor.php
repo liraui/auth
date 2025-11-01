@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Contracts;
 
 use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 
-interface EnablesTwoFactorAuthentication
+interface EnablesTwoFactor
 {
     /**
      * Enable two-factor authentication for the user.

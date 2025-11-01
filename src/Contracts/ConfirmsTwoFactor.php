@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Contracts;
 
 use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
 
-interface ConfirmsTwoFactorAuthentication
+interface ConfirmsTwoFactor
 {
     /**
      * Confirm two-factor authentication for the user.

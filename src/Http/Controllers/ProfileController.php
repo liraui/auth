@@ -11,15 +11,15 @@ use Inertia\Response as InertiaResponse;
 use Jenssegers\Agent\Agent;
 use LiraUi\Auth\Contracts\BrowserSessionInvalidated;
 use LiraUi\Auth\Contracts\ChangesUserPassword;
-use LiraUi\Auth\Contracts\ConfirmsTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\ConfirmsTwoFactor;
 use LiraUi\Auth\Contracts\DeletesUser;
-use LiraUi\Auth\Contracts\DisablesTwoFactorAuthentication;
-use LiraUi\Auth\Contracts\EnablesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\DisablesTwoFactor;
+use LiraUi\Auth\Contracts\EnablesTwoFactor;
 use LiraUi\Auth\Contracts\InvalidatesBrowserSession;
 use LiraUi\Auth\Contracts\ShowRecoveryCodes;
-use LiraUi\Auth\Contracts\TwoFactorAuthenticationConfirmed;
-use LiraUi\Auth\Contracts\TwoFactorAuthenticationDisabled;
-use LiraUi\Auth\Contracts\TwoFactorAuthenticationEnabled;
+use LiraUi\Auth\Contracts\TwoFactorConfirmed;
+use LiraUi\Auth\Contracts\TwoFactorDisabled;
+use LiraUi\Auth\Contracts\TwoFactorEnabled;
 use LiraUi\Auth\Contracts\UpdatesUserInformation;
 use LiraUi\Auth\Contracts\InformationUpdated;
 use LiraUi\Auth\Contracts\PasswordChanged;
@@ -121,11 +121,11 @@ class ProfileController extends Controller
         name: 'profile.two-factor.enable',
         middleware: ['web', 'auth', 'verified', 'throttle:5,1']
     )]
-    public function enableTwoFactor(EnableTwoFactorRequest $request, EnablesTwoFactorAuthentication $enabler): Response
+    public function enableTwoFactor(EnableTwoFactorRequest $request, EnablesTwoFactor $enabler): Response
     {
         $data = $enabler->enable($request);
 
-        return app(TwoFactorAuthenticationEnabled::class)->toResponse($request, $data);
+        return app(TwoFactorEnabled::class)->toResponse($request, $data);
     }
 
     #[Post(
@@ -133,11 +133,11 @@ class ProfileController extends Controller
         name: 'profile.two-factor.confirm',
         middleware: ['web', 'auth', 'verified', 'throttle:5,1']
     )]
-    public function confirmTwoFactor(ConfirmTwoFactorRequest $request, ConfirmsTwoFactorAuthentication $confirmer): Response
+    public function confirmTwoFactor(ConfirmTwoFactorRequest $request, ConfirmsTwoFactor $confirmer): Response
     {
         $recoveryCodes = $confirmer->confirm($request);
 
-        return app(TwoFactorAuthenticationConfirmed::class)->toResponse($request, $recoveryCodes);
+        return app(TwoFactorConfirmed::class)->toResponse($request, $recoveryCodes);
     }
 
     #[Post(
@@ -145,11 +145,11 @@ class ProfileController extends Controller
         name: 'profile.two-factor.disable',
         middleware: ['web', 'auth', 'verified', 'throttle:3,1']
     )]
-    public function disableTwoFactor(DisableTwoFactorRequest $request, DisablesTwoFactorAuthentication $disabler): Response
+    public function disableTwoFactor(DisableTwoFactorRequest $request, DisablesTwoFactor $disabler): Response
     {
         $disabler->disable($request);
 
-        return app(TwoFactorAuthenticationDisabled::class)->toResponse($request);
+        return app(TwoFactorDisabled::class)->toResponse($request);
     }
 
     #[Post(

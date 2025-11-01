@@ -6,11 +6,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use LiraUi\Auth\Concerns\HandlesTwoFactorSessions;
-use LiraUi\Auth\Contracts\VerifiesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\VerifiesTwoFactor;
 use LiraUi\Auth\Http\Requests\VerifyTwoFactorRequest;
 use PragmaRX\Google2FA\Google2FA;
 
-class VerifyTwoFactorAuthenticationAction implements VerifiesTwoFactorAuthentication
+class VerifyTwoFactorAction implements VerifiesTwoFactor
 {
     use HandlesTwoFactorSessions;
 

@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Contracts;
 
 use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
 
-interface DisablesTwoFactorAuthentication
+interface DisablesTwoFactor
 {
     /**
      * Disable two-factor authentication for the user.

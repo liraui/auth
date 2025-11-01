@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\TwoFactorVerified;
 use Symfony\Component\HttpFoundation\Response;
 
-class VerifyTwoFactorAuthenticationResponse implements TwoFactorVerified
+class VerifyTwoFactorResponse implements TwoFactorVerified
 {
     /**
      * Create an HTTP response for when two-factor authentication is verified.

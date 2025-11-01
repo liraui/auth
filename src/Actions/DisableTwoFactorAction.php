@@ -2,10 +2,10 @@
 
 namespace LiraUi\Auth\Actions;
 
-use LiraUi\Auth\Contracts\DisablesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\DisablesTwoFactor;
 use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
 
-class DisableTwoFactorAuthenticationAction implements DisablesTwoFactorAuthentication
+class DisableTwoFactorAction implements DisablesTwoFactor
 {
     /**
      * Disable two-factor authentication for the user.

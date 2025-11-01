@@ -3,10 +3,10 @@
 namespace LiraUi\Auth\Http\Responses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\TwoFactorAuthenticationEnabled;
+use LiraUi\Auth\Contracts\TwoFactorEnabled;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnableTwoFactorAuthenticationResponse implements TwoFactorAuthenticationEnabled
+class EnableTwoFactorResponse implements TwoFactorEnabled
 {
     /**
      * Create an HTTP response for when two-factor authentication is enabled.

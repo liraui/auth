@@ -2,11 +2,11 @@
 
 namespace LiraUi\Auth\Actions;
 
-use LiraUi\Auth\Contracts\EnablesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\EnablesTwoFactor;
 use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 use PragmaRX\Google2FA\Google2FA;
 
-class EnableTwoFactorAuthenticationAction implements EnablesTwoFactorAuthentication
+class EnableTwoFactorAction implements EnablesTwoFactor
 {
     /**
      * Enable two-factor authentication for the user.

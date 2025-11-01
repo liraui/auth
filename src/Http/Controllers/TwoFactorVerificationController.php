@@ -9,7 +9,7 @@ use Inertia\Response as InertiaResponse;
 use LiraUi\Auth\Concerns\HandlesTwoFactorSessions;
 use LiraUi\Auth\Contracts\TwoFactorRecoveryCodeVerified;
 use LiraUi\Auth\Contracts\TwoFactorVerified;
-use LiraUi\Auth\Contracts\VerifiesTwoFactorAuthentication;
+use LiraUi\Auth\Contracts\VerifiesTwoFactor;
 use LiraUi\Auth\Contracts\VerifiesTwoFactorRecoveryCode;
 use LiraUi\Auth\Http\Requests\VerifyTwoFactorRecoveryCodeRequest;
 use LiraUi\Auth\Http\Requests\VerifyTwoFactorRequest;
@@ -47,7 +47,7 @@ class TwoFactorVerificationController extends Controller
         name: 'two-factor.verify.store',
         middleware: ['web', 'throttle:6,1']
     )]
-    public function verifyTwoFactor(VerifyTwoFactorRequest $request, VerifiesTwoFactorAuthentication $verifier): Response
+    public function verifyTwoFactor(VerifyTwoFactorRequest $request, VerifiesTwoFactor $verifier): Response
     {
         $verifier->verify($request);
 

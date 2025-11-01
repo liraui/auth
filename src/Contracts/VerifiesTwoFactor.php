@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Contracts;
 
 use LiraUi\Auth\Http\Requests\VerifyTwoFactorRequest;
 
-interface VerifiesTwoFactorAuthentication
+interface VerifiesTwoFactor
 {
     /**
      * Verify the two-factor authentication code.
