@@ -39,7 +39,7 @@ export function TwoFactorRecoveryCard() {
                                             aria-describedby={errors.recovery_code ? 'recovery-code-error' : undefined}
                                         />
                                         {errors.recovery_code && (
-                                            <span id="recovery-code-error" className="text-sm text-destructive" role="alert">
+                                            <span id="recovery-code-error" className="text-destructive text-sm" role="alert">
                                                 {errors.recovery_code}
                                             </span>
                                         )}

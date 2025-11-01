@@ -39,7 +39,7 @@ function ForgotPasswordCard({ status }: { status?: string }) {
                                                 aria-describedby={errors.email ? 'email-error' : undefined}
                                             />
                                             {errors.email && (
-                                                <span id="email-error" className="text-sm text-destructive" role="alert">
+                                                <span id="email-error" className="text-destructive text-sm" role="alert">
                                                     {errors.email}
                                                 </span>
                                             )}

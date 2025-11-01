@@ -47,7 +47,7 @@ export function PasswordConfirmationDialog({
                                     aria-describedby={errors.password ? 'password-error' : undefined}
                                 />
                                 {errors.password && (
-                                    <span id="password-error" className="text-sm text-destructive" role="alert">
+                                    <span id="password-error" className="text-destructive text-sm" role="alert">
                                         {errors.password}
                                     </span>
                                 )}

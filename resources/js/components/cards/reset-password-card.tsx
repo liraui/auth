@@ -43,7 +43,7 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                                                 aria-describedby={errors.email ? 'email-error' : undefined}
                                             />
                                             {errors.email && (
-                                                <span id="email-error" className="text-sm text-destructive" role="alert">
+                                                <span id="email-error" className="text-destructive text-sm" role="alert">
                                                     {errors.email}
                                                 </span>
                                             )}
@@ -61,7 +61,7 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                                                 aria-describedby={errors.password ? 'password-error' : undefined}
                                             />
                                             {errors.password && (
-                                                <span id="password-error" className="text-sm text-destructive" role="alert">
+                                                <span id="password-error" className="text-destructive text-sm" role="alert">
                                                     {errors.password}
                                                 </span>
                                             )}
@@ -78,7 +78,7 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                                                 aria-describedby={errors.password_confirmation ? 'password-confirmation-error' : undefined}
                                             />
                                             {errors.password_confirmation && (
-                                                <span id="password-confirmation-error" className="text-sm text-destructive" role="alert">
+                                                <span id="password-confirmation-error" className="text-destructive text-sm" role="alert">
                                                     {errors.password_confirmation}
                                                 </span>
                                             )}

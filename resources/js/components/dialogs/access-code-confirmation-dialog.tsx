@@ -49,7 +49,7 @@ export function AccessCodeConfirmationDialog({
                                     </InputOTPGroup>
                                 </InputOTP>
                                 {errors.code && (
-                                    <span id="code-error" className="text-sm text-destructive" role="alert">
+                                    <span id="code-error" className="text-destructive text-sm" role="alert">
                                         {errors.code}
                                     </span>
                                 )}

@@ -35,7 +35,7 @@ export function ChangePasswordDialog({ show, onOpenChange, form, success }: Chan
                                         aria-describedby={errors.current_password ? 'current-password-error' : undefined}
                                     />
                                     {errors.current_password && (
-                                        <span id="current-password-error" className="text-sm text-destructive" role="alert">
+                                        <span id="current-password-error" className="text-destructive text-sm" role="alert">
                                             {errors.current_password}
                                         </span>
                                     )}
@@ -52,7 +52,7 @@ export function ChangePasswordDialog({ show, onOpenChange, form, success }: Chan
                                             aria-describedby={errors.password ? 'password-error' : undefined}
                                         />
                                         {errors.password && (
-                                            <span id="password-error" className="text-sm text-destructive" role="alert">
+                                            <span id="password-error" className="text-destructive text-sm" role="alert">
                                                 {errors.password}
                                             </span>
                                         )}
@@ -68,7 +68,7 @@ export function ChangePasswordDialog({ show, onOpenChange, form, success }: Chan
                                             aria-describedby={errors.password_confirmation ? 'password-confirmation-error' : undefined}
                                         />
                                         {errors.password_confirmation && (
-                                            <span id="password-confirmation-error" className="text-sm text-destructive" role="alert">
+                                            <span id="password-confirmation-error" className="text-destructive text-sm" role="alert">
                                                 {errors.password_confirmation}
                                             </span>
                                         )}

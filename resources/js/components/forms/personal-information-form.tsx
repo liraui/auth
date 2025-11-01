@@ -38,7 +38,7 @@ function FormField({
                 aria-describedby={error ? `${id}-error` : undefined}
             />
             {error && (
-                <span id={`${id}-error`} className="text-sm text-destructive" role="alert">
+                <span id={`${id}-error`} className="text-destructive text-sm" role="alert">
                     {error}
                 </span>
             )}
@@ -116,7 +116,7 @@ export function PersonalInformationForm() {
                                                         aria-describedby={errors.first_name ? 'first-name-error' : undefined}
                                                     />
                                                     {errors.first_name && (
-                                                        <span id="first-name-error" className="text-sm text-destructive" role="alert">
+                                                        <span id="first-name-error" className="text-destructive text-sm" role="alert">
                                                             {errors.first_name}
                                                         </span>
                                                     )}
@@ -133,7 +133,7 @@ export function PersonalInformationForm() {
                                                         aria-describedby={errors.last_name ? 'last-name-error' : undefined}
                                                     />
                                                     {errors.last_name && (
-                                                        <span id="last-name-error" className="text-sm text-destructive" role="alert">
+                                                        <span id="last-name-error" className="text-destructive text-sm" role="alert">
                                                             {errors.last_name}
                                                         </span>
                                                     )}
@@ -152,7 +152,7 @@ export function PersonalInformationForm() {
                                                     aria-describedby={errors.email ? 'email-error' : undefined}
                                                 />
                                                 {errors.email && (
-                                                    <span id="email-error" className="mt-1 text-sm text-destructive" role="alert">
+                                                    <span id="email-error" className="text-destructive mt-1 text-sm" role="alert">
                                                         {errors.email}
                                                     </span>
                                                 )}
