@@ -32,7 +32,7 @@ function DeleteAccountForm() {
                         success={() => {
                             setShowPasswordDialog(false);
                         }}
-                        confirmButtonText="Delete Account"
+                        confirmButtonText="Delete account"
                         confirmButtonVariant="destructive"
                     />
                 </div>

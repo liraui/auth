@@ -13,6 +13,8 @@ class AuthenticateUserResponse implements UserAuthenticated
      */
     public function toResponse(FormRequest $request): Response
     {
+        $to_route = config('liraui.auth.redirects.home', 'dashboard');
+
         if ($request->wantsJson()) {
             return response()->json(['success' => true]);
         }
@@ -21,6 +23,6 @@ class AuthenticateUserResponse implements UserAuthenticated
             return redirect()->route('two-factor.verify');
         }
 
-        return redirect()->intended(config('liraui.auth.home'));
+        return redirect()->intended($to_route);
     }
 }

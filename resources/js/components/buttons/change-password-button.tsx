@@ -15,7 +15,7 @@ export function ChangePasswordButton({ buttonVariant = 'default', buttonSize = '
     return (
         <>
             <Button type="button" variant={buttonVariant} size={buttonSize} onClick={() => setShowDialog(true)} className={className}>
-                Change Password
+                Change password
             </Button>
             <ChangePasswordDialog
                 show={showDialog}

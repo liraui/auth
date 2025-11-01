@@ -99,7 +99,7 @@ function BrowserSessionsForm() {
                                     setSessionToInvalidate(null);
                                 }
                             }}
-                            title="Logout other browser session"
+                            title="Invalidate browser session"
                             description={
                                 sessionToInvalidate
                                     ? `Please confirm your password before logging out your session on ${sessionToInvalidate.agent.platform} - ${sessionToInvalidate.agent.browser} (${sessionToInvalidate.ip_address}).`
@@ -110,7 +110,7 @@ function BrowserSessionsForm() {
                                 setShowPasswordDialog(false);
                                 setSessionToInvalidate(null);
                             }}
-                            confirmButtonText="Log Out"
+                            confirmButtonText="Log out"
                             confirmButtonVariant="destructive"
                         />
                     )}

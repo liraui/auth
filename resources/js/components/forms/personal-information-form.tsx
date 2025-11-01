@@ -137,7 +137,7 @@ function PersonalInformationForm() {
                                         </div>
                                         <div className="flex w-full items-center gap-2 self-start sm:w-auto sm:self-end">
                                             <Button type="submit" disabled={processing}>
-                                                {processing && <Spinner />} Update
+                                                {processing && <Spinner />} Update information
                                             </Button>
                                         </div>
                                     </>

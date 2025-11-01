@@ -10,7 +10,7 @@ export default function Settings() {
     return (
         <div>
             <ProfileNavigation />
-            <div className="mx-auto my-8 flex max-w-7xl flex-col gap-8 px-8">
+            <div className="mx-auto my-8 flex max-w-7xl flex-col gap-8">
                 <PersonalInformationForm />
                 <ChangePasswordForm />
                 <TwoFactorAuthenticationForm />
