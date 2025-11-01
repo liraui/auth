@@ -3,10 +3,10 @@
 namespace LiraUi\Auth\Http\Responses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserRegistered;
+use LiraUi\Auth\Contracts\Registered;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegisterUserResponse implements UserRegistered
+class RegisterUserResponse implements Registered
 {
     /**
      * Create an HTTP response that represents the object.

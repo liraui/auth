@@ -1,5 +1,5 @@
-import { submitResendEmailVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
-import { submitProfileInformation } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { resendVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { updateProfile } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -80,7 +80,7 @@ function PersonalInformationForm() {
                             <p className="text-destructive mt-1">
                                 Your email address is unverified. Would you like to resend email verification for <u>{auth.user.email}</u>?
                             </p>
-                            <Form {...submitResendEmailVerification.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
+                            <Form {...resendVerification.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
                                 {({ processing, errors }) => (
                                     <Button type="submit" variant="ghost" className="cursor-pointer">
                                         {processing && <Spinner />} Resend
@@ -94,7 +94,7 @@ function PersonalInformationForm() {
                 <div>
                     <Card className="border-0 bg-transparent py-0 shadow-none">
                         <CardContent className="px-0">
-                            <Form {...submitProfileInformation.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
+                            <Form {...updateProfile.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
                                 {({ processing, errors }) => (
                                     <>
                                         <div className="flex flex-col gap-y-4">

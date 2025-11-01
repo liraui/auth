@@ -1,4 +1,4 @@
-import { submitConfirmTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { confirmTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -54,7 +54,7 @@ export function ConfirmTwoFactorDialog({
                         </div>
                     )}
                     <Form
-                        {...submitConfirmTwoFactor.form()}
+                        {...confirmTwoFactor.form()}
                         options={{ preserveScroll: true }}
                         onSuccess={handleSuccess}
                         className="flex w-full flex-col gap-4"

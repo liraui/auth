@@ -2,16 +2,16 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserPasswordReset;
+use LiraUi\Auth\Http\Requests\ResetPasswordRequest;
+use LiraUi\Auth\Contracts\PasswordReset;
 use Symfony\Component\HttpFoundation\Response;
 
-class ResetUserPasswordResponse implements UserPasswordReset
+class ResetUserPasswordResponse implements PasswordReset
 {
     /**
      * Create an HTTP response that represents the object.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(ResetPasswordRequest $request): Response
     {
         return $request->wantsJson()
                     ? response()->json(['success' => true, 'message' => 'Password has been reset successfully'])

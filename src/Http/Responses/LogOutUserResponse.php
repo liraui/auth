@@ -3,10 +3,10 @@
 namespace LiraUi\Auth\Http\Responses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserLoggedOut;
+use LiraUi\Auth\Contracts\LoggedOut;
 use Symfony\Component\HttpFoundation\Response;
 
-class LogOutUserResponse implements UserLoggedOut
+class LogOutUserResponse implements LoggedOut
 {
     /**
      * Create an HTTP response that represents the object.

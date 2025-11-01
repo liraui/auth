@@ -28,11 +28,11 @@ use LiraUi\Auth\Contracts\ChangesUserPassword;
 use LiraUi\Auth\Contracts\ConfirmsTwoFactorAuthentication;
 use LiraUi\Auth\Contracts\DeletesUser;
 use LiraUi\Auth\Contracts\DisablesTwoFactorAuthentication;
-use LiraUi\Auth\Contracts\EmailVerified;
+use LiraUi\Auth\Contracts\VerifiedEmail;
 use LiraUi\Auth\Contracts\EnablesTwoFactorAuthentication;
 use LiraUi\Auth\Contracts\InvalidatesBrowserSession;
 use LiraUi\Auth\Contracts\LogsOutUser;
-use LiraUi\Auth\Contracts\RecoveryCodes;
+use LiraUi\Auth\Contracts\ShowRecoveryCodes;
 use LiraUi\Auth\Contracts\RegistersUser;
 use LiraUi\Auth\Contracts\ResetsUserPassword;
 use LiraUi\Auth\Contracts\SendsUserEmailVerification;
@@ -43,14 +43,14 @@ use LiraUi\Auth\Contracts\TwoFactorAuthenticationEnabled;
 use LiraUi\Auth\Contracts\TwoFactorRecoveryCodeVerified;
 use LiraUi\Auth\Contracts\TwoFactorVerified;
 use LiraUi\Auth\Contracts\UpdatesUserInformation;
-use LiraUi\Auth\Contracts\UserAuthenticated;
-use LiraUi\Auth\Contracts\UserEmailVerificationSent;
-use LiraUi\Auth\Contracts\UserInformationUpdated;
-use LiraUi\Auth\Contracts\UserLoggedOut;
-use LiraUi\Auth\Contracts\UserPasswordChanged;
-use LiraUi\Auth\Contracts\UserPasswordReset;
-use LiraUi\Auth\Contracts\UserPasswordResetLinkSent;
-use LiraUi\Auth\Contracts\UserRegistered;
+use LiraUi\Auth\Contracts\Authenticated;
+use LiraUi\Auth\Contracts\EmailVerificationSent;
+use LiraUi\Auth\Contracts\InformationUpdated;
+use LiraUi\Auth\Contracts\LoggedOut;
+use LiraUi\Auth\Contracts\PasswordChanged;
+use LiraUi\Auth\Contracts\PasswordReset;
+use LiraUi\Auth\Contracts\PasswordResetLinkSent;
+use LiraUi\Auth\Contracts\Registered;
 use LiraUi\Auth\Contracts\VerifiesEmail;
 use LiraUi\Auth\Contracts\VerifiesTwoFactorAuthentication;
 use LiraUi\Auth\Contracts\VerifiesTwoFactorRecoveryCode;
@@ -105,21 +105,21 @@ class AuthServiceProvider extends ServiceProvider
 
         // Register response bindings
         $this->app->singleton(BrowserSessionInvalidated::class, InvalidateBrowserSessionResponse::class);
-        $this->app->singleton(UserAuthenticated::class, AuthenticateUserResponse::class);
+        $this->app->singleton(Authenticated::class, AuthenticateUserResponse::class);
         $this->app->singleton(TwoFactorAuthenticationConfirmed::class, ConfirmTwoFactorAuthenticationResponse::class);
         $this->app->singleton(TwoFactorAuthenticationDisabled::class, DisableTwoFactorAuthenticationResponse::class);
         $this->app->singleton(TwoFactorAuthenticationEnabled::class, EnableTwoFactorAuthenticationResponse::class);
-        $this->app->singleton(UserLoggedOut::class, LogOutUserResponse::class);
-        $this->app->singleton(RecoveryCodes::class, RecoveryCodesResponse::class);
-        $this->app->singleton(UserRegistered::class, RegisterUserResponse::class);
-        $this->app->singleton(UserPasswordReset::class, ResetUserPasswordResponse::class);
-        $this->app->singleton(UserEmailVerificationSent::class, SendUserEmailVerificationResponse::class);
-        $this->app->singleton(EmailVerified::class, EmailVerifiedResponse::class);
-        $this->app->singleton(UserPasswordResetLinkSent::class, SendUserPasswordResetLinkResponse::class);
-        $this->app->singleton(UserInformationUpdated::class, UpdateUserInformationResponse::class);
+        $this->app->singleton(LoggedOut::class, LogOutUserResponse::class);
+        $this->app->singleton(ShowRecoveryCodes::class, RecoveryCodesResponse::class);
+        $this->app->singleton(Registered::class, RegisterUserResponse::class);
+        $this->app->singleton(PasswordReset::class, ResetUserPasswordResponse::class);
+        $this->app->singleton(EmailVerificationSent::class, SendUserEmailVerificationResponse::class);
+        $this->app->singleton(VerifiedEmail::class, EmailVerifiedResponse::class);
+        $this->app->singleton(PasswordResetLinkSent::class, SendUserPasswordResetLinkResponse::class);
+        $this->app->singleton(InformationUpdated::class, UpdateUserInformationResponse::class);
         $this->app->singleton(TwoFactorVerified::class, VerifyTwoFactorAuthenticationResponse::class);
         $this->app->singleton(TwoFactorRecoveryCodeVerified::class, VerifyTwoFactorRecoveryCodeResponse::class);
-        $this->app->singleton(UserPasswordChanged::class, ChangeUserPasswordResponse::class);
+        $this->app->singleton(PasswordChanged::class, ChangeUserPasswordResponse::class);
 
         // Register service bindings
         $this->app->singleton('liraui-auth-otp', function ($app) {

@@ -1,4 +1,4 @@
-import { submitDisableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { disableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
@@ -18,7 +18,7 @@ export function DisableTwoFactorButton() {
                 }}
                 title="Disable two-factor authentication"
                 description="Please confirm your password before disabling two-factor authentication. This will remove the additional security layer from your account."
-                form={submitDisableTwoFactor.form()}
+                form={disableTwoFactor.form()}
                 success={() => setShowPasswordDialog(false)}
                 confirmButtonText="Disable"
                 confirmButtonVariant="destructive"

@@ -3,10 +3,10 @@
 namespace LiraUi\Auth\Http\Responses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserAuthenticated;
+use LiraUi\Auth\Contracts\Authenticated;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthenticateUserResponse implements UserAuthenticated
+class AuthenticateUserResponse implements Authenticated
 {
     /**
      * Create an HTTP response that represents the object.

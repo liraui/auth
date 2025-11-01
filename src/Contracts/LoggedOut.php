@@ -5,7 +5,7 @@ namespace LiraUi\Auth\Contracts;
 use LiraUi\Auth\Http\Requests\LogoutRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-interface UserLoggedOut
+interface LoggedOut
 {
     /**
      * Create an HTTP response for when a user is logged out.

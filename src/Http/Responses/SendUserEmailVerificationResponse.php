@@ -3,10 +3,10 @@
 namespace LiraUi\Auth\Http\Responses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserEmailVerificationSent;
+use LiraUi\Auth\Contracts\EmailVerificationSent;
 use Symfony\Component\HttpFoundation\Response;
 
-class SendUserEmailVerificationResponse implements UserEmailVerificationSent
+class SendUserEmailVerificationResponse implements EmailVerificationSent
 {
     /**
      * Create an HTTP response that represents the object.

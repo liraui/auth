@@ -1,4 +1,4 @@
-import { deleteInvalidateBrowserSession } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { invalidateSession } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { SharedData } from '@/types';
@@ -34,7 +34,7 @@ function BrowserSessionsForm() {
         setShowPasswordDialog(true);
     };
 
-    const form = sessionToInvalidate ? deleteInvalidateBrowserSession.form({ session_id: sessionToInvalidate.id }) : null;
+    const form = sessionToInvalidate ? invalidateSession.form({ session_id: sessionToInvalidate.id }) : null;
 
     return (
         <div className="flex flex-col gap-6 md:flex-row">

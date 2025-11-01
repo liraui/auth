@@ -5,7 +5,7 @@ namespace LiraUi\Auth\Contracts;
 use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-interface UserPasswordChanged
+interface PasswordChanged
 {
     /**
      * Create an HTTP response for when user password is changed.

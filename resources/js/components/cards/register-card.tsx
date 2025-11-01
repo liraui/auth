@@ -1,4 +1,4 @@
-import { showLogin, submitRegister } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
+import { showLoginForm, register } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -18,7 +18,7 @@ function RegisterCard() {
                     </CardHeader>
                     <CardContent>
                         <Form
-                            {...submitRegister.form()}
+                            {...register.form()}
                             disableWhileProcessing
                             resetOnSuccess={['password', 'password_confirmation']}
                             className="flex flex-col gap-y-6"
@@ -91,7 +91,7 @@ function RegisterCard() {
                     <CardFooter className="mx-auto">
                         <p className="text-sm">
                             Already have an account?{' '}
-                            <Link tabIndex={8} className="font-medium underline" href={showLogin()}>
+                            <Link tabIndex={8} className="font-medium underline" href={showLoginForm.url()}>
                                 Login
                             </Link>
                         </p>

@@ -1,4 +1,4 @@
-import { submitEnableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { enableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
@@ -41,7 +41,7 @@ export function EnableTwoFactorButton({ setQrCodeUrl, setSecret, setShowConfirmD
                 }}
                 title="Enable two-factor authentication"
                 description="Please confirm your password before enabling two-factor authentication."
-                form={submitEnableTwoFactor.form()}
+                form={enableTwoFactor.form()}
                 success={handleSuccess}
                 confirmButtonText="Enable"
                 confirmButtonVariant="default"

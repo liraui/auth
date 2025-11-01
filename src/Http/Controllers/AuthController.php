@@ -10,12 +10,12 @@ use LiraUi\Auth\Contracts\LogsOutUser;
 use LiraUi\Auth\Contracts\RegistersUser;
 use LiraUi\Auth\Contracts\ResetsUserPassword;
 use LiraUi\Auth\Contracts\SendsUserPasswordResetLink;
-use LiraUi\Auth\Contracts\UserAuthenticated;
-use LiraUi\Auth\Contracts\UserLoggedOut;
-use LiraUi\Auth\Contracts\UserPasswordReset;
-use LiraUi\Auth\Contracts\UserPasswordResetLinkSent;
-use LiraUi\Auth\Contracts\UserRegistered;
-use LiraUi\Auth\Http\Requests\ForgotPasswordRequest;
+use LiraUi\Auth\Contracts\Authenticated;
+use LiraUi\Auth\Contracts\LoggedOut;
+use LiraUi\Auth\Contracts\PasswordReset;
+use LiraUi\Auth\Contracts\PasswordResetLinkSent;
+use LiraUi\Auth\Contracts\Registered;
+use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 use LiraUi\Auth\Http\Requests\LoginRequest;
 use LiraUi\Auth\Http\Requests\LogoutRequest;
 use LiraUi\Auth\Http\Requests\RegisterRequest;
@@ -31,7 +31,7 @@ class AuthController extends Controller
         name: 'auth.login',
         middleware: ['web', 'guest']
     )]
-    public function showLogin(): InertiaResponse
+    public function showLoginForm(): InertiaResponse
     {
         return Inertia::render('liraui-auth::login');
     }
@@ -41,11 +41,11 @@ class AuthController extends Controller
         name: 'auth.login.attempt',
         middleware: ['web', 'guest']
     )]
-    public function submitLogin(LoginRequest $request, AuthenticatesUser $authenticator): Response
+    public function login(LoginRequest $request, AuthenticatesUser $authenticator): Response
     {
         $authenticator->handle($request);
 
-        return app(UserAuthenticated::class)->toResponse($request);
+        return app(Authenticated::class)->toResponse($request);
     }
 
     #[Post(
@@ -53,11 +53,11 @@ class AuthController extends Controller
         name: 'auth.logout',
         middleware: ['web', 'auth']
     )]
-    public function submitLogout(LogoutRequest $request, LogsOutUser $logger): Response
+    public function logout(LogoutRequest $request, LogsOutUser $logger): Response
     {
         $logger->handle($request);
 
-        return app(UserLoggedOut::class)->toResponse($request);
+        return app(LoggedOut::class)->toResponse($request);
     }
 
     #[Get(
@@ -65,7 +65,7 @@ class AuthController extends Controller
         name: 'auth.register',
         middleware: ['web', 'guest']
     )]
-    public function showRegister(): InertiaResponse
+    public function showRegistrationForm(): InertiaResponse
     {
         return Inertia::render('liraui-auth::register');
     }
@@ -75,11 +75,11 @@ class AuthController extends Controller
         name: 'auth.register.submit',
         middleware: ['web', 'guest', 'throttle:3,1']
     )]
-    public function submitRegister(RegisterRequest $request, RegistersUser $registrar): Response
+    public function register(RegisterRequest $request, RegistersUser $registrar): Response
     {
         $user = $registrar->register($request);
 
-        return app(UserRegistered::class)->toResponse($request);
+        return app(Registered::class)->toResponse($request);
     }
 
     #[Get(
@@ -87,7 +87,7 @@ class AuthController extends Controller
         name: 'auth.forgot-password',
         middleware: ['web', 'guest']
     )]
-    public function showForgotPassword(Request $request): InertiaResponse
+    public function showForgotPasswordForm(Request $request): InertiaResponse
     {
         return Inertia::render('liraui-auth::forgot-password', [
             'status' => $request->session()->get('status'),
@@ -99,11 +99,11 @@ class AuthController extends Controller
         name: 'auth.forgot-password.submit',
         middleware: ['web', 'guest', 'throttle:5,1']
     )]
-    public function submitForgotPassword(ForgotPasswordRequest $request, SendsUserPasswordResetLink $sender): Response
+    public function sendPasswordResetLink(SendPasswordResetLinkRequest $request, SendsUserPasswordResetLink $sender): Response
     {
         $status = $sender->send($request);
 
-        return app(UserPasswordResetLinkSent::class)->toResponse($request);
+        return app(PasswordResetLinkSent::class)->toResponse($request);
     }
 
     #[Get(
@@ -111,7 +111,7 @@ class AuthController extends Controller
         name: 'password.reset',
         middleware: ['web', 'guest']
     )]
-    public function showResetPassword(Request $request, string $token): InertiaResponse
+    public function showResetPasswordForm(Request $request, string $token): InertiaResponse
     {
         return Inertia::render('liraui-auth::reset-password', [
             'token' => $token,
@@ -124,10 +124,10 @@ class AuthController extends Controller
         name: 'password.update',
         middleware: ['web', 'guest', 'throttle:5,1']
     )]
-    public function submitResetPassword(ResetPasswordRequest $request, ResetsUserPassword $resetter): Response
+    public function resetPassword(ResetPasswordRequest $request, ResetsUserPassword $resetter): Response
     {
         $status = $resetter->reset($request);
 
-        return app(UserPasswordReset::class)->toResponse($request);
+        return app(PasswordReset::class)->toResponse($request);
     }
 }

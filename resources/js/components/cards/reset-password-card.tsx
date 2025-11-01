@@ -1,4 +1,4 @@
-import { showLogin, submitResetPassword } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
+import { showLoginForm, resetPassword } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,7 +22,7 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                     </CardHeader>
                     <CardContent>
                         <Form
-                            {...submitResetPassword.form()}
+                            {...resetPassword.form()}
                             disableWhileProcessing
                             transform={(data) => ({ ...data, token, email })}
                             className="flex flex-col gap-y-6"
@@ -64,7 +64,7 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                     <CardFooter className="mx-auto">
                         <p className="text-sm">
                             Remembered your password?{' '}
-                            <Link tabIndex={4} className="font-medium underline" href={showLogin()}>
+                            <Link tabIndex={4} className="font-medium underline" href={showLoginForm.url()}>
                                 Login
                             </Link>
                         </p>

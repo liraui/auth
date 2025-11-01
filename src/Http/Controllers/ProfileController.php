@@ -16,20 +16,20 @@ use LiraUi\Auth\Contracts\DeletesUser;
 use LiraUi\Auth\Contracts\DisablesTwoFactorAuthentication;
 use LiraUi\Auth\Contracts\EnablesTwoFactorAuthentication;
 use LiraUi\Auth\Contracts\InvalidatesBrowserSession;
-use LiraUi\Auth\Contracts\RecoveryCodes;
+use LiraUi\Auth\Contracts\ShowRecoveryCodes;
 use LiraUi\Auth\Contracts\TwoFactorAuthenticationConfirmed;
 use LiraUi\Auth\Contracts\TwoFactorAuthenticationDisabled;
 use LiraUi\Auth\Contracts\TwoFactorAuthenticationEnabled;
 use LiraUi\Auth\Contracts\UpdatesUserInformation;
-use LiraUi\Auth\Contracts\UserInformationUpdated;
-use LiraUi\Auth\Contracts\UserPasswordChanged;
+use LiraUi\Auth\Contracts\InformationUpdated;
+use LiraUi\Auth\Contracts\PasswordChanged;
 use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
 use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\DeleteAccountRequest;
 use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\InvalidateBrowserSessionRequest;
-use LiraUi\Auth\Http\Requests\RecoveryCodesRequest;
+use LiraUi\Auth\Http\Requests\ShowRecoveryCodesRequest;
 use LiraUi\Auth\Http\Requests\UpdateProfileRequest;
 use LiraUi\Auth\Otp\OtpStore;
 use Spatie\RouteAttributes\Attributes\Delete;
@@ -54,7 +54,7 @@ class ProfileController extends Controller
         name: 'liraui-auth::profile.settings',
         middleware: ['web', 'auth', 'verified']
     )]
-    public function showProfileSettings(): InertiaResponse
+    public function showProfile(): InertiaResponse
     {
         $user = Auth::user();
 
@@ -97,11 +97,11 @@ class ProfileController extends Controller
         name: 'profile.information.update',
         middleware: ['web', 'auth', 'verified', 'throttle:10,1']
     )]
-    public function submitProfileInformation(UpdateProfileRequest $request, UpdatesUserInformation $updater): Response
+    public function updateProfile(UpdateProfileRequest $request, UpdatesUserInformation $updater): Response
     {
         $user = $updater->update($request);
 
-        return app(UserInformationUpdated::class)->toResponse($request);
+        return app(InformationUpdated::class)->toResponse($request);
     }
 
     #[Post(
@@ -109,11 +109,11 @@ class ProfileController extends Controller
         name: 'profile.password.update',
         middleware: ['web', 'auth']
     )]
-    public function submitUpdateAccountPassword(ChangePasswordRequest $request, ChangesUserPassword $changer): Response
+    public function changePassword(ChangePasswordRequest $request, ChangesUserPassword $changer): Response
     {
         $changer->handle($request);
 
-        return app(UserPasswordChanged::class)->toResponse($request);
+        return app(PasswordChanged::class)->toResponse($request);
     }
 
     #[Post(
@@ -121,7 +121,7 @@ class ProfileController extends Controller
         name: 'profile.two-factor.enable',
         middleware: ['web', 'auth', 'verified', 'throttle:5,1']
     )]
-    public function submitEnableTwoFactor(EnableTwoFactorRequest $request, EnablesTwoFactorAuthentication $enabler): Response
+    public function enableTwoFactor(EnableTwoFactorRequest $request, EnablesTwoFactorAuthentication $enabler): Response
     {
         $data = $enabler->enable($request);
 
@@ -133,7 +133,7 @@ class ProfileController extends Controller
         name: 'profile.two-factor.confirm',
         middleware: ['web', 'auth', 'verified', 'throttle:5,1']
     )]
-    public function submitConfirmTwoFactor(ConfirmTwoFactorRequest $request, ConfirmsTwoFactorAuthentication $confirmer): Response
+    public function confirmTwoFactor(ConfirmTwoFactorRequest $request, ConfirmsTwoFactorAuthentication $confirmer): Response
     {
         $recoveryCodes = $confirmer->confirm($request);
 
@@ -145,7 +145,7 @@ class ProfileController extends Controller
         name: 'profile.two-factor.disable',
         middleware: ['web', 'auth', 'verified', 'throttle:3,1']
     )]
-    public function submitDisableTwoFactor(DisableTwoFactorRequest $request, DisablesTwoFactorAuthentication $disabler): Response
+    public function disableTwoFactor(DisableTwoFactorRequest $request, DisablesTwoFactorAuthentication $disabler): Response
     {
         $disabler->disable($request);
 
@@ -157,11 +157,11 @@ class ProfileController extends Controller
         name: 'profile.two-factor.recovery-codes.show',
         middleware: ['web', 'auth', 'verified', 'throttle:6,1']
     )]
-    public function submitRevealRecoveryCodes(RecoveryCodesRequest $request): Response
+    public function showRecoveryCodes(ShowRecoveryCodesRequest $request): Response
     {
         $user = $request->user();
 
-        return app(RecoveryCodes::class)->toResponse(
+        return app(ShowRecoveryCodes::class)->toResponse(
             $request,
             json_decode(decrypt($user->two_factor_recovery_codes), true)
         );
@@ -172,7 +172,7 @@ class ProfileController extends Controller
         name: 'profile.browser-sessions.invalidate',
         middleware: ['web', 'auth', 'verified', 'throttle:10,1']
     )]
-    public function deleteInvalidateBrowserSession(InvalidateBrowserSessionRequest $request, InvalidatesBrowserSession $invalidater): Response
+    public function invalidateSession(InvalidateBrowserSessionRequest $request, InvalidatesBrowserSession $invalidater): Response
     {
         $invalidater->invalidate($request);
 
@@ -184,7 +184,7 @@ class ProfileController extends Controller
         name: 'profile.account.destroy',
         middleware: ['web', 'auth', 'verified', 'throttle:3,1']
     )]
-    public function deleteAccount(DeleteAccountRequest $request, DeletesUser $deleter): RedirectResponse
+    public function delete(DeleteAccountRequest $request, DeletesUser $deleter): RedirectResponse
     {
         $deleter->delete($request);
 

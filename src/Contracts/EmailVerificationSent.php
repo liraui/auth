@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Contracts;
 
 use LiraUi\Auth\Http\Requests\SendUserEmailVerificationRequest;
 
-interface UserEmailVerificationSent
+interface EmailVerificationSent
 {
     /**
      * Create an HTTP response for when a user email verification link is sent.

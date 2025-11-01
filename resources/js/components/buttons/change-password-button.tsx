@@ -1,4 +1,4 @@
-import { submitUpdateAccountPassword } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { changePassword } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { ChangePasswordDialog } from '../dialogs/change-password-dialog';
@@ -20,7 +20,7 @@ export function ChangePasswordButton({ buttonVariant = 'default', buttonSize = '
             <ChangePasswordDialog
                 show={showDialog}
                 onOpenChange={setShowDialog}
-                form={submitUpdateAccountPassword.form()}
+                form={changePassword.form()}
                 success={() => {
                     setShowDialog(false);
                 }}

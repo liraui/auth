@@ -2,16 +2,16 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserPasswordResetLinkSent;
+use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
+use LiraUi\Auth\Contracts\PasswordResetLinkSent;
 use Symfony\Component\HttpFoundation\Response;
 
-class SendUserPasswordResetLinkResponse implements UserPasswordResetLinkSent
+class SendUserPasswordResetLinkResponse implements PasswordResetLinkSent
 {
     /**
      * Create an HTTP response that represents the object.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(SendPasswordResetLinkRequest $request): Response
     {
         return $request->wantsJson()
                     ? response()->json(['success' => true, 'message' => 'Password reset link sent to your email'])

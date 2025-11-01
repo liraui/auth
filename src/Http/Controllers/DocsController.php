@@ -15,7 +15,7 @@ class DocsController extends Controller
             'web',
         ]
     )]
-    public function showDocsAuthInstallation(): InertiaResponse
+    public function showInstallationDocs(): InertiaResponse
     {
         if (! config('liraui-auth.docs_enabled', false)) {
             abort(404);

@@ -3,10 +3,10 @@
 namespace LiraUi\Auth\Http\Responses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LiraUi\Auth\Contracts\UserInformationUpdated;
+use LiraUi\Auth\Contracts\InformationUpdated;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateUserInformationResponse implements UserInformationUpdated
+class UpdateUserInformationResponse implements InformationUpdated
 {
     /**
      * Create an HTTP response that represents the object.

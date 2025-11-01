@@ -3,18 +3,15 @@
 namespace LiraUi\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class RecoveryCodesRequest extends FormRequest
+class SendPasswordResetLinkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $user = Auth::user();
-
-        return Auth::check() && ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at);
+        return true;
     }
 
     /**
@@ -23,7 +20,11 @@ class RecoveryCodesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['required', 'current_password'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+            ],
         ];
     }
 
@@ -33,8 +34,18 @@ class RecoveryCodesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'password.required' => 'Please enter your password.',
-            'password.current_password' => 'The password you entered is incorrect.',
+            'email.required' => 'The email address is required.',
+            'email.email' => 'Please enter a valid email address.',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     */
+    public function attributes(): array
+    {
+        return [
+            'email' => 'email address',
         ];
     }
 }

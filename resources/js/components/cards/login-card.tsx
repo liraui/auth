@@ -1,4 +1,4 @@
-import { showForgotPassword, showRegister, submitLogin } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
+import { showForgotPasswordForm, showRegistrationForm, login } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,7 +17,7 @@ function LoginCard() {
                         <CardDescription>Enter your email below to login to your account.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Form {...submitLogin.form()} disableWhileProcessing resetOnSuccess={['password']} className="flex flex-col gap-y-6">
+                        <Form {...login.form()} disableWhileProcessing resetOnSuccess={['password']} className="flex flex-col gap-y-6">
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <>
                                     <div className="flex flex-col items-center gap-y-4">
@@ -29,7 +29,7 @@ function LoginCard() {
                                         <div className="flex w-full flex-col gap-y-2">
                                             <div className="flex justify-between">
                                                 <Label htmlFor="password">Password</Label>
-                                                <Link href={showForgotPassword()} className="text-primary text-sm font-medium underline">
+                                                <Link href={showForgotPasswordForm.url()} className="text-primary text-sm font-medium underline">
                                                     Forgot password?
                                                 </Link>
                                             </div>
@@ -63,7 +63,7 @@ function LoginCard() {
                     <CardFooter className="mx-auto flex justify-between">
                         <p className="text-sm">
                             Don't have an account?{' '}
-                            <Link tabIndex={5} href={showRegister()} className="text-primary font-medium underline">
+                            <Link tabIndex={5} href={showRegistrationForm.url()} className="text-primary font-medium underline">
                                 Register
                             </Link>
                         </p>

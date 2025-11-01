@@ -1,4 +1,4 @@
-import { showTwoFactorRecoveryCode, submitTwoFactorLogin } from '@/actions/LiraUi/Auth/Http/Controllers/TwoFactorVerificationController';
+import { showRecoveryCodeForm, verifyTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/TwoFactorVerificationController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
@@ -17,7 +17,7 @@ function TwoFactorVerifyCard() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Form {...submitTwoFactorLogin.form()} disableWhileProcessing className="flex flex-col gap-y-6">
+                        <Form {...verifyTwoFactor.form()} disableWhileProcessing className="flex flex-col gap-y-6">
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <>
                                     <div className="flex flex-col items-center gap-y-4">
@@ -46,7 +46,7 @@ function TwoFactorVerifyCard() {
                     <CardFooter className="mx-auto flex justify-between">
                         <p className="text-sm">
                             Got a recovery code?{' '}
-                            <Link href={showTwoFactorRecoveryCode()} className="font-medium underline">
+                            <Link href={showRecoveryCodeForm.url()} className="font-medium underline">
                                 Recover
                             </Link>
                         </p>

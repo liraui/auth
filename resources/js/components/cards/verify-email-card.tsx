@@ -1,5 +1,5 @@
-import { submitResendEmailVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
-import { showProfileSettings } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
+import { resendVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { showProfile } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
@@ -31,10 +31,10 @@ function VerifyEmailCard({ email, status }: VerifyEmailProps) {
                                 </p>
                             )}
                         </div>
-                        <Form {...submitResendEmailVerification.form()} options={{ preserveScroll: true }}>
+                        <Form {...resendVerification.form()} options={{ preserveScroll: true }}>
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <Button type="submit" className="w-full" disabled={processing}>
-                                    {processing && <Spinner />} Resend Verification Email
+                                    {processing && <Spinner />} Resend email
                                 </Button>
                             )}
                         </Form>
@@ -42,7 +42,7 @@ function VerifyEmailCard({ email, status }: VerifyEmailProps) {
                     <CardFooter className="mx-auto flex justify-between">
                         <p className="text-sm">
                             Verify your email?{' '}
-                            <Link href={showProfileSettings()} className="text-primary font-medium underline">
+                            <Link href={showProfile.url()} className="text-primary font-medium underline">
                                 Profile settings
                             </Link>
                         </p>

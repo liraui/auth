@@ -1,4 +1,4 @@
-import { submitVerifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { verifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { AccessCodeConfirmationDialog } from '../dialogs/access-code-confirmation-dialog';
@@ -16,7 +16,7 @@ export function VerifyEmailButton({ email, buttonVariant = 'outline', buttonSize
     return (
         <>
             <Button type="button" variant={buttonVariant} size={buttonSize} onClick={() => setShowAccessCodeDialog(true)} className={className}>
-                Verify Email
+                Verify email
             </Button>
 
             <AccessCodeConfirmationDialog
@@ -24,9 +24,9 @@ export function VerifyEmailButton({ email, buttonVariant = 'outline', buttonSize
                 onOpenChange={(open: boolean) => {
                     setShowAccessCodeDialog(open);
                 }}
-                title="Verify Email Address"
+                title="Verify email address"
                 description={`Please enter the 6-digit verification code sent to ${email}.`}
-                form={submitVerifyEmail.form()}
+                form={verifyEmail.form()}
                 success={() => {
                     setShowAccessCodeDialog(false);
                 }}

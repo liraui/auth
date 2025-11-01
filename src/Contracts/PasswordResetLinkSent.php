@@ -5,7 +5,7 @@ namespace LiraUi\Auth\Contracts;
 use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-interface UserPasswordResetLinkSent
+interface PasswordResetLinkSent
 {
     /**
      * Create an HTTP response for when a user password reset link is sent.

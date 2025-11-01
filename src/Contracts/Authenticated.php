@@ -5,7 +5,7 @@ namespace LiraUi\Auth\Contracts;
 use LiraUi\Auth\Http\Requests\LoginRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-interface UserAuthenticated
+interface Authenticated
 {
     /**
      * Create an HTTP response for when a user is authenticated.

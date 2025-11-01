@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use LiraUi\Auth\Contracts\SendsUserPasswordResetLink;
 use LiraUi\Auth\Events\PasswordResetLinkSentEvent;
-use LiraUi\Auth\Http\Requests\ForgotPasswordRequest;
+use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 
 class SendUserPasswordResetLinkAction implements SendsUserPasswordResetLink
 {
@@ -15,7 +15,7 @@ class SendUserPasswordResetLinkAction implements SendsUserPasswordResetLink
      *
      * @throws ValidationException
      */
-    public function send(ForgotPasswordRequest $request): string
+    public function send(SendPasswordResetLinkRequest $request): string
     {
         $credentials = $request->validated();
 
