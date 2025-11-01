@@ -18,7 +18,12 @@ export function TwoFactorRecoveryCard() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Form {...verifyRecoveryCode.form()} disableWhileProcessing className="flex flex-col gap-y-6">
+                        <Form
+                            {...verifyRecoveryCode.form()}
+                            options={{ preserveScroll: true }}
+                            disableWhileProcessing
+                            className="flex flex-col gap-y-6"
+                        >
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <>
                                     <div className="flex w-full flex-col gap-y-2">
@@ -30,8 +35,14 @@ export function TwoFactorRecoveryCard() {
                                             placeholder="Enter your recovery code"
                                             name="recovery_code"
                                             autoFocus
+                                            aria-invalid={!!errors.recovery_code}
+                                            aria-describedby={errors.recovery_code ? 'recovery-code-error' : undefined}
                                         />
-                                        {errors.recovery_code && <span className="text-sm text-red-500">{errors.recovery_code}</span>}
+                                        {errors.recovery_code && (
+                                            <span id="recovery-code-error" className="text-sm text-destructive" role="alert">
+                                                {errors.recovery_code}
+                                            </span>
+                                        )}
                                     </div>
                                     <Button tabIndex={2} type="submit" className="w-full" disabled={processing}>
                                         {processing && <Spinner />} Continue

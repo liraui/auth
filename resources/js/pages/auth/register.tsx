@@ -1,6 +1,6 @@
 import React from 'react';
-import { RegisterCard } from '../components/cards/register-card';
-import { Layout } from '../layout';
+import { RegisterCard } from '../../components/cards/register-card';
+import { AuthLayout } from '../../layouts/auth-layout';
 
 export default function Register() {
     return (
@@ -10,4 +10,4 @@ export default function Register() {
     );
 }
 
-Register.layout = (page: React.ReactNode) => <Layout>{page}</Layout>;
+Register.layout = (page: React.ReactNode) => <AuthLayout>{page}</AuthLayout>;

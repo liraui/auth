@@ -8,7 +8,7 @@ export function DisableTwoFactorButton() {
 
     return (
         <>
-            <Button type="button" variant="destructive" onClick={() => setShowPasswordDialog(true)}>
+            <Button variant={'destructive'} type="button" onClick={() => setShowPasswordDialog(true)}>
                 Disable
             </Button>
             <PasswordConfirmationDialog

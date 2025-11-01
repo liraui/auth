@@ -31,7 +31,7 @@ export function EnableTwoFactorButton({ setQrCodeUrl, setSecret, setShowConfirmD
                 When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve
                 this token from your phone's authenticator application.
             </h4>
-            <Button type="button" onClick={() => setShowPasswordDialog(true)} className="mr-auto w-fit">
+            <Button variant={'outline'} type="button" onClick={() => setShowPasswordDialog(true)} className="mr-auto w-fit">
                 Enable
             </Button>
             <PasswordConfirmationDialog

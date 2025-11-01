@@ -26,19 +26,52 @@ export function ChangePasswordDialog({ show, onOpenChange, form, success }: Chan
                             <div className="flex flex-col gap-y-4">
                                 <div className="flex flex-col gap-y-2">
                                     <Label htmlFor="current_password">Current password</Label>
-                                    <Input id="current_password" type="password" name="current_password" autoComplete="current-password" />
-                                    {errors.current_password && <div className="text-sm text-red-500">{errors.current_password}</div>}
+                                    <Input
+                                        id="current_password"
+                                        type="password"
+                                        name="current_password"
+                                        autoComplete="current-password"
+                                        aria-invalid={!!errors.current_password}
+                                        aria-describedby={errors.current_password ? 'current-password-error' : undefined}
+                                    />
+                                    {errors.current_password && (
+                                        <span id="current-password-error" className="text-sm text-destructive" role="alert">
+                                            {errors.current_password}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="flex flex-col gap-y-2">
                                         <Label htmlFor="password">New password</Label>
-                                        <Input id="password" type="password" name="password" autoComplete="new-password" />
-                                        {errors.password && <div className="text-sm text-red-500">{errors.password}</div>}
+                                        <Input
+                                            id="password"
+                                            type="password"
+                                            name="password"
+                                            autoComplete="new-password"
+                                            aria-invalid={!!errors.password}
+                                            aria-describedby={errors.password ? 'password-error' : undefined}
+                                        />
+                                        {errors.password && (
+                                            <span id="password-error" className="text-sm text-destructive" role="alert">
+                                                {errors.password}
+                                            </span>
+                                        )}
                                     </div>
                                     <div className="flex flex-col gap-y-2">
                                         <Label htmlFor="password_confirmation">Confirm new password</Label>
-                                        <Input id="password_confirmation" type="password" name="password_confirmation" autoComplete="new-password" />
-                                        {errors.password_confirmation && <div className="text-sm text-red-500">{errors.password_confirmation}</div>}
+                                        <Input
+                                            id="password_confirmation"
+                                            type="password"
+                                            name="password_confirmation"
+                                            autoComplete="new-password"
+                                            aria-invalid={!!errors.password_confirmation}
+                                            aria-describedby={errors.password_confirmation ? 'password-confirmation-error' : undefined}
+                                        />
+                                        {errors.password_confirmation && (
+                                            <span id="password-confirmation-error" className="text-sm text-destructive" role="alert">
+                                                {errors.password_confirmation}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { VerifyEmailCard } from '../components/cards/verify-email-card';
-import { Layout } from '../layout';
+import { VerifyEmailCard } from '../../components/cards/verify-email-card';
+import { AuthLayout } from '../../layouts/auth-layout';
 
 export default function VerifyEmail({ email, status }: { email: string; status?: string }) {
     return (
@@ -10,4 +10,4 @@ export default function VerifyEmail({ email, status }: { email: string; status?:
     );
 }
 
-VerifyEmail.layout = (page: React.ReactNode) => <Layout>{page}</Layout>;
+VerifyEmail.layout = (page: React.ReactNode) => <AuthLayout>{page}</AuthLayout>;

@@ -17,7 +17,7 @@ function TwoFactorVerifyCard() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Form {...verifyTwoFactor.form()} disableWhileProcessing className="flex flex-col gap-y-6">
+                        <Form {...verifyTwoFactor.form()} options={{ preserveScroll: true }} disableWhileProcessing className="flex flex-col gap-y-6">
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <>
                                     <div className="flex flex-col items-center gap-y-4">
@@ -34,7 +34,11 @@ function TwoFactorVerifyCard() {
                                                 <InputOTPSlot index={5} />
                                             </InputOTPGroup>
                                         </InputOTP>
-                                        {errors.code && <span className="text-sm text-red-500">{errors.code}</span>}
+                                        {errors.code && (
+                                            <span id="code-error" className="text-sm text-destructive" role="alert">
+                                                {errors.code}
+                                            </span>
+                                        )}
                                     </div>
                                     <Button type="submit" className="w-full" disabled={processing}>
                                         {processing && <Spinner />} Continue

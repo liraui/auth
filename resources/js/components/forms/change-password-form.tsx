@@ -1,6 +1,6 @@
 import { ChangePasswordButton } from '../buttons/change-password-button';
 
-function ChangePasswordForm() {
+export function ChangePasswordForm() {
     return (
         <div className="flex flex-col gap-4 md:flex-row md:gap-8">
             <div className="flex w-full flex-col gap-2 md:w-1/2">
@@ -22,5 +22,3 @@ function ChangePasswordForm() {
         </div>
     );
 }
-
-export { ChangePasswordForm };

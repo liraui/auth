@@ -1,43 +1,24 @@
-import { SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useTwoFactor } from '../../hooks/use-two-factor';
 import { DisableTwoFactorButton } from '../buttons/disable-two-factor-button';
 import { EnableTwoFactorButton } from '../buttons/enable-two-factor-button';
 import { ShowTwoFactorRecoveryCodesButton } from '../buttons/show-two-factor-recovery-codes-button';
 import { ConfirmTwoFactorDialog } from '../dialogs/confirm-two-factor-dialog';
 import { RecoveryCodesDialog } from '../dialogs/recovery-codes-dialog';
 
-function TwoFactorAuthenticationForm() {
-    const { twoFactorEnabled, flash } = usePage<
-        SharedData & {
-            twoFactorEnabled: boolean;
-            flash?: { qrCodeUrl?: string; secret?: string; recoveryCodes?: string[] };
-            [key: string]: any;
-        }
-    >().props;
-
-    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-    const [showRecoveryCodes, setShowRecoveryCodes] = useState(false);
-    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
-    const [secret, setSecret] = useState<string | null>(null);
-    const [recoveryCodes, setRecoveryCodes] = useState<string[]>([]);
-
-    useState(() => {
-        if (!flash) return;
-
-        if (flash.qrCodeUrl && flash.secret) {
-            setQrCodeUrl(flash.qrCodeUrl);
-            setSecret(flash.secret);
-            setShowConfirmDialog(true);
-            return;
-        }
-
-        if (flash.recoveryCodes) {
-            setRecoveryCodes(flash.recoveryCodes);
-            setShowRecoveryCodes(true);
-            return;
-        }
-    });
+export function TwoFactorForm() {
+    const {
+        twoFactorEnabled,
+        showConfirmDialog,
+        setShowConfirmDialog,
+        showRecoveryCodes,
+        setShowRecoveryCodes,
+        qrCodeUrl,
+        setQrCodeUrl,
+        secret,
+        setSecret,
+        recoveryCodes,
+        setRecoveryCodes,
+    } = useTwoFactor();
 
     return (
         <div className="flex flex-col gap-6 md:flex-row">
@@ -80,5 +61,3 @@ function TwoFactorAuthenticationForm() {
         </div>
     );
 }
-
-export { TwoFactorAuthenticationForm };

@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use LiraUi\Auth\Http\Requests\ShowRecoveryCodesRequest;
 use LiraUi\Auth\Contracts\ShowRecoveryCodes;
+use LiraUi\Auth\Http\Requests\ShowRecoveryCodesRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class RecoveryCodesResponse implements ShowRecoveryCodes

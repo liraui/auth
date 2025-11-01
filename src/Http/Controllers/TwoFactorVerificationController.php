@@ -39,7 +39,7 @@ class TwoFactorVerificationController extends Controller
                 ->with('status', 'Your two-factor authentication session has expired. Please log in again.');
         }
 
-        return Inertia::render('liraui-auth::verify-2fa');
+        return Inertia::render('liraui-auth::auth/verify-two-factor');
     }
 
     #[Post(
@@ -72,7 +72,7 @@ class TwoFactorVerificationController extends Controller
                 ->with('status', 'Your two-factor authentication session has expired. Please log in again.');
         }
 
-        return Inertia::render('liraui-auth::verify-2fa-recovery-code');
+        return Inertia::render('liraui-auth::auth/verify-recovery-code');
     }
 
     #[Post(

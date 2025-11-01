@@ -1,6 +1,6 @@
 import React from 'react';
-import { ForgotPasswordCard } from '../components/cards/forgot-password-card';
-import { Layout } from '../layout';
+import { ForgotPasswordCard } from '../../components/cards/forgot-password-card';
+import { AuthLayout } from '../../layouts/auth-layout';
 
 export default function ForgotPassword({ status }: { status?: string }) {
     return (
@@ -10,4 +10,4 @@ export default function ForgotPassword({ status }: { status?: string }) {
     );
 }
 
-ForgotPassword.layout = (page: React.ReactNode) => <Layout>{page}</Layout>;
+ForgotPassword.layout = (page: React.ReactNode) => <AuthLayout>{page}</AuthLayout>;

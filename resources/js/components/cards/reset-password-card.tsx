@@ -1,4 +1,4 @@
-import { showLoginForm, resetPassword } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
+import { resetPassword, showLoginForm } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -23,6 +23,7 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                     <CardContent>
                         <Form
                             {...resetPassword.form()}
+                            options={{ preserveScroll: true }}
                             disableWhileProcessing
                             transform={(data) => ({ ...data, token, email })}
                             className="flex flex-col gap-y-6"
@@ -32,13 +33,38 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                                     <div className="flex flex-col items-center gap-y-4">
                                         <div className="flex w-full flex-col gap-y-2">
                                             <Label htmlFor="email">Email</Label>
-                                            <Input id="email" type="email" placeholder="a@example.com" name="email" disabled />
-                                            {errors.email && <span className="text-sm text-red-500">{errors.email}</span>}
+                                            <Input
+                                                id="email"
+                                                type="email"
+                                                placeholder="a@example.com"
+                                                name="email"
+                                                disabled
+                                                aria-invalid={!!errors.email}
+                                                aria-describedby={errors.email ? 'email-error' : undefined}
+                                            />
+                                            {errors.email && (
+                                                <span id="email-error" className="text-sm text-destructive" role="alert">
+                                                    {errors.email}
+                                                </span>
+                                            )}
                                         </div>
                                         <div className="flex w-full flex-col gap-y-2">
                                             <Label htmlFor="password">New Password</Label>
-                                            <Input tabIndex={1} id="password" type="password" placeholder="•••••••••" name="password" autoFocus />
-                                            {errors.password && <span className="text-sm text-red-500">{errors.password}</span>}
+                                            <Input
+                                                tabIndex={1}
+                                                id="password"
+                                                type="password"
+                                                placeholder="•••••••••"
+                                                name="password"
+                                                autoFocus
+                                                aria-invalid={!!errors.password}
+                                                aria-describedby={errors.password ? 'password-error' : undefined}
+                                            />
+                                            {errors.password && (
+                                                <span id="password-error" className="text-sm text-destructive" role="alert">
+                                                    {errors.password}
+                                                </span>
+                                            )}
                                         </div>
                                         <div className="flex w-full flex-col gap-y-2">
                                             <Label htmlFor="password_confirmation">Confirm Password</Label>
@@ -48,9 +74,13 @@ function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
                                                 type="password"
                                                 placeholder="•••••••••"
                                                 name="password_confirmation"
+                                                aria-invalid={!!errors.password_confirmation}
+                                                aria-describedby={errors.password_confirmation ? 'password-confirmation-error' : undefined}
                                             />
                                             {errors.password_confirmation && (
-                                                <span className="text-sm text-red-500">{errors.password_confirmation}</span>
+                                                <span id="password-confirmation-error" className="text-sm text-destructive" role="alert">
+                                                    {errors.password_confirmation}
+                                                </span>
                                             )}
                                         </div>
                                     </div>

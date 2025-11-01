@@ -1,6 +1,6 @@
 import React from 'react';
-import { ResetPasswordCard } from '../components/cards/reset-password-card';
-import { Layout } from '../layout';
+import { ResetPasswordCard } from '../../components/cards/reset-password-card';
+import { AuthLayout } from '../../layouts/auth-layout';
 
 export default function ResetPassword({ token, email }: { token: string; email: string }) {
     return (
@@ -10,4 +10,4 @@ export default function ResetPassword({ token, email }: { token: string; email: 
     );
 }
 
-ResetPassword.layout = (page: React.ReactNode) => <Layout>{page}</Layout>;
+ResetPassword.layout = (page: React.ReactNode) => <AuthLayout>{page}</AuthLayout>;

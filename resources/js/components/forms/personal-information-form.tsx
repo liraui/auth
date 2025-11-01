@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
-import { SharedData } from '@/types';
+import { PageProps } from '@/types';
 import { Form, usePage } from '@inertiajs/react';
 import { VerifyEmailButton } from '../buttons/verify-email-button';
 
@@ -32,18 +32,23 @@ function FormField({
                 id={id}
                 placeholder={placeholder}
                 defaultValue={defaultValue}
-                name={id.replace('-', '_')} // Convert id to name (e.g., 'first-name' -> 'first_name')
-                className={error ? 'ring-2 ring-red-500/60' : ''}
+                name={id.replace('-', '_')}
                 disabled={disabled}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${id}-error` : undefined}
             />
-            {error && <p className="text-sm text-red-500">{error}</p>}
+            {error && (
+                <span id={`${id}-error`} className="text-sm text-destructive" role="alert">
+                    {error}
+                </span>
+            )}
         </div>
     );
 }
 
-function PersonalInformationForm() {
+export function PersonalInformationForm() {
     const { auth, emailChangedTo } = usePage<
-        SharedData & {
+        PageProps & {
             emailChangedTo: { newEmail: string; expiresIn: string };
         }
     >().props;
@@ -107,8 +112,14 @@ function PersonalInformationForm() {
                                                         placeholder=""
                                                         name="first_name"
                                                         defaultValue={auth.user.first_name}
+                                                        aria-invalid={!!errors.first_name}
+                                                        aria-describedby={errors.first_name ? 'first-name-error' : undefined}
                                                     />
-                                                    {errors.first_name && <span className="text-sm text-red-500">{errors.first_name}</span>}
+                                                    {errors.first_name && (
+                                                        <span id="first-name-error" className="text-sm text-destructive" role="alert">
+                                                            {errors.first_name}
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 <div className="flex w-full flex-col gap-y-2">
                                                     <Label htmlFor="last-name">Last name</Label>
@@ -118,8 +129,14 @@ function PersonalInformationForm() {
                                                         placeholder=""
                                                         name="last_name"
                                                         defaultValue={auth.user.last_name}
+                                                        aria-invalid={!!errors.last_name}
+                                                        aria-describedby={errors.last_name ? 'last-name-error' : undefined}
                                                     />
-                                                    {errors.last_name && <span className="text-sm text-red-500">{errors.last_name}</span>}
+                                                    {errors.last_name && (
+                                                        <span id="last-name-error" className="text-sm text-destructive" role="alert">
+                                                            {errors.last_name}
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className="flex flex-col gap-y-2">
@@ -131,8 +148,14 @@ function PersonalInformationForm() {
                                                     name="email"
                                                     className="mt-1 block w-full"
                                                     disabled={processing || emailChangedTo.newEmail !== null}
+                                                    aria-invalid={!!errors.email}
+                                                    aria-describedby={errors.email ? 'email-error' : undefined}
                                                 />
-                                                {errors.email && <p className="text-destructive mt-1 text-sm">{errors.email}</p>}
+                                                {errors.email && (
+                                                    <span id="email-error" className="mt-1 text-sm text-destructive" role="alert">
+                                                        {errors.email}
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                         <div className="flex w-full items-center gap-2 self-start sm:w-auto sm:self-end">
@@ -150,5 +173,3 @@ function PersonalInformationForm() {
         </div>
     );
 }
-
-export { PersonalInformationForm };

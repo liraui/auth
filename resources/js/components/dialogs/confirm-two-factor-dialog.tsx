@@ -70,9 +70,14 @@ export function ConfirmTwoFactorDialog({
                                         maxLength={6}
                                         placeholder="000000"
                                         name="code"
-                                        className={errors.code ? 'ring-2 ring-red-500/60' : ''}
+                                        aria-invalid={!!errors.code}
+                                        aria-describedby={errors.code ? 'code-error' : undefined}
                                     />
-                                    {errors.code && <span className="text-sm text-red-500">{errors.code}</span>}
+                                    {errors.code && (
+                                        <span id="code-error" className="text-sm text-destructive" role="alert">
+                                            {errors.code}
+                                        </span>
+                                    )}
                                 </div>
                                 <DialogFooter className="flex gap-2">
                                     <DialogClose asChild>

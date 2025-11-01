@@ -24,7 +24,7 @@ export function ShowTwoFactorRecoveryCodesButton({ setRecoveryCodes, setShowReco
 
     return (
         <>
-            <Button type="button" onClick={() => setShowPasswordDialog(true)}>
+            <Button variant={'outline'} type="button" onClick={() => setShowPasswordDialog(true)}>
                 Show Recovery Codes
             </Button>
 

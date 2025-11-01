@@ -1,4 +1,4 @@
-import { showLoginForm, sendPasswordResetLink } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
+import { sendPasswordResetLink, showLoginForm } from '@/actions/LiraUi/Auth/Http/Controllers/AuthController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -18,13 +18,31 @@ function ForgotPasswordCard({ status }: { status?: string }) {
                     <CardContent>
                         {status && <p className="text-center text-sm font-medium">{status}</p>}
                         {!status && (
-                            <Form {...sendPasswordResetLink.form()} disableWhileProcessing className="flex flex-col gap-y-6">
+                            <Form
+                                {...sendPasswordResetLink.form()}
+                                options={{ preserveScroll: true }}
+                                disableWhileProcessing
+                                className="flex flex-col gap-y-6"
+                            >
                                 {({ processing, errors }: { processing: boolean; errors: any }) => (
                                     <>
                                         <div className="flex w-full flex-col gap-y-2">
                                             <Label htmlFor="email">Email</Label>
-                                            <Input tabIndex={1} id="email" type="email" placeholder="a@example.com" name="email" autoFocus />
-                                            {errors.email && <span className="text-sm text-red-500">{errors.email}</span>}
+                                            <Input
+                                                tabIndex={1}
+                                                id="email"
+                                                type="email"
+                                                placeholder="a@example.com"
+                                                name="email"
+                                                autoFocus
+                                                aria-invalid={!!errors.email}
+                                                aria-describedby={errors.email ? 'email-error' : undefined}
+                                            />
+                                            {errors.email && (
+                                                <span id="email-error" className="text-sm text-destructive" role="alert">
+                                                    {errors.email}
+                                                </span>
+                                            )}
                                         </div>
                                         <Button tabIndex={2} type="submit" className="w-full" disabled={processing}>
                                             {processing && <Spinner />} Send password reset link

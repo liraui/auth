@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use LiraUi\Auth\Http\Requests\ResetPasswordRequest;
 use LiraUi\Auth\Contracts\PasswordReset;
+use LiraUi\Auth\Http\Requests\ResetPasswordRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResetUserPasswordResponse implements PasswordReset

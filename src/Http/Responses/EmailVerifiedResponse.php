@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use LiraUi\Auth\Http\Requests\VerifyEmailRequest;
 use LiraUi\Auth\Contracts\VerifiedEmail;
+use LiraUi\Auth\Http\Requests\VerifyEmailRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmailVerifiedResponse implements VerifiedEmail

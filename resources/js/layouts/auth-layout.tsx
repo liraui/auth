@@ -1,10 +1,10 @@
-import { AuthHeader } from './header';
+import { AuthHeader } from './auth-header';
 
-interface LayoutProps {
+interface AuthLayoutProps {
     children: React.ReactNode;
 }
 
-function Layout({ children, ...props }: LayoutProps) {
+export function AuthLayout({ children, ...props }: AuthLayoutProps) {
     return (
         <div className="relative">
             <div className="bg-background">
@@ -21,5 +21,3 @@ function Layout({ children, ...props }: LayoutProps) {
         </div>
     );
 }
-
-export { Layout };

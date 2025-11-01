@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
-function DeleteAccountForm() {
+export function DeleteAccountForm() {
     const [showPasswordDialog, setShowPasswordDialog] = useState(false);
 
     return (
@@ -40,5 +40,3 @@ function DeleteAccountForm() {
         </div>
     );
 }
-
-export { DeleteAccountForm };

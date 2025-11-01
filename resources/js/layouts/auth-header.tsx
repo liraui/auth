@@ -1,7 +1,7 @@
 import { Logo } from '@/components/ui/logo';
 import { Link } from '@inertiajs/react';
 
-function AuthHeader() {
+export function AuthHeader() {
     return (
         <header className="flex h-12 items-center">
             <div className="grow">
@@ -17,5 +17,3 @@ function AuthHeader() {
         </header>
     );
 }
-
-export { AuthHeader };

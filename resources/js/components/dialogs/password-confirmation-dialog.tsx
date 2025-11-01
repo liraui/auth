@@ -38,8 +38,19 @@ export function PasswordConfirmationDialog({
                         <>
                             <div className="flex flex-col gap-y-2">
                                 <Label htmlFor="password">Password</Label>
-                                <Input id="password" type="password" name="password" autoComplete="current-password" />
-                                {errors.password && <div className="text-sm text-red-500">{errors.password}</div>}
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    autoComplete="current-password"
+                                    aria-invalid={!!errors.password}
+                                    aria-describedby={errors.password ? 'password-error' : undefined}
+                                />
+                                {errors.password && (
+                                    <span id="password-error" className="text-sm text-destructive" role="alert">
+                                        {errors.password}
+                                    </span>
+                                )}
                             </div>
                             <DialogFooter>
                                 <DialogClose asChild>

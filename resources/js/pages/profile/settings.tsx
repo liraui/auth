@@ -4,7 +4,7 @@ import { BrowserSessionsForm } from '../../components/forms/browser-sessions-for
 import { ChangePasswordForm } from '../../components/forms/change-password-form';
 import { DeleteAccountForm } from '../../components/forms/delete-account-form';
 import { PersonalInformationForm } from '../../components/forms/personal-information-form';
-import { TwoFactorAuthenticationForm } from '../../components/forms/two-factor-authentication-form';
+import { TwoFactorForm } from '../../components/forms/two-factor-form';
 
 export default function Settings() {
     return (
@@ -13,7 +13,7 @@ export default function Settings() {
             <div className="mx-auto my-8 flex max-w-7xl flex-col gap-8">
                 <PersonalInformationForm />
                 <ChangePasswordForm />
-                <TwoFactorAuthenticationForm />
+                <TwoFactorForm />
                 <BrowserSessionsForm />
                 <DeleteAccountForm />
             </div>

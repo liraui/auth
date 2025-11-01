@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 use LiraUi\Auth\Contracts\PasswordResetLinkSent;
+use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class SendPasswordResetLinkResponse implements PasswordResetLinkSent

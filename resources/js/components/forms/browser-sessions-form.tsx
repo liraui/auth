@@ -1,26 +1,16 @@
 import { invalidateSession } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { SharedData } from '@/types';
+import { PageProps } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
 import { useState } from 'react';
+import type { BrowserSession } from '../../types/auth';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
-interface BrowserSession {
-    id: string;
-    agent: {
-        platform: string;
-        browser: string;
-    };
-    ip_address: string;
-    is_current_device: boolean;
-    last_active: string;
-}
-
-function BrowserSessionsForm() {
+export function BrowserSessionsForm() {
     const { auth, sessions } = usePage<
-        SharedData & {
+        PageProps & {
             sessions: BrowserSession[];
             [key: string]: any;
         }
@@ -58,7 +48,7 @@ function BrowserSessionsForm() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {sessions.map((session) => (
+                            {sessions.map((session: BrowserSession) => (
                                 <TableRow key={session.id}>
                                     <TableCell>
                                         <img src={auth.user.avatar} width={62} alt="Avatar" className="rounded-md" />
@@ -119,5 +109,3 @@ function BrowserSessionsForm() {
         </div>
     );
 }
-
-export { BrowserSessionsForm };

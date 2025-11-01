@@ -3,19 +3,12 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { AccessCodeConfirmationDialog } from '../dialogs/access-code-confirmation-dialog';
 
-interface VerifyEmailButtonProps {
-    email: string;
-    buttonVariant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-    buttonSize?: 'default' | 'sm' | 'lg' | 'icon';
-    className?: string;
-}
-
-export function VerifyEmailButton({ email, buttonVariant = 'outline', buttonSize = 'sm', className = '' }: VerifyEmailButtonProps) {
+export function VerifyEmailButton({ email }: { email: string }) {
     const [showAccessCodeDialog, setShowAccessCodeDialog] = useState(false);
 
     return (
         <>
-            <Button type="button" variant={buttonVariant} size={buttonSize} onClick={() => setShowAccessCodeDialog(true)} className={className}>
+            <Button variant={'outline'} type="button" onClick={() => setShowAccessCodeDialog(true)}>
                 Verify email
             </Button>
 
@@ -31,7 +24,7 @@ export function VerifyEmailButton({ email, buttonVariant = 'outline', buttonSize
                     setShowAccessCodeDialog(false);
                 }}
                 confirmButtonText="Verify"
-                confirmButtonVariant="default"
+                confirmButtonVariant="ghost"
             />
         </>
     );

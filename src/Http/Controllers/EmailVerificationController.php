@@ -5,9 +5,9 @@ namespace LiraUi\Auth\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
-use LiraUi\Auth\Contracts\VerifiedEmail;
-use LiraUi\Auth\Contracts\SendsEmailVerification;
 use LiraUi\Auth\Contracts\EmailVerificationSent;
+use LiraUi\Auth\Contracts\SendsEmailVerification;
+use LiraUi\Auth\Contracts\VerifiedEmail;
 use LiraUi\Auth\Contracts\VerifiesEmail;
 use LiraUi\Auth\Http\Requests\SendEmailVerificationRequest;
 use LiraUi\Auth\Http\Requests\VerifyEmailRequest;
@@ -28,7 +28,7 @@ class EmailVerificationController extends Controller
             return redirect()->intended(route('dashboard'));
         }
 
-        return Inertia::render('liraui-auth::verify-email', [
+        return Inertia::render('liraui-auth::auth/verify-email', [
             'email' => $request->user()->email,
             'status' => session('status'),
         ]);
