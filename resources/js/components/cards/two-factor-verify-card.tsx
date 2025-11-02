@@ -23,23 +23,23 @@ function TwoFactorVerifyCard() {
                                     <div className="flex flex-col items-center gap-y-4">
                                         <InputOTP maxLength={6} name="code" autoFocus>
                                             <InputOTPGroup>
-                                                <InputOTPSlot index={0} />
-                                                <InputOTPSlot index={1} />
-                                                <InputOTPSlot index={2} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={0} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={1} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={2} />
                                             </InputOTPGroup>
                                             <InputOTPSeparator className="text-muted" />
                                             <InputOTPGroup>
-                                                <InputOTPSlot index={3} />
-                                                <InputOTPSlot index={4} />
-                                                <InputOTPSlot index={5} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={3} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={4} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={5} />
                                             </InputOTPGroup>
                                         </InputOTP>
-                                        {errors.code && (
-                                            <span id="code-error" className="text-destructive text-sm" role="alert">
-                                                {errors.code}
-                                            </span>
-                                        )}
                                     </div>
+                                    {errors.code && (
+                                        <span id="code-error" className="text-destructive text-sm" role="alert">
+                                            {errors.code}
+                                        </span>
+                                    )}
                                     <Button type="submit" className="w-full" disabled={processing}>
                                         {processing && <Spinner />} Continue
                                     </Button>

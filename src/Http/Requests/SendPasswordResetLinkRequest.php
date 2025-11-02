@@ -27,25 +27,4 @@ class SendPasswordResetLinkRequest extends FormRequest
             ],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'email.required' => 'The email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     */
-    public function attributes(): array
-    {
-        return [
-            'email' => 'email address',
-        ];
-    }
 }

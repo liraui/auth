@@ -12,8 +12,9 @@ class PersonalInformationUpdatedEvent
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
-    {
+    public function __construct(
+        public User $user
+    ) {
         //
     }
 }

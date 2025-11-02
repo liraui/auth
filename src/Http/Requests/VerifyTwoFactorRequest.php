@@ -23,16 +23,4 @@ class VerifyTwoFactorRequest extends FormRequest
             'code' => ['required', 'string', 'size:6', 'regex:/^[0-9]+$/'],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'code.required' => 'Please enter the authentication code.',
-            'code.size' => 'The authentication code must be 6 digits.',
-            'code.regex' => 'The authentication code must contain only numbers.',
-        ];
-    }
 }

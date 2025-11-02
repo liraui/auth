@@ -9,9 +9,13 @@ use LiraUi\Auth\Notifications\OtacNotification;
 
 class Otac
 {
+    /**
+     * Create a new OTAC instance.
+     */
     public function __construct(
         protected OtacStore $store
     ) {
+        //
     }
 
     public function store(): OtacStore
@@ -67,7 +71,7 @@ class Otac
 
         $otacObject = $otac['otac'];
 
-        $processed = $otacObject->process();
+        $otacObject->process();
 
         $this->store->clear();
 

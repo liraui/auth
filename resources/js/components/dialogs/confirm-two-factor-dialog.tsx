@@ -49,7 +49,7 @@ export function ConfirmTwoFactorDialog({
                     )}
                     {secret && (
                         <div className="text-center">
-                            <p className="text-muted-foreground mb-2 text-sm">Or enter this code manually:</p>
+                            <p className="text-muted-foreground mb-2 text-sm">Or, enter this code manually</p>
                             <code className="bg-muted rounded px-3 py-1 font-mono text-sm">{secret}</code>
                         </div>
                     )}

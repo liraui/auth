@@ -23,14 +23,4 @@ class VerifyTwoFactorRecoveryCodeRequest extends FormRequest
             'recovery_code' => ['required', 'string'],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'recovery_code.required' => 'Please enter a recovery code.',
-        ];
-    }
 }

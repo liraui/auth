@@ -47,31 +47,4 @@ class ResetPasswordRequest extends FormRequest
             ],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'token.required' => 'The reset token is required.',
-            'email.required' => 'The email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.exists' => 'We could not find a user with that email address.',
-            'password.required' => 'The password is required.',
-            'password.confirmed' => 'The password confirmation does not match.',
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     */
-    public function attributes(): array
-    {
-        return [
-            'token' => 'reset token',
-            'email' => 'email address',
-            'password' => 'password',
-        ];
-    }
 }

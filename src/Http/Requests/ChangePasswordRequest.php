@@ -25,18 +25,4 @@ class ChangePasswordRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'current_password.required' => 'Please enter your current password.',
-            'current_password.current_password' => 'The current password you entered is incorrect.',
-            'password.required' => 'Please enter a new password.',
-            'password.min' => 'Password must be at least 8 characters.',
-            'password.confirmed' => 'Password confirmation does not match.',
-        ];
-    }
 }

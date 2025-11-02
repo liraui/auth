@@ -24,12 +24,4 @@ class InvalidateBrowserSessionRequest extends FormRequest
             'password' => ['required', 'current_password'],
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'password.required' => 'Please enter your password.',
-            'password.current_password' => 'The password you entered is incorrect.',
-        ];
-    }
 }

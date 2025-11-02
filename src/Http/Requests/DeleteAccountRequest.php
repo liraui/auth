@@ -24,15 +24,4 @@ class DeleteAccountRequest extends FormRequest
             'password' => ['required', 'current_password'],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'password.required' => 'Please enter your password.',
-            'password.current_password' => 'The password you entered is incorrect.',
-        ];
-    }
 }

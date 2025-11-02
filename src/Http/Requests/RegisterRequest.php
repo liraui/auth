@@ -56,36 +56,4 @@ class RegisterRequest extends FormRequest
             ],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'first_name.required' => 'The first name is required.',
-            'last_name.required' => 'The last name is required.',
-            'email.required' => 'The email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.unique' => 'This email address is already registered.',
-            'password.required' => 'The password is required.',
-            'password.confirmed' => 'The password confirmation does not match.',
-            'terms.required' => 'You must accept the terms and conditions.',
-            'terms.accepted' => 'You must accept the terms and conditions.',
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     */
-    public function attributes(): array
-    {
-        return [
-            'first_name' => 'first name',
-            'last_name' => 'last name',
-            'email' => 'email address',
-            'password' => 'password',
-            'terms' => 'terms and conditions',
-        ];
-    }
 }

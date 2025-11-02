@@ -7,9 +7,13 @@ use Illuminate\Notifications\Notification;
 
 class OtacNotification extends Notification
 {
+    /**
+     * Create a new OTAC notification instance.
+     */
     public function __construct(
         protected array $data
     ) {
+        //
     }
 
     public function via(object $notifiable): array

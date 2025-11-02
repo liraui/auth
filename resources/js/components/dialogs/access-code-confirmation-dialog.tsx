@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
+import { Spinner } from '@/components/ui/spinner';
 import { Form } from '@inertiajs/react';
 
 interface AccessCodeConfirmationDialogProps {
@@ -37,23 +38,23 @@ export function AccessCodeConfirmationDialog({
                             <div className="flex flex-col items-center gap-y-4">
                                 <InputOTP maxLength={6} name="code">
                                     <InputOTPGroup>
-                                        <InputOTPSlot index={0} />
-                                        <InputOTPSlot index={1} />
-                                        <InputOTPSlot index={2} />
+                                        <InputOTPSlot aria-invalid={!!errors.code} index={0} />
+                                        <InputOTPSlot aria-invalid={!!errors.code} index={1} />
+                                        <InputOTPSlot aria-invalid={!!errors.code} index={2} />
                                     </InputOTPGroup>
                                     <InputOTPSeparator className="text-muted" />
                                     <InputOTPGroup>
-                                        <InputOTPSlot index={3} />
-                                        <InputOTPSlot index={4} />
-                                        <InputOTPSlot index={5} />
+                                        <InputOTPSlot aria-invalid={!!errors.code} index={3} />
+                                        <InputOTPSlot aria-invalid={!!errors.code} index={4} />
+                                        <InputOTPSlot aria-invalid={!!errors.code} index={5} />
                                     </InputOTPGroup>
                                 </InputOTP>
-                                {errors.code && (
-                                    <span id="code-error" className="text-destructive text-sm" role="alert">
-                                        {errors.code}
-                                    </span>
-                                )}
                             </div>
+                            {errors.code && (
+                                <span id="code-error" className="text-destructive text-sm" role="alert">
+                                    {errors.code}
+                                </span>
+                            )}
                             <DialogFooter className="flex gap-2">
                                 <DialogClose asChild>
                                     <Button type="button" variant="outline">
@@ -61,7 +62,7 @@ export function AccessCodeConfirmationDialog({
                                     </Button>
                                 </DialogClose>
                                 <Button type="submit" variant={confirmButtonVariant} disabled={processing}>
-                                    {confirmButtonText}
+                                    {processing && <Spinner />} {confirmButtonText}
                                 </Button>
                             </DialogFooter>
                         </>
