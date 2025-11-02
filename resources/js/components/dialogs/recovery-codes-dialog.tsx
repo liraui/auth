@@ -36,7 +36,7 @@ export function RecoveryCodesDialog({ showRecoveryCodes, setShowRecoveryCodes, r
                     </Button>
                 </div>
                 <div className="flex flex-col justify-end gap-2 sm:flex-row">
-                    <Button type="button" onClick={() => setShowRecoveryCodes(false)}>
+                    <Button type="button" variant={'outline'} onClick={() => setShowRecoveryCodes(false)}>
                         Done
                     </Button>
                 </div>

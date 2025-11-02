@@ -5,7 +5,7 @@ namespace LiraUi\Auth\Events;
 use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 
-class PersonalInformationUpdatedEvent
+class ProfileUpdatedEvent
 {
     use SerializesModels;
 

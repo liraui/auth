@@ -3,14 +3,14 @@
 namespace LiraUi\Auth\Actions;
 
 use App\Models\User;
-use LiraUi\Auth\Contracts\UpdatesUserInformation;
-use LiraUi\Auth\Events\PersonalInformationUpdatedEvent;
+use LiraUi\Auth\Contracts\UpdatesProfile;
+use LiraUi\Auth\Events\ProfileUpdatedEvent;
 use LiraUi\Auth\Http\Requests\UpdateProfileRequest;
 
-class UpdateUserInformationAction implements UpdatesUserInformation
+class UpdateProfileAction implements UpdatesProfile
 {
     /**
-     * Update the user's personal information.
+     * Update the user's profile information.
      *
      * @return User The updated user
      */
@@ -30,7 +30,7 @@ class UpdateUserInformationAction implements UpdatesUserInformation
             'last_name' => $validated['last_name'],
         ])->save();
 
-        event(new PersonalInformationUpdatedEvent($user));
+        event(new ProfileUpdatedEvent($user));
 
         return $user;
     }

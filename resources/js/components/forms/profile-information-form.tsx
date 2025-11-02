@@ -46,7 +46,7 @@ function FormField({
     );
 }
 
-export function PersonalInformationForm() {
+export function ProfileInformationForm() {
     const { auth, emailChangedTo } = usePage<
         PageProps & {
             emailChangedTo: { newEmail: string; expiresIn: string };
@@ -56,7 +56,7 @@ export function PersonalInformationForm() {
     return (
         <div className="flex flex-col gap-4 md:flex-row md:gap-8">
             <div className="flex w-full flex-col gap-2 md:w-1/2">
-                <h1 className="text-2xl leading-6 font-semibold">Personal information</h1>
+                <h1 className="text-2xl leading-6 font-semibold">Profile information</h1>
                 <p className="text-muted-foreground leading-5">Update your account's profile information and email address.</p>
             </div>
             <div className="flex w-full flex-col gap-4 md:w-1/2">
@@ -160,7 +160,7 @@ export function PersonalInformationForm() {
                                         </div>
                                         <div className="flex w-full items-center gap-2 self-start sm:w-auto sm:self-end">
                                             <Button type="submit" disabled={processing}>
-                                                {processing && <Spinner />} Update information
+                                                {processing && <Spinner />} Update profile
                                             </Button>
                                         </div>
                                     </>

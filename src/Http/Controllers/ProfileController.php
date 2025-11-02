@@ -15,14 +15,14 @@ use LiraUi\Auth\Contracts\ConfirmsTwoFactor;
 use LiraUi\Auth\Contracts\DeletesUser;
 use LiraUi\Auth\Contracts\DisablesTwoFactor;
 use LiraUi\Auth\Contracts\EnablesTwoFactor;
-use LiraUi\Auth\Contracts\InformationUpdated;
 use LiraUi\Auth\Contracts\InvalidatesBrowserSession;
 use LiraUi\Auth\Contracts\PasswordChanged;
+use LiraUi\Auth\Contracts\ProfileUpdated;
 use LiraUi\Auth\Contracts\ShowRecoveryCodes;
 use LiraUi\Auth\Contracts\TwoFactorConfirmed;
 use LiraUi\Auth\Contracts\TwoFactorDisabled;
 use LiraUi\Auth\Contracts\TwoFactorEnabled;
-use LiraUi\Auth\Contracts\UpdatesUserInformation;
+use LiraUi\Auth\Contracts\UpdatesProfile;
 use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
 use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\DeleteAccountRequest;
@@ -97,11 +97,11 @@ class ProfileController extends Controller
         name: 'profile.information.update',
         middleware: ['web', 'auth', 'verified', 'throttle:10,1']
     )]
-    public function updateProfile(UpdateProfileRequest $request, UpdatesUserInformation $updater): Response
+    public function updateProfile(UpdateProfileRequest $request, UpdatesProfile $updater): Response
     {
         $user = $updater->update($request);
 
-        return app(InformationUpdated::class)->toResponse($request);
+        return app(ProfileUpdated::class)->toResponse($request);
     }
 
     #[Post(

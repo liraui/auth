@@ -37,7 +37,7 @@ export function ShowTwoFactorRecoveryCodesButton({ setRecoveryCodes, setShowReco
                 description="Please confirm your password before viewing your recovery codes. These codes can be used to recover access to your account if you lose your two-factor authentication device."
                 form={showRecoveryCodes.form()}
                 success={handleSuccess}
-                confirmButtonText="Show Codes"
+                confirmButtonText="Show codes"
             />
         </>
     );
