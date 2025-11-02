@@ -18,7 +18,7 @@ export function DeleteAccountForm() {
                         Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please
                         download any data or information that you wish to retain.
                     </h4>
-                    <Button type="button" variant="destructive" onClick={() => setShowPasswordDialog(true)} className="mr-auto">
+                    <Button type="button" variant="outline" onClick={() => setShowPasswordDialog(true)} className="mr-auto">
                         Delete account
                     </Button>
                     <PasswordConfirmationDialog
