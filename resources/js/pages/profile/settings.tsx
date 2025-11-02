@@ -1,5 +1,5 @@
-import { DashboardLayout } from '@/components/layouts/dashboard';
-import { ProfileNavigation } from '@/components/navigations/profile-navigation';
+import { DashboardLayout } from '@/layouts/dashboard-layout';
+import { ProfileNavigation } from '@/components/navigation/profile-navigation';
 import { BrowserSessionsForm } from '../../components/forms/browser-sessions-form';
 import { ChangePasswordForm } from '../../components/forms/change-password-form';
 import { DeleteAccountForm } from '../../components/forms/delete-account-form';
