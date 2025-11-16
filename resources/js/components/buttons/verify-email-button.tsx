@@ -1,5 +1,6 @@
 import { verifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
 import { Button } from '@/components/ui/button';
+import { MailWarningIcon } from 'lucide-react';
 import { useState } from 'react';
 import { AccessCodeConfirmationDialog } from '../dialogs/access-code-confirmation-dialog';
 
@@ -9,7 +10,7 @@ export function VerifyEmailButton({ email }: { email: string }) {
     return (
         <>
             <Button variant={'outline'} type="button" onClick={() => setShowAccessCodeDialog(true)}>
-                Verify email
+                <MailWarningIcon /> Verify email
             </Button>
 
             <AccessCodeConfirmationDialog

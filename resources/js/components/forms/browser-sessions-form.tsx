@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PageProps } from '@/types';
 import { usePage } from '@inertiajs/react';
-import { XIcon } from 'lucide-react';
+import { MapPinHouseIcon, XIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { BrowserSession } from '../../types/auth';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
@@ -27,7 +27,7 @@ export function BrowserSessionsForm() {
     const form = sessionToInvalidate ? invalidateSession.form({ session_id: sessionToInvalidate.id }) : null;
 
     return (
-        <div className="flex flex-col gap-6 md:flex-row">
+        <div className="flex flex-col gap-8 md:flex-row">
             <div className="flex w-full flex-col gap-2 md:w-1/2">
                 <h1 className="text-xl leading-6 font-semibold md:text-2xl">Browser sessions</h1>
                 <p className="text-muted-foreground leading-5">Manage and log out your active sessions on other browsers and devices.</p>
@@ -57,7 +57,10 @@ export function BrowserSessionsForm() {
                                         <span>
                                             {session.agent.platform} - {session.agent.browser}
                                         </span>
-                                        <span className="text-muted-foreground">{session.ip_address}</span>
+                                        <span className="text-muted-foreground flex items-center gap-1">
+                                            <MapPinHouseIcon size={14} />
+                                            {session.ip_address}
+                                        </span>
                                     </TableCell>
                                     <TableCell>
                                         <Badge variant={session.is_current_device ? 'default' : 'outline'}>

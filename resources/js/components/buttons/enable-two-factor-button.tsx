@@ -1,5 +1,6 @@
 import { enableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
+import { FingerprintIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
@@ -32,7 +33,7 @@ export function EnableTwoFactorButton({ setQrCodeUrl, setSecret, setShowConfirmD
                 this token from your phone's authenticator application.
             </h4>
             <Button variant={'outline'} type="button" onClick={() => setShowPasswordDialog(true)} className="mr-auto w-fit">
-                Enable
+                <FingerprintIcon /> Enable
             </Button>
             <PasswordConfirmationDialog
                 show={showPasswordDialog}

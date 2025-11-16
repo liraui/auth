@@ -2,7 +2,7 @@ import { ChangePasswordButton } from '../buttons/change-password-button';
 
 export function ChangePasswordForm() {
     return (
-        <div className="flex flex-col gap-4 md:flex-row md:gap-8">
+        <div className="flex flex-col gap-8 md:flex-row">
             <div className="flex w-full flex-col gap-2 md:w-1/2">
                 <h1 className="text-xl leading-6 font-semibold md:text-2xl">Change password</h1>
                 <p className="text-muted-foreground leading-5">Update your password to keep your account secure.</p>

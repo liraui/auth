@@ -22,10 +22,21 @@ use LiraUi\Auth\Http\Requests\ResetPasswordRequest;
 use LiraUi\Auth\Http\Requests\SendPasswordResetLinkRequest;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    #[Get(
+        uri: '/login',
+        name: 'login',
+        middleware: ['web', 'guest']
+    )]
+    public function redirectToLogin(): RedirectResponse
+    {
+        return redirect()->route('auth.login');
+    }
+
     #[Get(
         uri: '/auth/login',
         name: 'auth.login',

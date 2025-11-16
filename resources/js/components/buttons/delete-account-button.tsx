@@ -1,5 +1,6 @@
 import { deleteMethod } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
+import { Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
@@ -9,7 +10,7 @@ export function DeleteAccountButton() {
     return (
         <>
             <Button type="button" variant="destructive" onClick={() => setShowPasswordDialog(true)} className="mr-auto">
-                Delete account
+                <Trash2Icon /> Delete account
             </Button>
             <PasswordConfirmationDialog
                 show={showPasswordDialog}

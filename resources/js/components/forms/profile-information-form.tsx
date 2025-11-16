@@ -54,7 +54,7 @@ export function ProfileInformationForm() {
     >().props;
 
     return (
-        <div className="flex flex-col gap-4 md:flex-row md:gap-8">
+        <div className="flex flex-col gap-8 md:flex-row">
             <div className="flex w-full flex-col gap-2 md:w-1/2">
                 <h1 className="text-2xl leading-6 font-semibold">Profile information</h1>
                 <p className="text-muted-foreground leading-5">Update your account's profile information and email address.</p>

@@ -1,5 +1,6 @@
 import { disableTwoFactor } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
+import { CircleOffIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
@@ -9,7 +10,7 @@ export function DisableTwoFactorButton() {
     return (
         <>
             <Button variant={'destructive'} type="button" onClick={() => setShowPasswordDialog(true)}>
-                Disable
+                <CircleOffIcon /> Disable
             </Button>
             <PasswordConfirmationDialog
                 show={showPasswordDialog}

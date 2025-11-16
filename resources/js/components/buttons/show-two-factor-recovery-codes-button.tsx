@@ -1,5 +1,6 @@
 import { showRecoveryCodes } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
+import { NotepadTextDashedIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
@@ -25,7 +26,7 @@ export function ShowTwoFactorRecoveryCodesButton({ setRecoveryCodes, setShowReco
     return (
         <>
             <Button variant={'outline'} type="button" onClick={() => setShowPasswordDialog(true)}>
-                Show Recovery Codes
+                <NotepadTextDashedIcon /> Recovery codes
             </Button>
 
             <PasswordConfirmationDialog
