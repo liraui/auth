@@ -3,14 +3,12 @@ import { showProfile } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileContr
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { Form, Link } from '@inertiajs/react';
+import { SharedData } from '@/types';
+import { Form, Link, usePage } from '@inertiajs/react';
 
-interface VerifyEmailProps {
-    email: string;
-    status?: string;
-}
-
-function VerifyEmailCard({ email, status }: VerifyEmailProps) {
+function VerifyEmailCard({ email }: { email: string }) {
+    const {flash} = usePage<SharedData>().props;
+    
     return (
         <div className="w-sm">
             <div className="outline-border/50 from-border/70 to-border/70 relative m-4 h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px outline outline-offset-4">
@@ -23,8 +21,8 @@ function VerifyEmailCard({ email, status }: VerifyEmailProps) {
                     </CardHeader>
                     <CardContent className="flex flex-col gap-4">
                         <div>
-                            {status ? (
-                                <p className="text-center text-sm font-medium">{status}</p>
+                            {flash && flash.type === 'success' ? (
+                                <p className="text-center text-sm font-medium">{flash.message}</p>
                             ) : (
                                 <p className="text-muted-foreground text-center text-sm">
                                     We've sent a verification link to <strong>{email}</strong>

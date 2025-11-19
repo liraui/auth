@@ -1,7 +1,18 @@
 import { AuthHeader } from './auth-header';
 import { AuthLayoutProps } from '../types';
+import { usePage } from '@inertiajs/react';
+import { SharedData } from '@/types';
+import { toast } from 'sonner';
 
 export function AuthLayout({ children }: AuthLayoutProps) {
+    const {flash} = usePage<SharedData>().props;
+
+    if (flash && flash.type === 'success' && flash.message) {
+        toast.success(flash.message, {
+            position: 'bottom-center',
+        });
+    }
+
     return (
         <div className="relative">
             <div className="bg-background">

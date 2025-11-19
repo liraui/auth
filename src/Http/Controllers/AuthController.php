@@ -100,9 +100,7 @@ class AuthController extends Controller
     )]
     public function showForgotPasswordForm(Request $request): InertiaResponse
     {
-        return Inertia::render('liraui-auth::auth/forgot-password', [
-            'status' => $request->session()->get('status'),
-        ]);
+        return Inertia::render('liraui-auth::auth/forgot-password');
     }
 
     #[Post(

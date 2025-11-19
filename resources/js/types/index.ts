@@ -32,7 +32,7 @@ export interface UseTwoFactorReturn {
 export interface TwoFactorPageProps {
     twoFactorEnabled: boolean;
     flash?: {
-        type: 'success' | 'warning' | 'error';
+        type: 'success' | 'error' | 'warning' | 'info';
         message: string;
         qrCodeUrl?: string;
         secret?: string;

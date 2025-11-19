@@ -30,7 +30,6 @@ class EmailVerificationController extends Controller
 
         return Inertia::render('liraui-auth::auth/verify-email', [
             'email' => $request->user()->email,
-            'status' => session('status'),
         ]);
     }
 

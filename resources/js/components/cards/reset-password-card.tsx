@@ -6,12 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { Form, Link } from '@inertiajs/react';
 
-interface ResetPasswordCardProps {
-    token: string;
-    email: string;
-}
 
-function ResetPasswordCard({ token, email }: ResetPasswordCardProps) {
+function ResetPasswordCard({ token, email }: { token: string; email: string }) {
     return (
         <div className="w-sm">
             <div className="outline-border/50 from-border/70 to-border/70 relative m-4 h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px outline outline-offset-4">

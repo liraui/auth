@@ -88,7 +88,6 @@ class ProfileController extends Controller
             ],
             'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),
             'sessions' => $sessions,
-            'flash' => fn () => Inertia::lazy(fn () => session('flash')),
         ]);
     }
 
