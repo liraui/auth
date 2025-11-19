@@ -1,4 +1,4 @@
-import type { TwoFactorPageProps, UseTwoFactorReturn } from '@/types/auth';
+import type { TwoFactorPageProps, UseTwoFactorReturn } from '../types';
 import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 

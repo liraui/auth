@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { Form, Link } from '@inertiajs/react';
-import type { LoginFormRenderProps } from '../../types/auth';
 
 export function LoginCard() {
     return (
@@ -25,7 +24,7 @@ export function LoginCard() {
                             resetOnSuccess={['password']}
                             className="flex flex-col gap-y-6"
                         >
-                            {({ processing, errors }: LoginFormRenderProps) => (
+                            {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <>
                                     <div className="flex flex-col items-center gap-y-4">
                                         <div className="flex w-full flex-col gap-y-2">

@@ -34,7 +34,7 @@ export function PasswordConfirmationDialog({
                     <DialogDescription>{description}</DialogDescription>
                 </DialogHeader>
                 <Form {...form} options={{ preserveScroll: true }} onSuccess={success} className="flex flex-col gap-y-6">
-                    {({ processing, errors }) => (
+                    {({ processing, errors }: { processing: boolean; errors: any }) => (
                         <>
                             <div className="flex flex-col gap-y-2">
                                 <Label htmlFor="password">Password</Label>

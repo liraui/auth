@@ -33,7 +33,7 @@ export function AccessCodeConfirmationDialog({
                     <DialogDescription>{description}</DialogDescription>
                 </DialogHeader>
                 <Form {...form} options={{ preserveScroll: true }} onSuccess={success} className="flex flex-col gap-y-6">
-                    {({ processing, errors }) => (
+                    {({ processing, errors }: { processing: boolean; errors: any }) => (
                         <>
                             <div className="flex flex-col items-center gap-y-4">
                                 <InputOTP maxLength={6} name="code">

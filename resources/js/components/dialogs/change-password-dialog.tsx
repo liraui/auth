@@ -21,7 +21,7 @@ export function ChangePasswordDialog({ show, onOpenChange, form, success }: Chan
                     <DialogDescription>Enter your current password and your new password to update your account.</DialogDescription>
                 </DialogHeader>
                 <Form {...form} options={{ preserveScroll: true }} onSuccess={success} className="flex flex-col gap-y-6">
-                    {({ processing, errors }) => (
+                    {({ processing, errors }: { processing: boolean; errors: any }) => (
                         <>
                             <div className="flex flex-col gap-y-4">
                                 <div className="flex flex-col gap-y-2">

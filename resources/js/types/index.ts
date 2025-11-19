@@ -1,18 +1,41 @@
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string | null;
+import { PropsWithChildren } from "react";
+
+export interface AuthLayoutProps extends PropsWithChildren {
+    //
 }
 
-export interface PageProps {
-    auth: {
-        user: User;
+export interface BrowserSession {
+    id: string;
+    agent: {
+        platform: string;
+        browser: string;
     };
+    ip_address: string;
+    is_current_device: boolean;
+    last_active: string;
+}
+
+export interface UseTwoFactorReturn {
+    twoFactorEnabled: boolean;
+    showConfirmDialog: boolean;
+    setShowConfirmDialog: (show: boolean) => void;
+    showRecoveryCodes: boolean;
+    setShowRecoveryCodes: (show: boolean) => void;
+    qrCodeUrl: string | null;
+    setQrCodeUrl: (url: string | null) => void;
+    secret: string | null;
+    setSecret: (secret: string | null) => void;
+    recoveryCodes: string[];
+    setRecoveryCodes: (codes: string[]) => void;
+}
+
+export interface TwoFactorPageProps {
+    twoFactorEnabled: boolean;
     flash?: {
-        success?: string;
-        error?: string;
-        message?: string;
+        type: 'success' | 'warning' | 'error';
+        message: string;
+        qrCodeUrl?: string;
+        secret?: string;
+        recoveryCodes?: string[];
     };
-    errors?: Record<string, string>;
 }

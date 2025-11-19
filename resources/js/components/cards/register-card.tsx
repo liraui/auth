@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { Form, Link } from '@inertiajs/react';
-import type { RegisterFormRenderProps } from '../../types/auth';
 
 export function RegisterCard() {
     return (
@@ -25,7 +24,7 @@ export function RegisterCard() {
                             resetOnSuccess={['password', 'password_confirmation']}
                             className="flex flex-col gap-y-6"
                         >
-                            {({ processing, errors }: RegisterFormRenderProps) => (
+                            {({ processing, errors }: { processing: boolean; errors: any }) => (
                                 <>
                                     <div className="flex flex-col gap-y-4">
                                         <div className="flex gap-4 *:flex-1">

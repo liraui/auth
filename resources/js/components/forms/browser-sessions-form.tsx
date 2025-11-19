@@ -1,16 +1,16 @@
 import { invalidateSession } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { PageProps } from '@/types';
+import { SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { MapPinHouseIcon, XIcon } from 'lucide-react';
 import { useState } from 'react';
-import type { BrowserSession } from '../../types/auth';
+import type { BrowserSession } from '../../types';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
 export function BrowserSessionsForm() {
     const { auth, sessions } = usePage<
-        PageProps & {
+        SharedData & {
             sessions: BrowserSession[];
             [key: string]: any;
         }

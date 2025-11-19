@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
-import { PageProps } from '@/types';
+import { SharedData } from '@/types';
 import { Form, usePage } from '@inertiajs/react';
 import { VerifyEmailButton } from '../buttons/verify-email-button';
 
@@ -48,7 +48,7 @@ function FormField({
 
 export function ProfileInformationForm() {
     const { auth, emailChangedTo } = usePage<
-        PageProps & {
+        SharedData & {
             emailChangedTo: { newEmail: string; expiresIn: string };
         }
     >().props;
@@ -86,8 +86,8 @@ export function ProfileInformationForm() {
                                 Your email address is unverified. Would you like to resend email verification for <u>{auth.user.email}</u>?
                             </p>
                             <Form {...resendVerification.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
-                                {({ processing, errors }) => (
-                                    <Button type="submit" variant="ghost" className="cursor-pointer">
+                                {({ processing, errors }: { processing: boolean; errors: any }) => (
+                                    <Button type="submit" variant="outline" className="cursor-pointer">
                                         {processing && <Spinner />} Resend
                                     </Button>
                                 )}
@@ -100,7 +100,7 @@ export function ProfileInformationForm() {
                     <Card className="border-0 bg-transparent py-0 shadow-none">
                         <CardContent className="px-0">
                             <Form {...updateProfile.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
-                                {({ processing, errors }) => (
+                                {({ processing, errors }: { processing: boolean; errors: any }) => (
                                     <>
                                         <div className="flex flex-col gap-y-4">
                                             <div className="flex flex-col gap-4 *:w-full sm:flex-row">

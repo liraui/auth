@@ -59,7 +59,7 @@ export function ConfirmTwoFactorDialog({
                         onSuccess={handleSuccess}
                         className="flex w-full flex-col gap-4"
                     >
-                        {({ processing, errors }) => (
+                        {({ processing, errors }: { processing: boolean; errors: any }) => (
                             <>
                                 <div className="flex flex-col gap-y-2">
                                     <Label htmlFor="code">Authentication Code</Label>

@@ -1,8 +1,5 @@
 import { AuthHeader } from './auth-header';
-
-interface AuthLayoutProps {
-    children: React.ReactNode;
-}
+import { AuthLayoutProps } from '../types';
 
 export function AuthLayout({ children }: AuthLayoutProps) {
     return (
