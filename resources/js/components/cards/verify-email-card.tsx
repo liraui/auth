@@ -7,8 +7,8 @@ import { SharedData } from '@/types';
 import { Form, Link, usePage } from '@inertiajs/react';
 
 function VerifyEmailCard({ email }: { email: string }) {
-    const {flash} = usePage<SharedData>().props;
-    
+    const { flash } = usePage<SharedData>().props;
+
     return (
         <div className="w-sm">
             <div className="outline-border/50 from-border/70 to-border/70 relative m-4 h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px outline outline-offset-4">

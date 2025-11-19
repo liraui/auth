@@ -8,7 +8,7 @@ import { SharedData } from '@/types';
 import { Form, Link, usePage } from '@inertiajs/react';
 
 function ForgotPasswordCard() {
-    const {flash} = usePage<SharedData>().props;
+    const { flash } = usePage<SharedData>().props;
 
     return (
         <div className="w-sm">

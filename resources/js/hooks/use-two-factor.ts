@@ -1,6 +1,6 @@
-import type { TwoFactorPageProps, UseTwoFactorReturn } from '../types';
 import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import type { TwoFactorPageProps, UseTwoFactorReturn } from '../types';
 
 export function useTwoFactor(): UseTwoFactorReturn {
     const { twoFactorEnabled, flash } = usePage<TwoFactorPageProps>().props;

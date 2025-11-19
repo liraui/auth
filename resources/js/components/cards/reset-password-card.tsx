@@ -6,7 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { Form, Link } from '@inertiajs/react';
 
-
 function ResetPasswordCard({ token, email }: { token: string; email: string }) {
     return (
         <div className="w-sm">
