@@ -13,8 +13,16 @@ class SendPasswordResetLinkResponse implements PasswordResetLinkSent
      */
     public function toResponse(SendPasswordResetLinkRequest $request): Response
     {
-        return $request->wantsJson()
-                    ? response()->json(['success' => true, 'message' => 'Password reset link sent to your email'])
-                    : back()->with('status', __('We have emailed your password reset link.'));
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'If your email address exists in our system, we have emailed your password reset link.',
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'If your email address exists in our system, we have emailed your password reset link.',
+        ]);
     }
 }

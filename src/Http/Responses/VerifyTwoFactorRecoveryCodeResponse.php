@@ -15,11 +15,16 @@ class VerifyTwoFactorRecoveryCodeResponse implements TwoFactorRecoveryCodeVerifi
     {
         $to_route = config('liraui.auth.redirects.home', 'dashboard');
 
-        return $request->wantsJson()
-            ? response()->json([
-                'success' => true,
-                'message' => 'Recovery code verified successfully.',
-            ])
-            : redirect()->intended($to_route)->with('status', 'You have successfully logged in using a recovery code.');
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'You have successfully logged in using a recovery code.',
+            ]);
+        }
+
+        return redirect()->intended($to_route)->with('flash', [
+            'type' => 'success',
+            'message' => 'You have successfully logged in using a recovery code.',
+        ]);
     }
 }

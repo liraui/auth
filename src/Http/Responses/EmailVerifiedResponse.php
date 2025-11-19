@@ -13,8 +13,16 @@ class EmailVerifiedResponse implements VerifiedEmail
      */
     public function toResponse(VerifyEmailRequest $request): Response
     {
-        return $request->wantsJson()
-                    ? response()->json(['success' => true, 'message' => 'Email verified successfully'])
-                    : back()->with('status', 'Email has been verified successfully.');
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Email has been verified successfully.',
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Email has been verified successfully.',
+        ]);
     }
 }

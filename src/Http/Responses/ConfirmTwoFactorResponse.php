@@ -13,13 +13,18 @@ class ConfirmTwoFactorResponse implements TwoFactorConfirmed
      */
     public function toResponse(FormRequest $request, array $recoveryCodes): Response
     {
-        return $request->wantsJson()
-            ? response()->json([
-                'success' => true,
-                'recoveryCodes' => $recoveryCodes,
-            ])
-            : back()->with('flash', [
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Two-factor authentication confirmed successfully.',
                 'recoveryCodes' => $recoveryCodes,
             ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Two-factor authentication confirmed successfully.',
+            'recoveryCodes' => $recoveryCodes,
+        ]);
     }
 }

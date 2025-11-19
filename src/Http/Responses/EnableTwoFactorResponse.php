@@ -13,11 +13,18 @@ class EnableTwoFactorResponse implements TwoFactorEnabled
      */
     public function toResponse(FormRequest $request, array $data): Response
     {
-        return $request->wantsJson()
-            ? response()->json([
-                'success' => true,
-                'data' => $data,
-            ])
-            : back()->with('flash', $data);
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Two-factor authentication has been enabled.',
+                ...$data,
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Two-factor authentication has been enabled.',
+            ...$data,
+        ]);
     }
 }

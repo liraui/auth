@@ -13,8 +13,16 @@ class ResetUserPasswordResponse implements PasswordReset
      */
     public function toResponse(ResetPasswordRequest $request): Response
     {
-        return $request->wantsJson()
-                    ? response()->json(['success' => true, 'message' => 'Password has been reset successfully'])
-                    : redirect()->route('auth.login')->with('status', __('Your password has been reset.'));
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Your password has been reset.',
+            ]);
+        }
+
+        return redirect()->route('auth.login')->with('flash', [
+            'type' => 'success',
+            'message' => 'Your password has been reset.',
+        ]);
     }
 }

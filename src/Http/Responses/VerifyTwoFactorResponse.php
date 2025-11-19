@@ -15,11 +15,16 @@ class VerifyTwoFactorResponse implements TwoFactorVerified
     {
         $to_route = config('liraui.auth.redirects.home', 'dashboard');
 
-        return $request->wantsJson()
-            ? response()->json([
-                'success' => true,
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
                 'message' => 'Two-factor authentication verified successfully.',
-            ])
-            : redirect()->intended($to_route);
+            ]);
+        }
+
+        return redirect()->intended($to_route)->with('flash', [
+            'type' => 'success',
+            'message' => 'Two-factor authentication verified successfully.',
+        ]);
     }
 }

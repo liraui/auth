@@ -16,13 +16,29 @@ class AuthenticateUserResponse implements Authenticated
         $to_route = config('liraui.auth.redirects.home', 'dashboard');
 
         if ($request->wantsJson()) {
-            return response()->json(['success' => true]);
+            if ($request->session()->has('auth.two_factor.pending_id')) {
+                return response()->json([
+                    'type' => 'warning',
+                    'message' => 'Please complete the two-factor authentication to proceed.',
+                ]);
+            }
+
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Welcome back, '.$request->user()->name.'.',
+            ]);
         }
 
         if ($request->session()->has('auth.two_factor.pending_id')) {
-            return redirect()->route('two-factor.verify');
+            return redirect()->route('two-factor.verify')->with('flash', [
+                'type' => 'warning',
+                'message' => 'Please complete the two-factor authentication to proceed.',
+            ]);
         }
 
-        return redirect()->intended($to_route);
+        return redirect()->intended($to_route)->with('flash', [
+            'type' => 'success',
+            'message' => 'Welcome back, '.$request->user()->name.'!',
+        ]);
     }
 }

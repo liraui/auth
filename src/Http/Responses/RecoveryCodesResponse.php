@@ -13,12 +13,18 @@ class RecoveryCodesResponse implements ShowRecoveryCodes
      */
     public function toResponse(ShowRecoveryCodesRequest $request, array $recoveryCodes): Response
     {
-        return $request->wantsJson()
-            ? response()->json([
-                'recoveryCodes' => $recoveryCodes,
-            ])
-            : back()->with('flash', [
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Recovery codes retrieved successfully.',
                 'recoveryCodes' => $recoveryCodes,
             ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Recovery codes retrieved successfully.',
+            'recoveryCodes' => $recoveryCodes,
+        ]);
     }
 }

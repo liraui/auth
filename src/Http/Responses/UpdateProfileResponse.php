@@ -13,8 +13,16 @@ class UpdateProfileResponse implements ProfileUpdated
      */
     public function toResponse(FormRequest $request): Response
     {
-        return $request->wantsJson()
-                    ? response()->json(['success' => true, 'message' => 'Profile information updated successfully'])
-                    : back()->with('status', 'profile-information-updated');
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Profile information updated successfully',
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Profile information updated successfully',
+        ]);
     }
 }

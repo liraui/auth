@@ -13,8 +13,16 @@ class LogOutUserResponse implements LoggedOut
      */
     public function toResponse(FormRequest $request): Response
     {
-        return $request->wantsJson()
-                    ? response()->json(['success' => true, 'message' => 'Successfully logged out'])
-                    : redirect()->route('auth.login');
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'You have been logged out successfully.',
+            ]);
+        }
+
+        return redirect()->route('auth.login')->with('flash', [
+            'type' => 'success',
+            'message' => 'You have been logged out successfully.',
+        ]);
     }
 }

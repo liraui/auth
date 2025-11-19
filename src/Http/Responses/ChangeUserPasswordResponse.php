@@ -13,8 +13,16 @@ class ChangeUserPasswordResponse implements PasswordChanged
      */
     public function toResponse(FormRequest $request): Response
     {
-        return $request->wantsJson()
-            ? response()->json(['success' => true, 'message' => 'Password has been changed successfully'])
-            : back()->with('status', 'Password has been changed successfully.');
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'Password has been changed successfully.',
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Password has been changed successfully.',
+        ]);
     }
 }

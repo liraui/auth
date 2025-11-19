@@ -13,11 +13,16 @@ class DisableTwoFactorResponse implements TwoFactorDisabled
      */
     public function toResponse(FormRequest $request): Response
     {
-        return $request->wantsJson()
-            ? response()->json([
-                'success' => true,
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
                 'message' => 'Two-factor authentication has been disabled.',
-            ])
-            : back()->with('status', 'Two-factor authentication has been disabled.');
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'Two-factor authentication has been disabled.',
+        ]);
     }
 }

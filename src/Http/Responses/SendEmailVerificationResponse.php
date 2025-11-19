@@ -13,13 +13,16 @@ class SendEmailVerificationResponse implements EmailVerificationSent
      */
     public function toResponse(FormRequest $request): Response
     {
-        return $request->wantsJson()
-            ? response()->json([
-                'success' => true,
-                'message' => 'Verification email sent successfully',
-            ])
-            : back()->with('status', __('A fresh verification link has been sent to your :email', [
-                'email' => $request->user()->email,
-            ]));
+        if ($request->wantsJson()) {
+            return response()->json([
+                'type' => 'success',
+                'message' => 'An email verification link has been sent to your email address.',
+            ]);
+        }
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => 'An email verification link has been sent to your email address.',
+        ]);
     }
 }
