@@ -10,42 +10,6 @@ import { SharedData } from '@/types';
 import { Form, usePage } from '@inertiajs/react';
 import { VerifyEmailButton } from '../buttons/verify-email-button';
 
-function FormField({
-    id,
-    label,
-    placeholder,
-    defaultValue,
-    error,
-    disabled,
-}: {
-    id: string;
-    label: string;
-    placeholder: string;
-    defaultValue: string;
-    error?: string;
-    disabled?: boolean;
-}) {
-    return (
-        <div className="flex flex-col gap-y-2">
-            <Label htmlFor={id}>{label}</Label>
-            <Input
-                id={id}
-                placeholder={placeholder}
-                defaultValue={defaultValue}
-                name={id.replace('-', '_')}
-                disabled={disabled}
-                aria-invalid={!!error}
-                aria-describedby={error ? `${id}-error` : undefined}
-            />
-            {error && (
-                <span id={`${id}-error`} className="text-destructive text-sm" role="alert">
-                    {error}
-                </span>
-            )}
-        </div>
-    );
-}
-
 export function ProfileInformationForm() {
     const { auth, emailChangedTo } = usePage<
         SharedData & {
@@ -111,6 +75,7 @@ export function ProfileInformationForm() {
                                                         type="text"
                                                         placeholder=""
                                                         name="first_name"
+                                                        disabled={processing}
                                                         defaultValue={auth.user.first_name}
                                                         aria-invalid={!!errors.first_name}
                                                         aria-describedby={errors.first_name ? 'first-name-error' : undefined}
@@ -128,6 +93,7 @@ export function ProfileInformationForm() {
                                                         type="text"
                                                         placeholder=""
                                                         name="last_name"
+                                                        disabled={processing}
                                                         defaultValue={auth.user.last_name}
                                                         aria-invalid={!!errors.last_name}
                                                         aria-describedby={errors.last_name ? 'last-name-error' : undefined}

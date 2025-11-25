@@ -17,7 +17,7 @@ class OtacStore implements OtacStoreContract
             throw new \Exception('OTAC identifier is empty!');
         }
 
-        $this->identifier = md5($identifier);
+        $this->identifier = hash('sha256', $identifier);
 
         return $this;
     }
