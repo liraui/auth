@@ -15,15 +15,15 @@ class EnableTwoFactorAction implements EnablesTwoFactor
      */
     public function enable(EnableTwoFactorRequest $request): array
     {
-        /** @var \PragmaRX\Google2FA\Google2FA $google_2fa */
-        $google_2fa = app(Google2FA::class);
+        /** @var \PragmaRX\Google2FA\Google2FA $googleTwoFa */
+        $googleTwoFa = app(Google2FA::class);
 
-        $secret = $google_2fa->generateSecretKey();
+        $secret = $googleTwoFa->generateSecretKey();
 
         /** @var \App\Models\User $user */
         $user = $request->user();
 
-        $qr_url = $google_2fa->getQRCodeUrl(
+        $qrUrl = $googleTwoFa->getQRCodeUrl(
             config('app.name'),
             $user->email,
             $secret
@@ -35,7 +35,7 @@ class EnableTwoFactorAction implements EnablesTwoFactor
         ]);
 
         return [
-            'qrCodeUrl' => $qr_url,
+            'qrCodeUrl' => $qrUrl,
             'secret' => $secret,
         ];
     }

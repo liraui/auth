@@ -27,9 +27,9 @@ class VerifyTwoFactorRecoveryCodeAction implements VerifiesTwoFactorRecoveryCode
             ]);
         }
 
-        $user_id = $request->session()->get('auth.two_factor.pending_id');
+        $userId = $request->session()->get('auth.two_factor.pending_id');
 
-        $user = User::find($user_id);
+        $user = User::find($userId);
 
         if (! $user || is_null($user->two_factor_recovery_codes)) {
             $this->clearTwoFactorSession($request);
@@ -38,18 +38,18 @@ class VerifyTwoFactorRecoveryCodeAction implements VerifiesTwoFactorRecoveryCode
             ]);
         }
 
-        $recovery_codes = json_decode(decrypt($user->two_factor_recovery_codes), true);
+        $recoveryCodes = json_decode(decrypt($user->two_factor_recovery_codes), true);
 
-        if (! in_array($request->recovery_code, $recovery_codes)) {
+        if (! in_array($request->recovery_code, $recoveryCodes)) {
             throw ValidationException::withMessages([
                 'recovery_code' => ['The provided recovery code is invalid.'],
             ]);
         }
 
-        $recovery_codes = array_values(array_diff($recovery_codes, [$request->recovery_code]));
+        $recoveryCodes = array_values(array_diff($recoveryCodes, [$request->recovery_code]));
 
         $user->forceFill([
-            'two_factor_recovery_codes' => encrypt(json_encode($recovery_codes)),
+            'two_factor_recovery_codes' => encrypt(json_encode($recoveryCodes)),
         ])->save();
 
         $remember = $request->session()->get('auth.two_factor.remember', false);

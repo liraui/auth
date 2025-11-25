@@ -19,9 +19,9 @@ trait HandlesTwoFactorSessions
      */
     protected function isTwoFactorSessionExpired(Request $request): bool
     {
-        $expires_at = $request->session()->get('auth.two_factor.expires_at');
+        $expiresAt = $request->session()->get('auth.two_factor.expires_at');
 
-        return ! $expires_at || now()->timestamp > $expires_at;
+        return ! $expiresAt || now()->timestamp > $expiresAt;
     }
 
     /**

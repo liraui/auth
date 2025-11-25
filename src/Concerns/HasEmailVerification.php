@@ -49,13 +49,13 @@ trait HasEmailVerification
      */
     public function markEmailAsVerified(): bool
     {
-        $was_unverified = ! $this->hasVerifiedEmail();
+        $wasUnverified = ! $this->hasVerifiedEmail();
 
         $result = $this->forceFill([
             'email_verified_at' => $this->freshTimestamp(),
         ])->save();
 
-        if ($was_unverified && $result) {
+        if ($wasUnverified && $result) {
             event(new EmailVerifiedEvent($this));
         }
 

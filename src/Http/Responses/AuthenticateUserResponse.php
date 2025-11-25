@@ -13,7 +13,7 @@ class AuthenticateUserResponse implements Authenticated
      */
     public function toResponse(FormRequest $request): Response
     {
-        $to_route = config('liraui.auth.redirects.home', 'dashboard');
+        $toRoute = config('liraui.auth.redirects.home', 'dashboard');
 
         if ($request->wantsJson()) {
             if ($request->session()->has('auth.two_factor.pending_id')) {
@@ -36,7 +36,7 @@ class AuthenticateUserResponse implements Authenticated
             ]);
         }
 
-        return redirect()->intended($to_route)->with('flash', [
+        return redirect()->intended($toRoute)->with('flash', [
             'type' => 'success',
             'message' => 'Welcome back, '.$request->user()->name.'!',
         ]);

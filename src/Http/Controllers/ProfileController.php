@@ -79,12 +79,12 @@ class ProfileController extends Controller
             ->values()
             ->toArray();
 
-        $email_changed = $this->otacStore->identifier('user:'.$user->id.':email-update')->retrieve();
+        $emailChanged = $this->otacStore->identifier('user:'.$user->id.':email-update')->retrieve();
 
         return Inertia::render('liraui-auth::profile/settings', [
             'emailChangedTo' => [
-                'newEmail' => isset($email_changed['otac']) ? $email_changed['otac']->newEmail : null,
-                'expiresIn' => isset($email_changed['expires']) ? $email_changed['expires']->diffForHumans() : null,
+                'newEmail' => isset($emailChanged['otac']) ? $emailChanged['otac']->newEmail : null,
+                'expiresIn' => isset($emailChanged['expires']) ? $emailChanged['expires']->diffForHumans() : null,
             ],
             'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),
             'sessions' => $sessions,

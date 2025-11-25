@@ -27,10 +27,10 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
             ]);
         }
 
-        /** @var \PragmaRX\Google2FA\Google2FA $google_2fa */
-        $google_2fa = app(Google2FA::class);
+        /** @var \PragmaRX\Google2FA\Google2FA $googleTwoFa */
+        $googleTwoFa = app(Google2FA::class);
 
-        $valid = $google_2fa->verifyKey($pending['secret'], $request->code);
+        $valid = $googleTwoFa->verifyKey($pending['secret'], $request->code);
 
         if (! $valid) {
             throw ValidationException::withMessages([
@@ -38,7 +38,7 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
             ]);
         }
 
-        $recovery_codes = Collection::times(8, function () {
+        $recoveryCodes = Collection::times(8, function () {
             return strtoupper(substr(str_replace(['-', '_'], '', base64_encode(random_bytes(32))), 0, 10));
         })->all();
 
@@ -47,7 +47,7 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
 
         $user->forceFill([
             'two_factor_secret' => encrypt($pending['secret']),
-            'two_factor_recovery_codes' => encrypt(json_encode($recovery_codes)),
+            'two_factor_recovery_codes' => encrypt(json_encode($recoveryCodes)),
             'two_factor_confirmed_at' => now(),
         ])->save();
 
@@ -55,6 +55,6 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
 
         $request->session()->put('two_factor_verified', true);
 
-        return $recovery_codes;
+        return $recoveryCodes;
     }
 }

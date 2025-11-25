@@ -13,7 +13,7 @@ class VerifyTwoFactorResponse implements TwoFactorVerified
      */
     public function toResponse(FormRequest $request): Response
     {
-        $to_route = config('liraui.auth.redirects.home', 'dashboard');
+        $toRoute = config('liraui.auth.redirects.home', 'dashboard');
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -22,7 +22,7 @@ class VerifyTwoFactorResponse implements TwoFactorVerified
             ]);
         }
 
-        return redirect()->intended($to_route)->with('flash', [
+        return redirect()->intended($toRoute)->with('flash', [
             'type' => 'success',
             'message' => 'Two-factor authentication verified successfully.',
         ]);
