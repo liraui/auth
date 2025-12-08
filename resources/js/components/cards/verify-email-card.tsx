@@ -1,7 +1,8 @@
-import { resendVerification } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
+import { resendVerification, verifyEmail } from '@/actions/LiraUi/Auth/Http/Controllers/EmailVerificationController';
 import { showProfile } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
 import { Spinner } from '@/components/ui/spinner';
 import { SharedData } from '@/types';
 import { Form, Link, usePage } from '@inertiajs/react';
@@ -20,28 +21,48 @@ function VerifyEmailCard({ email }: { email: string }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col gap-4">
-                        <div>
-                            {flash && flash.type === 'success' ? (
-                                <p className="text-center text-sm font-medium">{flash.message}</p>
-                            ) : (
-                                <p className="text-muted-foreground text-center text-sm">
-                                    We've sent a verification link to <strong>{email}</strong>
-                                </p>
-                            )}
-                        </div>
-                        <Form {...resendVerification.form()} options={{ preserveScroll: true }}>
+                        <Form {...verifyEmail.form()} options={{ preserveScroll: true }} className="flex flex-col gap-y-6">
                             {({ processing, errors }: { processing: boolean; errors: any }) => (
-                                <Button type="submit" className="w-full" disabled={processing}>
-                                    {processing && <Spinner />} Resend email
-                                </Button>
+                                <>
+                                    <div className="flex flex-col items-center gap-y-4">
+                                        <InputOTP maxLength={6} name="code">
+                                            <InputOTPGroup>
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={0} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={1} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={2} />
+                                            </InputOTPGroup>
+                                            <InputOTPSeparator className="text-muted" />
+                                            <InputOTPGroup>
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={3} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={4} />
+                                                <InputOTPSlot aria-invalid={!!errors.code} index={5} />
+                                            </InputOTPGroup>
+                                        </InputOTP>
+                                        {errors.code && (
+                                            <span id="code-error" className="text-destructive text-sm" role="alert">
+                                                {errors.code}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="flex justify-end gap-2">
+                                        <Link href={showProfile.url()}>
+                                            <Button type="button" variant="outline" className="flex-1">
+                                                Settings
+                                            </Button>
+                                        </Link>
+                                        <Button type="submit" disabled={processing}>
+                                            {processing && <Spinner />} Verify
+                                        </Button>
+                                    </div>
+                                </>
                             )}
                         </Form>
                     </CardContent>
                     <CardFooter className="mx-auto flex justify-between">
-                        <p className="text-sm">
-                            Verify your email?{' '}
-                            <Link href={showProfile.url()} className="text-primary font-medium underline">
-                                Profile settings
+                        <p className="text-muted-foreground text-sm">
+                            Didn't receive an email?{' '}
+                            <Link href={resendVerification.url()} method="post" className="text-primary hover:text-primary/80 font-medium underline">
+                                Resend
                             </Link>
                         </p>
                     </CardFooter>
