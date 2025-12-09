@@ -3,17 +3,6 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Documentation enabled
-    |--------------------------------------------------------------------------
-    |
-    | Here you may enable or disable the authentication documentation
-    | routes provided by the package. This will require liraui/docs package
-    |
-    */
-    'docs_enabled' => env('AUTH_DOCS_ENABLED', false),
-
-    /*
-    |--------------------------------------------------------------------------
     | Redirects
     |--------------------------------------------------------------------------
     |
