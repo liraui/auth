@@ -41,13 +41,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-        "pint": "vendor/bin/pint",
-        "post-install-cmd": [
-            "npm install"
-        ],
-        "post-update-cmd": [
-            "npm install"
-        ]
+        "pint": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true
