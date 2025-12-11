@@ -13,8 +13,6 @@ class RegisterUserAction implements RegistersUser
 {
     /**
      * Register a new user.
-     *
-     * @return User The newly registered user
      */
     public function register(RegisterRequest $request): User
     {

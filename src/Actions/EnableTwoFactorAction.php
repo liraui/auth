@@ -10,8 +10,6 @@ class EnableTwoFactorAction implements EnablesTwoFactor
 {
     /**
      * Enable two-factor authentication for the user.
-     *
-     * @return array Two-factor authentication setup data
      */
     public function enable(EnableTwoFactorRequest $request): array
     {

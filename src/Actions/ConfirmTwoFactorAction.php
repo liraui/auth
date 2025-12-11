@@ -13,8 +13,6 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
     /**
      * Confirm two-factor authentication for the user.
      *
-     * @return array Recovery codes for the user
-     *
      * @throws ValidationException
      */
     public function confirm(ConfirmTwoFactorRequest $request): array

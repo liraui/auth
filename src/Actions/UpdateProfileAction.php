@@ -11,8 +11,6 @@ class UpdateProfileAction implements UpdatesProfile
 {
     /**
      * Update the user's profile information.
-     *
-     * @return User The updated user
      */
     public function update(UpdateProfileRequest $request): User
     {
