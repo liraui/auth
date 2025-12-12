@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\Authenticated;
+use LiraUi\Auth\Http\Requests\LoginRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateUserResponse implements Authenticated
@@ -11,7 +11,7 @@ class AuthenticateUserResponse implements Authenticated
     /**
      * Create an HTTP response that represents the object.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(LoginRequest $request): Response
     {
         $toRoute = config('liraui.auth.redirects.home', 'dashboard');
 

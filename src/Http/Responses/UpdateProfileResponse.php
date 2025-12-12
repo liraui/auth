@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\ProfileUpdated;
+use LiraUi\Auth\Http\Requests\UpdateProfileRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateProfileResponse implements ProfileUpdated
@@ -11,7 +11,7 @@ class UpdateProfileResponse implements ProfileUpdated
     /**
      * Create an HTTP response that represents the object.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(UpdateProfileRequest $request): Response
     {
         if ($request->wantsJson()) {
             return response()->json([

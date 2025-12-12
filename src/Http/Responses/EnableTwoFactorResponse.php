@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\TwoFactorEnabled;
+use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnableTwoFactorResponse implements TwoFactorEnabled
@@ -11,7 +11,7 @@ class EnableTwoFactorResponse implements TwoFactorEnabled
     /**
      * Create an HTTP response for when two-factor authentication is enabled.
      */
-    public function toResponse(FormRequest $request, array $data): Response
+    public function toResponse(EnableTwoFactorRequest $request, array $data): Response
     {
         if ($request->wantsJson()) {
             return response()->json([

@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\TwoFactorRecoveryCodeVerified;
+use LiraUi\Auth\Http\Requests\VerifyTwoFactorRecoveryCodeRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class VerifyTwoFactorRecoveryCodeResponse implements TwoFactorRecoveryCodeVerified
@@ -11,7 +11,7 @@ class VerifyTwoFactorRecoveryCodeResponse implements TwoFactorRecoveryCodeVerifi
     /**
      * Create an HTTP response for when a two-factor recovery code is verified.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(VerifyTwoFactorRecoveryCodeRequest $request): Response
     {
         $toRoute = config('liraui.auth.redirects.home', 'dashboard');
 

@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\TwoFactorDisabled;
+use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class DisableTwoFactorResponse implements TwoFactorDisabled
@@ -11,7 +11,7 @@ class DisableTwoFactorResponse implements TwoFactorDisabled
     /**
      * Create an HTTP response for when two-factor authentication is disabled.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(DisableTwoFactorRequest $request): Response
     {
         if ($request->wantsJson()) {
             return response()->json([

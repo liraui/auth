@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\Registered;
+use LiraUi\Auth\Http\Requests\RegisterRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterUserResponse implements Registered
@@ -11,7 +11,7 @@ class RegisterUserResponse implements Registered
     /**
      * Create an HTTP response that represents the object.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(RegisterRequest $request): Response
     {
         if ($request->wantsJson()) {
             return response()->json([

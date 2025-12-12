@@ -2,8 +2,8 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
-use Illuminate\Foundation\Http\FormRequest;
 use LiraUi\Auth\Contracts\PasswordChanged;
+use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class ChangeUserPasswordResponse implements PasswordChanged
@@ -11,7 +11,7 @@ class ChangeUserPasswordResponse implements PasswordChanged
     /**
      * Create an HTTP response for when the user's password is changed.
      */
-    public function toResponse(FormRequest $request): Response
+    public function toResponse(ChangePasswordRequest $request): Response
     {
         if ($request->wantsJson()) {
             return response()->json([
