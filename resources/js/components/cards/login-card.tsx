@@ -70,7 +70,7 @@ export function LoginCard() {
                                     </div>
                                     <div className="flex flex-col gap-y-6">
                                         <div className="items-top flex space-x-2">
-                                            <Checkbox tabIndex={3} id="remember-me" name="remember" aria-invalid={!!errors.remember_me} />
+                                            <Checkbox tabIndex={3} id="remember-me" name="remember_me" aria-invalid={!!errors.remember_me} />
                                             <div className="grid gap-1.5 leading-none">
                                                 <label
                                                     htmlFor="remember-me"

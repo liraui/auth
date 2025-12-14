@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'remember' => ['sometimes', 'boolean'],
+            'remember_me' => ['sometimes', 'required', 'in:on'],
         ];
     }
 
@@ -40,7 +40,7 @@ class LoginRequest extends FormRequest
 
         if (! Auth::attempt(
             $this->only('email', 'password'),
-            $this->boolean('remember')
+            $this->input('remember_me', 'off') === 'on'
         )) {
             RateLimiter::hit($this->throttleKey());
 
