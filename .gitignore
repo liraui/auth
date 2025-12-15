@@ -1,5 +1,7 @@
 /vendor
+/node_modules
 /build
+/tests/Browser/Screenshots
 /phpunit.xml
 /.phpunit.cache
 .phpunit.result.cache

@@ -25,6 +25,18 @@ composer require liraui/auth
 
 For full installation instructions and documentation, visit the [Installation guide](https://liraui.com/docs/auth/installation).
 
+## Testing
+
+```bash
+composer test
+# Tests:    2 skipped, 23 passed (99 assertions)
+# Duration: 4.68s
+
+composer test-coverage
+# Total: 64.9 % 
+```
+
+
 ## Contributing
 
 Bug reports and contributions are welcome — please open an issue or a pull request. Maintain a short description of breaking changes.
