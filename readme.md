@@ -29,11 +29,11 @@ For full installation instructions and documentation, visit the [Installation gu
 
 ```bash
 composer test
-# Tests:    2 skipped, 23 passed (99 assertions)
-# Duration: 4.68s
+# Tests:    1 skipped, 25 passed (108 assertions)
+# Duration: 5.28s
 
 composer test-coverage
-# Total: 64.9 % 
+# Total: 73.4 % 
 ```
 
 
