@@ -23,12 +23,23 @@ abstract class TestCase extends Orchestra
     }
 
     /**
+     * Define database migrations.
+     */
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadLaravelMigrations();
+
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
+
+    /**
      * Define environment setup.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('app.key', 'base64:'.base64_encode(random_bytes(32)));
 
@@ -46,14 +57,5 @@ abstract class TestCase extends Orchestra
             RouteServiceProvider::class,
             AuthServiceProvider::class,
         ];
-    }
-
-    protected function defineDatabaseMigrations()
-    {
-        $this->loadLaravelMigrations();
-
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 }
