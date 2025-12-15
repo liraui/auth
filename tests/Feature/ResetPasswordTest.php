@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Notification;
 test('user can reset password with valid link', function () {
     /** @var \LiraUi\Auth\Tests\TestCase $this */
     Event::fake();
-
     Notification::fake();
 
     $user = User::factory()->create([

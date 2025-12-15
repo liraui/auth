@@ -9,7 +9,6 @@ use LiraUi\Auth\Events\PasswordResetLinkSentEvent;
 test('user can request password reset with valid credentials', function () {
     /** @var \LiraUi\Auth\Tests\TestCase $this */
     Event::fake();
-
     Notification::fake();
 
     $user = User::factory()->create([

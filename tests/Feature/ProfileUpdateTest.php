@@ -10,7 +10,6 @@ use LiraUi\Auth\Notifications\OtacNotification;
 test('user can update profile information without email change', function () {
     /** @var \LiraUi\Auth\Tests\TestCase $this */
     Event::fake();
-
     Notification::fake();
 
     $user = User::factory()->create([
