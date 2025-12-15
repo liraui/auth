@@ -25,10 +25,10 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
             ]);
         }
 
-        /** @var \PragmaRX\Google2FA\Google2FA $googleTwoFa */
-        $googleTwoFa = app(Google2FA::class);
+        /** @var \PragmaRX\Google2FA\Google2FA $google2Fa */
+        $google2Fa = app(Google2FA::class);
 
-        $valid = $googleTwoFa->verifyKey($pending['secret'], $request->code);
+        $valid = $google2Fa->verifyKey($pending['secret'], $request->code);
 
         if (! $valid) {
             throw ValidationException::withMessages([

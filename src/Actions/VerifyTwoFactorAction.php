@@ -21,8 +21,8 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
      */
     public function verify(VerifyTwoFactorRequest $request): void
     {
-        /** @var \PragmaRX\Google2FA\Google2FA $googleTwoFa */
-        $googleTwoFa = app(Google2FA::class);
+        /** @var \PragmaRX\Google2FA\Google2FA $google2Fa */
+        $google2Fa = app(Google2FA::class);
 
         if ($this->isTwoFactorSessionExpired($request)) {
             $this->clearTwoFactorSession($request);
@@ -42,7 +42,7 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
             ]);
         }
 
-        $valid = $googleTwoFa->verifyKey(
+        $valid = $google2Fa->verifyKey(
             decrypt($user->two_factor_secret),
             $request->code
         );
