@@ -1,0 +1,8 @@
+parameters:
+    level: 10
+    phpVersion: 80400
+    paths:
+        - src
+    ignoreErrors:
+        - '#Access to an undefined property Illuminate\\Foundation\\Application::\$router#'
+        - '#Trait LiraUi\\Auth\\Concerns\\HasEmailVerification is used zero times and is not analysed#'

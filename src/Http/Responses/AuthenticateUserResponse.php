@@ -23,9 +23,14 @@ class AuthenticateUserResponse implements Authenticated
                 ]);
             }
 
+            /** @var \App\Models\User * */
+            $user = $request->user();
+
+            $name = $user->name;
+
             return response()->json([
                 'type' => 'success',
-                'message' => 'Welcome back, '.$request->user()->name.'.',
+                'message' => 'Welcome back, '.$name.'!',
             ]);
         }
 
@@ -36,9 +41,14 @@ class AuthenticateUserResponse implements Authenticated
             ]);
         }
 
+        /** @var \App\Models\User * */
+        $user = $request->user();
+
+        $name = $user->name;
+
         return redirect()->intended($toRoute)->with('flash', [
             'type' => 'success',
-            'message' => 'Welcome back, '.$request->user()->name.'!',
+            'message' => 'Welcome back, '.$name.'!',
         ]);
     }
 }

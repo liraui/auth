@@ -3,6 +3,7 @@
 namespace LiraUi\Auth;
 
 use Illuminate\Auth\Events\Registered as UserRegisteredEvent;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Jenssegers\Agent\Agent;
@@ -122,8 +123,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->singleton(PasswordChanged::class, ChangeUserPasswordResponse::class);
 
         // Register service bindings
-        $this->app->singleton('liraui-auth-otac', function ($app) {
-            return new Otac($app->make(OtacStore::class));
+        $this->app->singleton('liraui-auth-otac', function (Application $app) {
+            /** @var OtacStore $otacStore */
+            $otacStore = $app->make(OtacStore::class);
+
+            return new Otac($otacStore);
         });
         $this->app->singleton(Agent::class, function () {
             return new Agent;

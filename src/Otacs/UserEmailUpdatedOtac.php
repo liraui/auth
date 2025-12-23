@@ -18,6 +18,9 @@ class UserEmailUpdatedOtac implements Otac
         //
     }
 
+    /**
+     * Process the OTAC action.
+     */
     public function process(): bool
     {
         try {

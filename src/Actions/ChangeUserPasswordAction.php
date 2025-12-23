@@ -13,8 +13,14 @@ class ChangeUserPasswordAction implements ChangesUserPassword
      */
     public function handle(ChangePasswordRequest $request): void
     {
-        $request->user()->update([
-            'password' => Hash::make($request->password),
+        /** @var \App\Models\User $user */
+        $user = $request->user();
+
+        /** @var string $password */
+        $password = $request->input('password');
+
+        $user->update([
+            'password' => Hash::make($password),
         ]);
     }
 }

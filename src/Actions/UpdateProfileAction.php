@@ -17,15 +17,16 @@ class UpdateProfileAction implements UpdatesProfile
         /** @var \App\Models\User $user */
         $user = $request->user();
 
-        $validated = $request->validated();
+        /** @var string $email */
+        $email = $request->input('email');
 
-        if ($validated['email'] !== $user->email) {
-            $user->sendEmailVerificationNotification($validated['email']);
+        if ($email !== $user->email) {
+            $user->sendEmailVerificationNotification($email);
         }
 
         $user->fill([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
         ])->save();
 
         event(new ProfileUpdatedEvent($user));

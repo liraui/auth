@@ -14,10 +14,16 @@ class VerifyEmailAction implements VerifiesEmail
      */
     public function verify(VerifyEmailRequest $request): void
     {
+        /** @var \App\Models\User $user */
+        $user = $request->user();
+
+        /** @var string $code */
+        $code = $request->input('code');
+
         /** @var \LiraUi\Auth\Otac\OtacVerificationResult $verification */
         $verification = Otac::identifier(
-            'user:'.$request->user()->id.':email-update'
-        )->attempt($request->code);
+            'user:'.$user->id.':email-update'
+        )->attempt($code);
 
         if (! $verification->successful()) {
             throw ValidationException::withMessages([

@@ -26,6 +26,7 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
 
         if ($this->isTwoFactorSessionExpired($request)) {
             $this->clearTwoFactorSession($request);
+
             throw ValidationException::withMessages([
                 'code' => ['Your two-factor authentication session has expired. Please log in again.'],
             ]);
@@ -37,15 +38,19 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
 
         if (! $user || is_null($user->two_factor_secret)) {
             $this->clearTwoFactorSession($request);
+
             throw ValidationException::withMessages([
                 'code' => ['Unable to verify your two-factor authentication code.'],
             ]);
         }
 
-        $valid = $google2Fa->verifyKey(
-            decrypt($user->two_factor_secret),
-            $request->code
-        );
+        /** @var string $secret */
+        $secret = decrypt($user->two_factor_secret);
+
+        /** @var string $code */
+        $code = $request->input('code');
+
+        $valid = $google2Fa->verifyKey($secret, $code);
 
         if (! $valid) {
             throw ValidationException::withMessages([
@@ -53,6 +58,7 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
             ]);
         }
 
+        /** @var bool $remember */
         $remember = $request->session()->get('auth.two_factor.remember', false);
 
         Auth::login($user, $remember);

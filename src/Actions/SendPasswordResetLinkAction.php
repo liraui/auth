@@ -17,12 +17,15 @@ class SendPasswordResetLinkAction implements SendsPasswordResetLink
      */
     public function send(SendPasswordResetLinkRequest $request): string
     {
-        $credentials = $request->validated();
+        /** @var string $email */
+        $email = $request->input('email');
 
-        $status = Password::sendResetLink($credentials);
+        $status = Password::sendResetLink([
+            'email' => $email,
+        ]);
 
         if ($status === Password::RESET_LINK_SENT) {
-            event(new PasswordResetLinkSentEvent($credentials['email']));
+            event(new PasswordResetLinkSentEvent($email));
         }
 
         if ($status === Password::RESET_THROTTLED) {

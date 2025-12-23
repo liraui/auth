@@ -11,6 +11,17 @@ use Illuminate\Notifications\Notifiable;
 use Laravolt\Avatar\Avatar;
 use LiraUi\Auth\Concerns\HasEmailVerification;
 
+/**
+ * @method static static create(array $attributes = [])
+ * @method static static|null find(mixed $id)
+ *
+ * @property int $id
+ * @property string $email
+ * @property string $name
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property \Carbon\Carbon|null $two_factor_confirmed_at
+ */
 class User extends Authenticatable
 {
     use HasEmailVerification;

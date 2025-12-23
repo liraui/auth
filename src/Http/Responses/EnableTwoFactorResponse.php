@@ -10,6 +10,8 @@ class EnableTwoFactorResponse implements TwoFactorEnabled
 {
     /**
      * Create an HTTP response for when two-factor authentication is enabled.
+     *
+     * @param  array<string, string>  $data
      */
     public function toResponse(EnableTwoFactorRequest $request, array $data): Response
     {

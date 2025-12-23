@@ -13,7 +13,7 @@ class EnableTwoFactorAction implements EnablesTwoFactor
      */
     public function enable(EnableTwoFactorRequest $request): array
     {
-        /** @var \PragmaRX\Google2FA\Google2FA $google2Fa */
+        /** @var Google2FA $google2Fa */
         $google2Fa = app(Google2FA::class);
 
         $secret = $google2Fa->generateSecretKey();
@@ -21,11 +21,10 @@ class EnableTwoFactorAction implements EnablesTwoFactor
         /** @var \App\Models\User $user */
         $user = $request->user();
 
-        $qrUrl = $google2Fa->getQRCodeUrl(
-            config('app.name'),
-            $user->email,
-            $secret
-        );
+        /** @var string $appName */
+        $appName = config('app.name');
+
+        $qrUrl = $google2Fa->getQRCodeUrl($appName, $user->email, $secret);
 
         $request->session()->put('two_factor_secret_pending', [
             'secret' => $secret,

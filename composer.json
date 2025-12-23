@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^8.4",
+        "inertiajs/inertia-laravel": "^2.0.10",
         "jenssegers/agent": "^2.6",
         "laravolt/avatar": "^6.3.1",
         "laravel/wayfinder": "^0.1.12",
@@ -28,7 +29,7 @@
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^10.8",
         "pestphp/pest": "^4.1",
-        "pestphp/pest-plugin-browser": "^4.1"
+        "phpstan/phpstan": "^2.1"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +45,8 @@
     "scripts": {
         "test": "vendor/bin/pest",
         "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
-        "pint": "vendor/bin/pint"
+        "pint": "vendor/bin/pint",
+        "stan": "vendor/bin/phpstan analyse --memory-limit 256m"
     },
     "config": {
         "sort-packages": true,

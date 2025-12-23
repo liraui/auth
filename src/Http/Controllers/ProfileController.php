@@ -56,6 +56,7 @@ class ProfileController extends Controller
     )]
     public function showProfile(): InertiaResponse
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $sessions = DB::table('sessions')
@@ -63,7 +64,13 @@ class ProfileController extends Controller
             ->orderBy('last_activity', 'desc')
             ->get()
             ->map(function ($session) {
-                $this->agent->setUserAgent($session->user_agent ?? '');
+                /** @var string|null $userAgent */
+                $userAgent = $session->user_agent;
+
+                /** @var int $lastActivity */
+                $lastActivity = $session->last_activity;
+
+                $this->agent->setUserAgent($userAgent ?? '');
 
                 return [
                     'id' => $session->id,
@@ -73,7 +80,7 @@ class ProfileController extends Controller
                     ],
                     'ip_address' => $session->ip_address,
                     'is_current_device' => $session->id === session()->getId(),
-                    'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
+                    'last_active' => Carbon::createFromTimestamp($lastActivity)->diffForHumans(),
                 ];
             })
             ->values()
@@ -81,11 +88,18 @@ class ProfileController extends Controller
 
         $emailChanged = $this->otacStore->identifier('user:'.$user->id.':email-update')->retrieve();
 
+        /** @var \Carbon\Carbon|null $emailChangeExpiresIn */
+        $emailChangeExpiresIn = $emailChanged['expires'] ?? null;
+
+        if ($emailChanged !== null) {
+            assert(is_object($emailChanged['otac']) && property_exists($emailChanged['otac'], 'newEmail'));
+        }
+
         return Inertia::render('liraui-auth::profile/settings', [
-            'emailChangedTo' => [
-                'newEmail' => isset($emailChanged['otac']) ? $emailChanged['otac']->newEmail : null,
-                'expiresIn' => isset($emailChanged['expires']) ? $emailChanged['expires']->diffForHumans() : null,
-            ],
+            'emailChangedTo' => $emailChanged ? [
+                'newEmail' => $emailChanged['otac']->newEmail ?? null,
+                'expiresIn' => $emailChangeExpiresIn?->diffForHumans(),
+            ] : null,
             'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),
             'sessions' => $sessions,
         ]);
@@ -158,12 +172,22 @@ class ProfileController extends Controller
     )]
     public function showRecoveryCodes(ShowRecoveryCodesRequest $request): Response
     {
+        /** @var \App\Models\User $user */
         $user = $request->user();
 
-        return app(ShowRecoveryCodes::class)->toResponse(
-            $request,
-            json_decode(decrypt($user->two_factor_recovery_codes), true)
-        );
+        /** @var string $decrypted */
+        $decrypted = decrypt($user->two_factor_recovery_codes ?? '');
+
+        /** @var array<int, mixed>|null $recoveryCodesData */
+        $recoveryCodesData = json_decode($decrypted, true);
+
+        if ($recoveryCodesData === null) {
+            $recoveryCodes = [];
+        } else {
+            $recoveryCodes = array_map(fn ($code) => is_scalar($code) ? (string) $code : '', $recoveryCodesData);
+        }
+
+        return app(ShowRecoveryCodes::class)->toResponse($request, $recoveryCodes);
     }
 
     #[Delete(
@@ -171,9 +195,9 @@ class ProfileController extends Controller
         name: 'profile.browser-sessions.invalidate',
         middleware: ['web', 'auth', 'verified', 'throttle:10,1']
     )]
-    public function invalidateSession(InvalidateBrowserSessionRequest $request, InvalidatesBrowserSession $invalidater): Response
+    public function invalidateSession(InvalidateBrowserSessionRequest $request, string $sessionId, InvalidatesBrowserSession $invalidater): Response
     {
-        $invalidater->invalidate($request);
+        $invalidater->invalidate($request, $sessionId);
 
         return app(BrowserSessionInvalidated::class)->toResponse($request);
     }

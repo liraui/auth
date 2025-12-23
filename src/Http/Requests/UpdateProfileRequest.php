@@ -18,9 +18,12 @@ class UpdateProfileRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
      */
     public function rules(): array
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         return [
@@ -39,7 +42,7 @@ class UpdateProfileRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($user?->id),
+                Rule::unique('users')->ignore($user->id),
             ],
         ];
     }

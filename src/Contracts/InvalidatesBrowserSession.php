@@ -9,5 +9,5 @@ interface InvalidatesBrowserSession
     /**
      * Invalidate a specific browser session.
      */
-    public function invalidate(InvalidateBrowserSessionRequest $request): void;
+    public function invalidate(InvalidateBrowserSessionRequest $request, string $sessionId): void;
 }

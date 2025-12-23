@@ -8,6 +8,8 @@ interface EnablesTwoFactor
 {
     /**
      * Enable two-factor authentication for the user.
+     *
+     * @return array<string, string>
      */
     public function enable(EnableTwoFactorRequest $request): array;
 }

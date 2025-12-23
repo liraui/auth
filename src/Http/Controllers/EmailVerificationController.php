@@ -24,12 +24,15 @@ class EmailVerificationController extends Controller
     )]
     public function showVerificationNotice(Request $request): InertiaResponse|Response
     {
-        if ($request->user()->hasVerifiedEmail()) {
+        /** @var \App\Models\User * */
+        $user = $request->user();
+
+        if ($user->hasVerifiedEmail()) {
             return redirect()->intended(route('dashboard'));
         }
 
         return Inertia::render('liraui-auth::auth/verify-email', [
-            'email' => $request->user()->email,
+            'email' => $user->email,
         ]);
     }
 
@@ -54,6 +57,9 @@ class EmailVerificationController extends Controller
     {
         $sender->send($request);
 
-        return app(EmailVerificationSent::class)->toResponse($request);
+        /** @var Response $response */
+        $response = app(EmailVerificationSent::class)->toResponse($request);
+
+        return $response;
     }
 }

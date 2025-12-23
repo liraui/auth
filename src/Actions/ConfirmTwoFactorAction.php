@@ -13,13 +13,16 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
     /**
      * Confirm two-factor authentication for the user.
      *
+     * @return array<int, string>
+     *
      * @throws ValidationException
      */
     public function confirm(ConfirmTwoFactorRequest $request): array
     {
+        /** @var array{expires_at: \Carbon\Carbon, secret: string} $pending */
         $pending = $request->session()->get('two_factor_secret_pending');
 
-        if (! $pending || now()->gt($pending['expires_at'])) {
+        if (now()->gt($pending['expires_at'])) {
             throw ValidationException::withMessages([
                 'code' => ['Setup session expired. Please start again.'],
             ]);
@@ -28,7 +31,10 @@ class ConfirmTwoFactorAction implements ConfirmsTwoFactor
         /** @var \PragmaRX\Google2FA\Google2FA $google2Fa */
         $google2Fa = app(Google2FA::class);
 
-        $valid = $google2Fa->verifyKey($pending['secret'], $request->code);
+        /** @var string $code */
+        $code = $request->input('code');
+
+        $valid = $google2Fa->verifyKey($pending['secret'], $code);
 
         if (! $valid) {
             throw ValidationException::withMessages([

@@ -16,13 +16,14 @@ class RegisterUserAction implements RegistersUser
      */
     public function register(RegisterRequest $request): User
     {
-        $validated = $request->validated();
+        /** @var string $password */
+        $password = $request->input('password');
 
         $user = User::create([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($password),
             'email_verified_at' => null,
         ]);
 

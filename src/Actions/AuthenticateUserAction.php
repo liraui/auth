@@ -15,11 +15,12 @@ class AuthenticateUserAction implements AuthenticatesUser
     {
         $request->authenticate();
 
+        /** @var \App\Models\User $user */
         $user = $request->user();
 
         $rememberMe = $request->input('remember_me', 'off') === 'on';
 
-        if ($user && ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at)) {
+        if (! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at)) {
             $request->session()->put('auth.two_factor.pending_id', $user->id);
 
             $request->session()->put('auth.two_factor.remember', $rememberMe);

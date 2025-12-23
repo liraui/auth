@@ -20,7 +20,10 @@ class RegisterUserResponse implements Registered
             ]);
         }
 
-        return redirect()->route(config('liraui.auth.redirects.verify_email', 'verification.notice'))->with('flash', [
+        /** @var string $routeName */
+        $routeName = config('liraui.auth.redirects.verify_email', 'verification.notice');
+
+        return redirect()->route($routeName)->with('flash', [
             'type' => 'success',
             'message' => 'Your account has been created, please verify your email address.',
         ]);

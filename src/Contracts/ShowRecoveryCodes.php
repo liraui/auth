@@ -9,6 +9,8 @@ interface ShowRecoveryCodes
 {
     /**
      * Create an HTTP response for recovery codes.
+     *
+     * @param  array<int, string>  $recoveryCodes
      */
     public function toResponse(ShowRecoveryCodesRequest $request, array $recoveryCodes): Response;
 }

@@ -11,11 +11,15 @@ interface OtacStore
 
     /**
      * Store OTAC in cache.
+     *
+     * @param  array<string, mixed>  $otac
      */
     public function put(array $otac): void;
 
     /**
      * Get OTAC from cache.
+     *
+     * @return ?array<string, mixed>
      */
     public function retrieve(): ?array;
 

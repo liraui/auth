@@ -4,7 +4,7 @@ namespace LiraUi\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 
 class ChangePasswordRequest extends FormRequest
 {
@@ -18,22 +18,21 @@ class ChangePasswordRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
      */
     public function rules(): array
     {
+        /** @var PasswordRule $passwordRule */
+        $passwordRule = PasswordRule::defaults();
+
         return [
             'current_password' => ['required', 'current_password'],
             'password' => [
                 'required',
                 'string',
                 'confirmed',
-                Rules\Password::defaults()
-                    ->min(8)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
+                $passwordRule->min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised(),
             ],
         ];
     }

@@ -5,13 +5,20 @@ namespace LiraUi\Auth;
 use Illuminate\Support\ServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
 
+/** @property \Illuminate\Foundation\Application $app */
 class RouteServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     */
     public function register(): void
     {
         //
     }
 
+    /**
+     * Bootstrap any application services.
+     */
     public function boot(): void
     {
         if (! $this->shouldRegisterRoutes()) {
@@ -30,6 +37,10 @@ class RouteServiceProvider extends ServiceProvider
     private function shouldRegisterRoutes(): bool
     {
         if (! config('route-attributes.enabled')) {
+            return false;
+        }
+
+        if ($this->app->routesAreCached()) {
             return false;
         }
 

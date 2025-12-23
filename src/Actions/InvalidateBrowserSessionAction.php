@@ -11,14 +11,11 @@ class InvalidateBrowserSessionAction implements InvalidatesBrowserSession
     /**
      * Invalidate a specific browser session.
      */
-    public function invalidate(InvalidateBrowserSessionRequest $request): void
+    public function invalidate(InvalidateBrowserSessionRequest $request, string $sessionId): void
     {
         /** @var \App\Models\User $user */
         $user = $request->user();
 
-        DB::table('sessions')
-            ->where('user_id', $user->id)
-            ->where('id', $request->session_id)
-            ->delete();
+        DB::table('sessions')->where('user_id', $user->id)->where('id', $sessionId)->delete();
     }
 }

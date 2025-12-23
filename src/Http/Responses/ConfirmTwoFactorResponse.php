@@ -10,6 +10,8 @@ class ConfirmTwoFactorResponse implements TwoFactorConfirmed
 {
     /**
      * Create an HTTP response for when two-factor authentication is confirmed.
+     *
+     * @param  array<int, string>  $recoveryCodes
      */
     public function toResponse(ConfirmTwoFactorRequest $request, array $recoveryCodes): Response
     {

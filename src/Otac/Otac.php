@@ -18,6 +18,9 @@ class Otac
         //
     }
 
+    /**
+     * Get the OTAC store.
+     */
     public function store(): OtacStore
     {
         return $this->store;
@@ -30,8 +33,15 @@ class Otac
         return $this;
     }
 
-    public function send(OtacContract $otac, mixed $notifiable, ?int $length = 6, ?int $expireInMinutes = 10): array
+    /**
+     * Send the OTAC notification.
+     *
+     * @return array<string, mixed>
+     */
+    public function send(OtacContract $otac, mixed $notifiable, int $length = 6, int $expireInMinutes = 10): array
     {
+        assert(is_object($notifiable) && method_exists($notifiable, 'notify'));
+
         $code = $this->generateCode($length);
 
         $expires = Carbon::now()->addMinutes($expireInMinutes)->addSeconds(59);
@@ -53,6 +63,9 @@ class Otac
         return $otacData;
     }
 
+    /**
+     * Verify the OTAC code and process the associated action.
+     */
     public function verify(string $code): OtacVerificationResult
     {
         $otac = $this->store->retrieve();
@@ -61,7 +74,10 @@ class Otac
             return new OtacVerificationResult(false, null, 'No OTAC found for this identifier');
         }
 
-        if (Carbon::now()->gt($otac['expires'])) {
+        /** @var \Carbon\Carbon $expiresIn */
+        $expiresIn = $otac['expires'];
+
+        if (Carbon::now()->gt($expiresIn)) {
             return new OtacVerificationResult(false, null, 'OTAC has expired');
         }
 
@@ -69,6 +85,7 @@ class Otac
             return new OtacVerificationResult(false, null, 'Invalid OTAC code');
         }
 
+        /** @var \LiraUi\Auth\Contracts\Otac $otacObject */
         $otacObject = $otac['otac'];
 
         $otacObject->process();
@@ -78,6 +95,9 @@ class Otac
         return new OtacVerificationResult(true, $otacObject);
     }
 
+    /**
+     * Check the OTAC code without processing or clearing it.
+     */
     public function check(string $code): OtacVerificationResult
     {
         $otac = $this->store->retrieve();
@@ -86,7 +106,10 @@ class Otac
             return new OtacVerificationResult(false, null, 'No OTAC found for this identifier');
         }
 
-        if (Carbon::now()->gt($otac['expires'])) {
+        /** @var \Carbon\Carbon $expiresIn */
+        $expiresIn = $otac['expires'];
+
+        if (Carbon::now()->gt($expiresIn)) {
             return new OtacVerificationResult(false, null, 'OTAC has expired');
         }
 
@@ -94,16 +117,25 @@ class Otac
             return new OtacVerificationResult(false, null, 'Invalid OTAC code');
         }
 
-        return new OtacVerificationResult(true, $otac['otac']);
+        /** @var \LiraUi\Auth\Contracts\Otac $otacContract */
+        $otacContract = $otac['otac'];
+
+        return new OtacVerificationResult(true, $otacContract);
     }
 
+    /**
+     * Attempt to verify the OTAC code.
+     */
     public function attempt(string $code): OtacVerificationResult
     {
         return $this->verify($code);
     }
 
+    /**
+     * Generate a random numeric code of the given length.
+     */
     protected function generateCode(int $length): string
     {
-        return Str::padLeft(random_int(0, pow(10, $length) - 1), $length, '0');
+        return Str::padLeft((string) random_int(0, pow(10, $length) - 1), $length, '0');
     }
 }

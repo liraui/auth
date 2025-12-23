@@ -12,11 +12,16 @@ class ConfirmTwoFactorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::check() && is_null(Auth::user()->two_factor_secret);
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        return is_null($user->two_factor_secret);
     }
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
      */
     public function rules(): array
     {

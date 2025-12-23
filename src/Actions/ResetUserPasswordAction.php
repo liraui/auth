@@ -19,11 +19,15 @@ class ResetUserPasswordAction implements ResetsUserPassword
      */
     public function reset(ResetPasswordRequest $request): string
     {
+        /** @var string $password */
+        $password = $request->input('password');
+
+        /** @var string $status */
         $status = Password::reset(
-            $request->validated(),
-            function ($user) use ($request) {
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (\App\Models\User $user) use ($password) {
                 $user->forceFill([
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($password),
                     'remember_token' => Str::random(60),
                 ])->save();
 

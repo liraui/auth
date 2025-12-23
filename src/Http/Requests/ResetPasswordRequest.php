@@ -3,7 +3,7 @@
 namespace LiraUi\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 
 class ResetPasswordRequest extends FormRequest
 {
@@ -17,9 +17,14 @@ class ResetPasswordRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
      */
     public function rules(): array
     {
+        /** @var PasswordRule $passwordRule */
+        $passwordRule = PasswordRule::defaults();
+
         return [
             'token' => [
                 'required',
@@ -37,13 +42,7 @@ class ResetPasswordRequest extends FormRequest
                 'required',
                 'string',
                 'confirmed',
-                Rules\Password::defaults()
-                    ->min(8)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
+                $passwordRule->min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised(),
             ],
         ];
     }
