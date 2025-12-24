@@ -35,7 +35,6 @@ test('user can request password reset with valid credentials', function () {
 test('user cannot request password reset with invalid credentials', function () {
     /** @var \LiraUi\Auth\Tests\TestCase $this */
     Event::fake();
-
     Notification::fake();
 
     $response = $this->post('/auth/forgot-password', [
@@ -54,7 +53,6 @@ test('user cannot request password reset with invalid credentials', function () 
 test('user can throttle password reset requests', function () {
     /** @var \LiraUi\Auth\Tests\TestCase $this */
     Event::fake();
-
     Notification::fake();
 
     $user = User::factory()->create([
