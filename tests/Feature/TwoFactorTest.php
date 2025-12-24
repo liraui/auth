@@ -54,8 +54,62 @@ test('user can confirm two factor', function () {
 });
 
 test('user cannot confirm two factor with invalid code', function () {
-    //
-})->skip();
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    $user = User::factory()->create([
+        'email_verified_at' => now(),
+    ]);
+
+    $this->actingAs($user);
+
+    $response = $this->post('/profile/two-factor/enable', [
+        'password' => 'password',
+    ]);
+
+    $response = $this->post('/profile/two-factor/confirm', [
+        'code' => '123456',
+    ]);
+
+    $response->assertSessionHasErrors('code');
+
+    $user->refresh();
+
+    $this->assertNull($user->two_factor_secret);
+    $this->assertNull($user->two_factor_recovery_codes);
+    $this->assertNull($user->two_factor_confirmed_at);
+});
+
+test('user cannot confirm two factor with expired session', function () {
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    $user = User::factory()->create([
+        'email_verified_at' => now(),
+    ]);
+
+    $this->actingAs($user);
+
+    $response = $this->post('/profile/two-factor/enable', [
+        'password' => 'password',
+    ]);
+
+    $this->travel(11)->minutes();
+
+    $google2Fa = app(Google2FA::class);
+
+    $secret = $response->getSession()->get('flash.secret');
+
+    $code = $google2Fa->getCurrentOtp($secret);
+
+    $response = $this->post('/profile/two-factor/confirm', [
+        'code' => $code,
+    ]);
+
+    $response->assertSessionHasErrors('code');
+
+    $user->refresh();
+
+    $this->assertNull($user->two_factor_secret);
+    $this->assertNull($user->two_factor_recovery_codes);
+    $this->assertNull($user->two_factor_confirmed_at);
+});
 
 test('user can disable two factor', function () {
     $user = User::factory()->create([

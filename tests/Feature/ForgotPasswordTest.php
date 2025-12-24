@@ -77,3 +77,30 @@ test('user can throttle password reset requests', function () {
 
     Notification::assertSentTo($user, ResetPassword::class, 1);
 });
+
+test('user can request password reset with json response', function () {
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    Event::fake();
+    Notification::fake();
+
+    $user = User::factory()->create([
+        'email' => 'test@example.com',
+    ]);
+
+    $response = $this->postJson('/auth/forgot-password', [
+        'email' => 'test@example.com',
+    ]);
+
+    $response->assertJson([
+        'type' => 'success',
+        'message' => 'If your email address exists in our system, we have emailed your password reset link.',
+    ]);
+
+    $response->assertSessionHasNoErrors();
+
+    Event::assertDispatched(PasswordResetLinkSentEvent::class, function ($event) {
+        return $event->email === 'test@example.com';
+    });
+
+    Notification::assertSentTo($user, ResetPassword::class);
+});

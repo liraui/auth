@@ -45,3 +45,58 @@ test('user can reset password with valid link', function () {
         'password' => '#N3wP@sswordI5Gre4t',
     ]);
 });
+
+test('user can reset password with json response', function () {
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    Event::fake();
+    Notification::fake();
+
+    $user = User::factory()->create([
+        'email' => 'test@example.com',
+    ]);
+
+    $response = $this->post('/auth/forgot-password', [
+        'email' => 'test@example.com',
+    ]);
+
+    $response->assertStatus(302);
+
+    Notification::assertSentTo($user, ResetPassword::class);
+
+    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
+        $response = $this->postJson('/auth/reset-password', [
+            'token' => $notification->token,
+            'email' => $user->email,
+            'password' => '#N3wP@sswordI5Gre4t',
+            'password_confirmation' => '#N3wP@sswordI5Gre4t',
+        ]);
+
+        $response->assertJson([
+            'type' => 'success',
+            'message' => 'Your password has been reset.',
+        ]);
+
+        Event::assertDispatched(PasswordResetEvent::class);
+
+        return true;
+    });
+
+    $this->assertCredentials([
+        'email' => $user->email,
+        'password' => '#N3wP@sswordI5Gre4t',
+    ]);
+});
+
+test('user cannot reset password with invalid token', function () {
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    $user = User::factory()->create();
+
+    $response = $this->post('/auth/reset-password', [
+        'token' => 'invalid-token',
+        'email' => $user->email,
+        'password' => '#N3wP@sswordI5Gre4t',
+        'password_confirmation' => '#N3wP@sswordI5Gre4t',
+    ]);
+
+    $response->assertSessionHasErrors('email');
+});

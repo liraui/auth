@@ -68,3 +68,27 @@ test('user cannot change password with invalid new password', function () {
 
     expect(Hash::check('password', $user->password))->toBeTrue();
 });
+
+test('user can change password with json response', function () {
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    $user = User::factory()->create([
+        'email' => 'test@example.com',
+    ]);
+
+    $this->actingAs($user);
+
+    $response = $this->postJson('/profile/password', [
+        'current_password' => 'password',
+        'password' => '#N3wP@sswordI5Gre4t',
+        'password_confirmation' => '#N3wP@sswordI5Gre4t',
+    ]);
+
+    $response->assertJson([
+        'type' => 'success',
+        'message' => 'Password has been changed successfully.',
+    ]);
+
+    $user->refresh();
+
+    expect(Hash::check('#N3wP@sswordI5Gre4t', $user->password))->toBeTrue();
+});

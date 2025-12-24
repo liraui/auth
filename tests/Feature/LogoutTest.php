@@ -16,3 +16,22 @@ test('user can logout when authenticated', function () {
 
     $this->assertGuest();
 });
+
+test('user can logout with json response', function () {
+    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    $user = User::factory()->create([
+        'first_name' => 'Test',
+        'last_name' => 'User',
+    ]);
+
+    $this->actingAs($user);
+
+    $response = $this->postJson('/auth/logout');
+
+    $response->assertJson([
+        'type' => 'success',
+        'message' => 'You have been logged out successfully.',
+    ]);
+
+    $this->assertGuest();
+});
