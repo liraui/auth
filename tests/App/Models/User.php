@@ -21,6 +21,8 @@ use LiraUi\Auth\Concerns\HasEmailVerification;
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property \Carbon\Carbon|null $two_factor_confirmed_at
+ * @method static User create(array $attributes = [])
+ * @method static User|null find($id)
  */
 class User extends Authenticatable
 {

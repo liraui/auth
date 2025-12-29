@@ -30,18 +30,19 @@ class VerifyTwoFactorRecoveryCodeAction implements VerifiesTwoFactorRecoveryCode
 
         $userId = $request->session()->get('auth.two_factor.pending_id');
 
+        /** @var User|null $user */
         $user = User::find($userId);
 
-        if (! $user || is_null($user->two_factor_recovery_codes)) {
+        if (! $user || ! $user->two_factor_recovery_codes) {
             $this->clearTwoFactorSession($request);
 
             throw ValidationException::withMessages([
-                'recovery_code' => ['Unable to verify your recovery code.'],
+                'recovery_code' => ['Unable to verify your two-factor authentication recovery code.'],
             ]);
         }
 
         /** @var string $decrypted */
-        $decrypted = decrypt($user->two_factor_recovery_codes);
+        $decrypted = decrypt((string) $user->two_factor_recovery_codes);
 
         /** @var array<string> $recoveryCodes */
         $recoveryCodes = json_decode($decrypted, true);

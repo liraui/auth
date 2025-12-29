@@ -19,6 +19,7 @@ class RegisterUserAction implements RegistersUser
         /** @var string $password */
         $password = $request->input('password');
 
+        /** @var User $user */
         $user = User::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),

@@ -96,10 +96,10 @@ class ProfileController extends Controller
         }
 
         return Inertia::render('liraui-auth::profile/settings', [
-            'emailChangedTo' => $emailChanged ? [
+            'emailChangedTo' => [
                 'newEmail' => $emailChanged['otac']->newEmail ?? null,
                 'expiresIn' => $emailChangeExpiresIn?->diffForHumans(),
-            ] : null,
+            ],
             'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),
             'sessions' => $sessions,
         ]);

@@ -34,9 +34,10 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
 
         $userId = $request->session()->get('auth.two_factor.pending_id');
 
+        /** @var User|null $user */
         $user = User::find($userId);
 
-        if (! $user || is_null($user->two_factor_secret)) {
+        if (! $user || ! $user->two_factor_secret) {
             $this->clearTwoFactorSession($request);
 
             throw ValidationException::withMessages([
@@ -45,7 +46,7 @@ class VerifyTwoFactorAction implements VerifiesTwoFactor
         }
 
         /** @var string $secret */
-        $secret = decrypt($user->two_factor_secret);
+        $secret = decrypt((string) $user->two_factor_secret);
 
         /** @var string $code */
         $code = $request->input('code');
