@@ -2,10 +2,12 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use LiraUi\Auth\Contracts\VerifiesEmail;
 use LiraUi\Auth\Facades\Otac;
 use LiraUi\Auth\Http\Requests\VerifyEmailRequest;
+use LiraUi\Auth\Otac\OtacVerificationResult;
 
 class VerifyEmailAction implements VerifiesEmail
 {
@@ -14,13 +16,13 @@ class VerifyEmailAction implements VerifiesEmail
      */
     public function verify(VerifyEmailRequest $request): void
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         /** @var string $code */
         $code = $request->input('code');
 
-        /** @var \LiraUi\Auth\Otac\OtacVerificationResult $verification */
+        /** @var OtacVerificationResult $verification */
         $verification = Otac::identifier(
             'user:'.$user->id.':email-update'
         )->attempt($code);

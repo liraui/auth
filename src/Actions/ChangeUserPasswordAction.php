@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use LiraUi\Auth\Contracts\ChangesUserPassword;
 use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
@@ -13,7 +14,7 @@ class ChangeUserPasswordAction implements ChangesUserPassword
      */
     public function handle(ChangePasswordRequest $request): void
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         /** @var string $password */

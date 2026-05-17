@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use LiraUi\Auth\Contracts\SendsEmailVerification;
 use LiraUi\Auth\Http\Requests\SendEmailVerificationRequest;
@@ -15,7 +16,7 @@ class SendEmailVerificationAction implements SendsEmailVerification
      */
     public function send(SendEmailVerificationRequest $request): void
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         if ($user->hasVerifiedEmail()) {

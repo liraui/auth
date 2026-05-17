@@ -74,7 +74,7 @@ class Otac
             return new OtacVerificationResult(false, null, 'No OTAC found for this identifier');
         }
 
-        /** @var \Carbon\Carbon $expiresIn */
+        /** @var Carbon $expiresIn */
         $expiresIn = $otac['expires'];
 
         if (Carbon::now()->gt($expiresIn)) {
@@ -85,7 +85,7 @@ class Otac
             return new OtacVerificationResult(false, null, 'Invalid OTAC code');
         }
 
-        /** @var \LiraUi\Auth\Contracts\Otac $otacObject */
+        /** @var OtacContract $otacObject */
         $otacObject = $otac['otac'];
 
         $otacObject->process();
@@ -106,7 +106,7 @@ class Otac
             return new OtacVerificationResult(false, null, 'No OTAC found for this identifier');
         }
 
-        /** @var \Carbon\Carbon $expiresIn */
+        /** @var Carbon $expiresIn */
         $expiresIn = $otac['expires'];
 
         if (Carbon::now()->gt($expiresIn)) {
@@ -117,7 +117,7 @@ class Otac
             return new OtacVerificationResult(false, null, 'Invalid OTAC code');
         }
 
-        /** @var \LiraUi\Auth\Contracts\Otac $otacContract */
+        /** @var OtacContract $otacContract */
         $otacContract = $otac['otac'];
 
         return new OtacVerificationResult(true, $otacContract);

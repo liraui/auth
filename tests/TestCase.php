@@ -3,8 +3,11 @@
 namespace LiraUi\Auth\Tests;
 
 use App\Models\User;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithAuthentication;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Inertia\ServiceProvider as InertiaServiceProvider;
+use Laravel\Passkeys\PasskeysServiceProvider;
 use LiraUi\Auth\AuthServiceProvider;
 use LiraUi\Auth\RouteServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -32,12 +35,14 @@ abstract class TestCase extends Orchestra
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->loadMigrationsFrom(__DIR__.'/../vendor/laravel/passkeys/database/migrations');
     }
 
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      */
     protected function getEnvironmentSetUp($app): void
     {
@@ -49,13 +54,23 @@ abstract class TestCase extends Orchestra
     }
 
     /**
+     * Define routes for the test environment.
+     */
+    protected function defineRoutes($router): void
+    {
+        $router->get('/password/confirm', fn () => 'confirm')->name('password.confirm');
+    }
+
+    /**
      * Get package providers.
      */
     protected function getPackageProviders($app)
     {
         return [
-            RouteServiceProvider::class,
+            InertiaServiceProvider::class,
             AuthServiceProvider::class,
+            PasskeysServiceProvider::class,
+            RouteServiceProvider::class,
         ];
     }
 }

@@ -221,7 +221,7 @@ class ProfileController extends Controller
         name: 'profile.passkeys.destroy',
         middleware: ['web', 'auth', 'verified', 'throttle:5,1']
     )]
-    public function deletePasskey(DeletePasskeyRequest $request, DeletesPasskey $deleter): RedirectResponse
+    public function deletePasskey(DeletePasskeyRequest $request, DeletesPasskey $deleter): Response
     {
         $deleter->delete($request);
 

@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\User;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can logout when authenticated', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -18,7 +19,7 @@ test('user can logout when authenticated', function () {
 });
 
 test('user can logout with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'first_name' => 'Test',
         'last_name' => 'User',

@@ -5,9 +5,10 @@ use Illuminate\Auth\Events\PasswordReset as PasswordResetEvent;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can reset password with valid link', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -47,7 +48,7 @@ test('user can reset password with valid link', function () {
 });
 
 test('user can reset password with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -88,7 +89,7 @@ test('user can reset password with json response', function () {
 });
 
 test('user cannot reset password with invalid token', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create();
 
     $response = $this->post('/auth/reset-password', [

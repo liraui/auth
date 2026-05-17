@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Listeners;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Registered as UserRegisteredEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -12,7 +13,7 @@ class SendEmailVerificationNotification implements ShouldQueue
      */
     public function handle(UserRegisteredEvent $event): void
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $event->user;
 
         if ($user->hasVerifiedEmail()) {

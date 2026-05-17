@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
@@ -24,7 +25,7 @@ class EmailVerificationController extends Controller
     )]
     public function showVerificationNotice(Request $request): InertiaResponse|Response
     {
-        /** @var \App\Models\User * */
+        /** @var User * */
         $user = $request->user();
 
         if ($user->hasVerifiedEmail()) {

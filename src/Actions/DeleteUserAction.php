@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use LiraUi\Auth\Contracts\DeletesUser;
 use LiraUi\Auth\Events\UserDeletedEvent;
@@ -14,7 +15,7 @@ class DeleteUserAction implements DeletesUser
      */
     public function delete(DeleteAccountRequest $request): void
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         Auth::logout();

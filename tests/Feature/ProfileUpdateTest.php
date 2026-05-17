@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Notification;
 use LiraUi\Auth\Events\EmailVerificationSentEvent;
 use LiraUi\Auth\Events\ProfileUpdatedEvent;
 use LiraUi\Auth\Notifications\OtacNotification;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can update profile information without email change', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -49,7 +50,7 @@ test('user can update profile information without email change', function () {
 });
 
 test('user can update profile information with email change', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -91,7 +92,7 @@ test('user can update profile information with email change', function () {
 });
 
 test('user can update profile information with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 

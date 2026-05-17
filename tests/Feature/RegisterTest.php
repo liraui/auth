@@ -1,12 +1,14 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Auth\Events\Registered as UserRegisteredEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use LiraUi\Auth\Notifications\OtacNotification;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can register with valid data', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -27,7 +29,7 @@ test('user can register with valid data', function () {
 });
 
 test('user can register with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -51,10 +53,10 @@ test('user can register with json response', function () {
 });
 
 test('listener sends email verification notification on user registration', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Notification::fake();
 
-    $user = \App\Models\User::factory()->create([
+    $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
 
@@ -67,10 +69,10 @@ test('listener sends email verification notification on user registration', func
 });
 
 test('listener does not send email verification notification if user is already verified', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Notification::fake();
 
-    $user = \App\Models\User::factory()->create([
+    $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);
 

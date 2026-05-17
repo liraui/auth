@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -36,7 +37,7 @@ class OtacNotification extends Notification
         /** @var string $code */
         $code = $this->data['code'];
 
-        /** @var \Carbon\Carbon $expires */
+        /** @var Carbon $expires */
         $expires = $this->data['expires'];
 
         return (new MailMessage)

@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Http\Responses;
 
+use App\Models\User;
 use LiraUi\Auth\Contracts\Authenticated;
 use LiraUi\Auth\Http\Requests\LoginRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class AuthenticateUserResponse implements Authenticated
                 ]);
             }
 
-            /** @var \App\Models\User * */
+            /** @var User $user */
             $user = $request->user();
 
             $name = $user->name;
@@ -41,7 +42,7 @@ class AuthenticateUserResponse implements Authenticated
             ]);
         }
 
-        /** @var \App\Models\User * */
+        /** @var User $user */
         $user = $request->user();
 
         $name = $user->name;

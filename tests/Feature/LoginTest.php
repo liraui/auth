@@ -2,9 +2,10 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can login with valid credentials', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'password' => Hash::make('password'),
@@ -21,7 +22,7 @@ test('user can login with valid credentials', function () {
 });
 
 test('user cannot login with invalid credentials', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'password' => Hash::make('password'),
@@ -40,7 +41,7 @@ test('user cannot login with invalid credentials', function () {
 });
 
 test('user can login with remember me', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -63,7 +64,7 @@ test('user can login with remember me', function () {
 });
 
 test('user can login with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'first_name' => 'Test',
         'last_name' => 'User',
@@ -84,7 +85,7 @@ test('user can login with json response', function () {
 });
 
 test('user can login with json response and two factor pending', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'first_name' => 'Test',
         'last_name' => 'User',

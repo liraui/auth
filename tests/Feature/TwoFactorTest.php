@@ -1,10 +1,11 @@
 <?php
 
 use App\Models\User;
+use LiraUi\Auth\Tests\TestCase;
 use PragmaRX\Google2FA\Google2FA;
 
 test('user can enable two factor', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);
@@ -23,7 +24,7 @@ test('user can enable two factor', function () {
 });
 
 test('user can confirm two factor', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);
@@ -54,7 +55,7 @@ test('user can confirm two factor', function () {
 });
 
 test('user cannot confirm two factor with invalid code', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);
@@ -79,7 +80,7 @@ test('user cannot confirm two factor with invalid code', function () {
 });
 
 test('user cannot confirm two factor with expired session', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);

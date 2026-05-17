@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use LiraUi\Auth\Contracts\DisablesTwoFactor;
 use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
 
@@ -12,7 +13,7 @@ class DisableTwoFactorAction implements DisablesTwoFactor
      */
     public function disable(DisableTwoFactorRequest $request): void
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         $user->forceFill([

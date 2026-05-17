@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Otac;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use LiraUi\Auth\Contracts\OtacStore as OtacStoreContract;
 
@@ -42,7 +43,7 @@ class OtacStore implements OtacStoreContract
      */
     public function put(array $otac): void
     {
-        /** @var \Carbon\Carbon $expiresIn */
+        /** @var Carbon $expiresIn */
         $expiresIn = $otac['expires'];
 
         Cache::put(

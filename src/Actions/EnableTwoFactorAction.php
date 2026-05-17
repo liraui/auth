@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use LiraUi\Auth\Contracts\EnablesTwoFactor;
 use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 use PragmaRX\Google2FA\Google2FA;
@@ -18,7 +19,7 @@ class EnableTwoFactorAction implements EnablesTwoFactor
 
         $secret = $google2Fa->generateSecretKey();
 
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         /** @var string $appName */

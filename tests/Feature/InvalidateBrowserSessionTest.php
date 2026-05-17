@@ -3,9 +3,10 @@
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can invalidate a browser session', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'email_verified_at' => now(),
@@ -39,7 +40,7 @@ test('user can invalidate a browser session', function () {
 });
 
 test('user cannot invalidate session with wrong password', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'email_verified_at' => now(),

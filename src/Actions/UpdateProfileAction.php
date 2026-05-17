@@ -14,7 +14,7 @@ class UpdateProfileAction implements UpdatesProfile
      */
     public function update(UpdateProfileRequest $request): User
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         /** @var string $email */

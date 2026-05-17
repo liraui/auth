@@ -2,10 +2,11 @@
 
 namespace LiraUi\Auth;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
 
-/** @property \Illuminate\Foundation\Application $app */
+/** @property Application $app */
 class RouteServiceProvider extends ServiceProvider
 {
     /**

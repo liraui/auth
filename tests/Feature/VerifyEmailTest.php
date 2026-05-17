@@ -3,9 +3,10 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 use LiraUi\Auth\Notifications\OtacNotification;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can verify email with valid hash', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Notification::fake();
 
     $user = User::factory()->create([
@@ -39,7 +40,7 @@ test('user can verify email with valid hash', function () {
 });
 
 test('user can resend email verification notification', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Notification::fake();
 
     $user = User::factory()->create([
@@ -62,7 +63,7 @@ test('user can resend email verification notification', function () {
 });
 
 test('user cannot resend email verification notification if already verified', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);
@@ -75,7 +76,7 @@ test('user cannot resend email verification notification if already verified', f
 });
 
 test('user cannot verify email with invalid code', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -92,7 +93,7 @@ test('user cannot verify email with invalid code', function () {
 });
 
 test('user cannot verify email if already verified', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);
@@ -107,7 +108,7 @@ test('user cannot verify email if already verified', function () {
 });
 
 test('user can mark email as verified', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -121,7 +122,7 @@ test('user can mark email as verified', function () {
 });
 
 test('user get email for verification', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -130,7 +131,7 @@ test('user get email for verification', function () {
 });
 
 test('user cannot send email verification notification if already sent', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Notification::fake();
 
     $user = User::factory()->create([

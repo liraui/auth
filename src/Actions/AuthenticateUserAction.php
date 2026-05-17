@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use LiraUi\Auth\Contracts\AuthenticatesUser;
 use LiraUi\Auth\Http\Requests\LoginRequest;
@@ -15,7 +16,7 @@ class AuthenticateUserAction implements AuthenticatesUser
     {
         $request->authenticate();
 
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         $rememberMe = $request->input('remember_me', 'off') === 'on';

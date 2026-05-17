@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class EnableTwoFactorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         return is_null($user->two_factor_secret) && is_null($user->two_factor_confirmed_at);

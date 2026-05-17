@@ -1,10 +1,11 @@
 <?php
 
 use App\Models\User;
+use LiraUi\Auth\Tests\TestCase;
 use PragmaRX\Google2FA\Google2FA;
 
 test('user can verify two-factor authentication with valid code', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $google2fa = new Google2FA;
 
     $secret = $google2fa->generateSecretKey();
@@ -37,7 +38,7 @@ test('user can verify two-factor authentication with valid code', function () {
 });
 
 test('user can verify two-factor authentication with recovery code', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'two_factor_secret' => encrypt('secret'),
@@ -70,7 +71,7 @@ test('user can verify two-factor authentication with recovery code', function ()
 });
 
 test('user cannot verify two-factor authentication with invalid code', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $google2fa = new Google2FA;
 
     $secret = $google2fa->generateSecretKey();
@@ -101,7 +102,7 @@ test('user cannot verify two-factor authentication with invalid code', function 
 });
 
 test('user cannot verify two-factor authentication with expired session', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $google2fa = new Google2FA;
 
     $secret = $google2fa->generateSecretKey();
@@ -136,7 +137,7 @@ test('user cannot verify two-factor authentication with expired session', functi
 });
 
 test('user cannot verify two-factor authentication with expired session for recovery', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'two_factor_secret' => encrypt('secret'),
@@ -165,7 +166,7 @@ test('user cannot verify two-factor authentication with expired session for reco
 });
 
 test('user cannot verify two-factor authentication when user not found for recovery', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $google2fa = new Google2FA;
 
     $secret = $google2fa->generateSecretKey();
@@ -200,7 +201,7 @@ test('user cannot verify two-factor authentication when user not found for recov
 });
 
 test('user cannot verify two-factor authentication with invalid recovery code', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'two_factor_secret' => encrypt('secret'),
@@ -227,7 +228,7 @@ test('user cannot verify two-factor authentication with invalid recovery code', 
 });
 
 test('user cannot verify two-factor authentication with recovery code when no recovery codes set', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'two_factor_secret' => encrypt('secret'),
@@ -254,7 +255,7 @@ test('user cannot verify two-factor authentication with recovery code when no re
 });
 
 test('user cannot access recovery form when session has no expires_at', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'two_factor_secret' => encrypt('secret'),

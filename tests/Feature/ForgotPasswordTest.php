@@ -5,9 +5,10 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use LiraUi\Auth\Events\PasswordResetLinkSentEvent;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can request password reset with valid credentials', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -33,7 +34,7 @@ test('user can request password reset with valid credentials', function () {
 });
 
 test('user cannot request password reset with invalid credentials', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -51,7 +52,7 @@ test('user cannot request password reset with invalid credentials', function () 
 });
 
 test('user can throttle password reset requests', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 
@@ -77,7 +78,7 @@ test('user can throttle password reset requests', function () {
 });
 
 test('user can request password reset with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
     Notification::fake();
 

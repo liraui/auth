@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravolt\Avatar\Avatar;
 use LiraUi\Auth\Concerns\HasEmailVerification;
+use LiraUi\Auth\Tests\Database\Factories\UserFactory;
 
 /**
  * @property int $id
@@ -20,13 +22,14 @@ use LiraUi\Auth\Concerns\HasEmailVerification;
  * @property string $email
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
- * @property \Carbon\Carbon|null $two_factor_confirmed_at
+ * @property Carbon|null $two_factor_confirmed_at
+ *
  * @method static User create(array $attributes = [])
  * @method static User|null find($id)
  */
 class User extends Authenticatable
 {
-    /** @use HasFactory<\LiraUi\Auth\Tests\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasEmailVerification,
         HasFactory,
         Notifiable;
@@ -83,7 +86,7 @@ class User extends Authenticatable
      */
     protected static function newFactory()
     {
-        return \LiraUi\Auth\Tests\Database\Factories\UserFactory::new();
+        return UserFactory::new();
     }
 
     /**

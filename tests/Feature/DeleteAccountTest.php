@@ -3,9 +3,10 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use LiraUi\Auth\Events\UserDeletedEvent;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can delete account', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     Event::fake();
 
     $user = User::factory()->create([

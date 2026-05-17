@@ -2,9 +2,10 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use LiraUi\Auth\Tests\TestCase;
 
 test('user can change password', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -28,7 +29,7 @@ test('user can change password', function () {
 });
 
 test('user cannot change password with wrong current password', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -49,7 +50,7 @@ test('user cannot change password with wrong current password', function () {
 });
 
 test('user cannot change password with invalid new password', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -70,7 +71,7 @@ test('user cannot change password with invalid new password', function () {
 });
 
 test('user can change password with json response', function () {
-    /** @var \LiraUi\Auth\Tests\TestCase $this */
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);

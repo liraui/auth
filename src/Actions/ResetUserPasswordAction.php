@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Actions;
 
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset as PasswordResetEvent;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -25,7 +26,7 @@ class ResetUserPasswordAction implements ResetsUserPassword
         /** @var string $status */
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (\App\Models\User $user) use ($password) {
+            function (User $user) use ($password) {
                 $user->forceFill([
                     'password' => Hash::make($password),
                     'remember_token' => Str::random(60),
