@@ -21,38 +21,39 @@ export function PasskeysForm() {
                             {passkeys.length === 0 ? 'You have not registered any passkeys.' : 'You have passkeys enabled.'}
                         </h4>
                         <p className="text-sm md:text-base">
-                            When a passkey is registered, you can sign in quickly and securely without a password using your device's biometrics
-                            or a hardware security key.
+                            When a passkey is registered, you can sign in quickly and securely without a password using your device's biometrics or a
+                            hardware security key.
                         </p>
                     </div>
-                    {passkeys.length > 0 && (<Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-10"></TableHead>
-                                <TableHead className="text-muted-foreground">Name</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {passkeys.map((passkey: Passkey) => (
-                                <TableRow key={passkey.id}>
-                                    <TableCell>
-                                        <KeyRoundIcon className="text-muted-foreground" />
-                                    </TableCell>
-                                    <TableCell className="flex flex-col text-sm font-medium">
-                                        <span>{passkey.name}</span>
-                                        <span className="text-muted-foreground flex items-center gap-1">
-                                            <ClockFadingIcon size={14} /> {passkey.last_used_at ? `${passkey.last_used_at}` : 'This key has never been used'}
-                                        </span>
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <DeletePasskeyButton
-                                            passkey={passkey}
-                                        />
-                                    </TableCell>
+                    {passkeys.length > 0 && (
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-10"></TableHead>
+                                    <TableHead className="text-muted-foreground">Name</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>)}
+                            </TableHeader>
+                            <TableBody>
+                                {passkeys.map((passkey: Passkey) => (
+                                    <TableRow key={passkey.id}>
+                                        <TableCell>
+                                            <KeyRoundIcon className="text-muted-foreground" />
+                                        </TableCell>
+                                        <TableCell className="flex flex-col text-sm font-medium">
+                                            <span>{passkey.name}</span>
+                                            <span className="text-muted-foreground flex items-center gap-1">
+                                                <ClockFadingIcon size={14} />{' '}
+                                                {passkey.last_used_at ? `${passkey.last_used_at}` : 'This key has never been used'}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <DeletePasskeyButton passkey={passkey} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )}
                     <AddPasskeyButton />
                 </div>
             </div>

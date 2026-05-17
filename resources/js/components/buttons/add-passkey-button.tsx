@@ -1,14 +1,13 @@
-import { PasskeyExistsError } from '@laravel/passkeys';
-import { usePasskeyRegister } from '@laravel/passkeys/react';
 import { confirmPasskeyPassword } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import { UserRoundKeyIcon } from 'lucide-react';
-import { toast } from 'sonner';
 import { router } from '@inertiajs/react';
+import { PasskeyExistsError } from '@laravel/passkeys';
+import { usePasskeyRegister } from '@laravel/passkeys/react';
+import { UserRoundKeyIcon } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
-
 
 export function AddPasskeyButton() {
     const [showPasswordDialog, setShowPasswordDialog] = useState(false);
@@ -20,7 +19,7 @@ export function AddPasskeyButton() {
             });
 
             router.reload();
-        }
+        },
     });
 
     return (
@@ -44,9 +43,7 @@ export function AddPasskeyButton() {
 
             {error && (
                 <span className="text-destructive text-sm" role="alert">
-                    {errorInstance instanceof PasskeyExistsError
-                        ? 'A passkey for this account is already registered on this device.'
-                        : error}
+                    {errorInstance instanceof PasskeyExistsError ? 'A passkey for this account is already registered on this device.' : error}
                 </span>
             )}
         </>

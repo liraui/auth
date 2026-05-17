@@ -1,8 +1,8 @@
 import { deletePasskey } from '@/actions/LiraUi/Auth/Http/Controllers/ProfileController';
 import { XIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 import { Passkey } from '../../types';
+import { PasswordConfirmationDialog } from '../dialogs/password-confirmation-dialog';
 
 interface DeletePasskeyButtonProps {
     passkey: Passkey;
@@ -38,4 +38,3 @@ export function DeletePasskeyButton({ passkey }: DeletePasskeyButtonProps) {
         </>
     );
 }
-
