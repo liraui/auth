@@ -57,7 +57,7 @@ class Otac
 
         $notifiable->notify(new OtacNotification([
             'code' => $code,
-            'expires' => $expires->diffForHumans(),
+            'expires' => $expires,
         ]));
 
         return $otacData;
