@@ -4,6 +4,7 @@ namespace LiraUi\Auth\Listeners;
 
 use App\Models\User;
 use Illuminate\Auth\Events\Login as UserLoggedInEvent;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 
 class RequireTwoFactorForPasskeyLogin
@@ -30,6 +31,9 @@ class RequireTwoFactorForPasskeyLogin
 
         request()->session()->put('auth.two_factor.expires_at', now()->addSeconds(180)->timestamp);
 
-        Auth::guard($event->guard)->logout();
+        /** @var StatefulGuard $guard */
+        $guard = Auth::guard($event->guard);
+
+        $guard->logout();
     }
 }

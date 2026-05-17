@@ -29,8 +29,8 @@ For full installation instructions and documentation, visit the [Installation gu
 
 ```bash
 composer test
-# Tests:    51 passed (201 assertions)
-# Duration: 13.38s
+# Tests:    55 passed (211 assertions)
+# Duration: 4.96s
 
 composer test-coverage
 # Total: 83.8 % 

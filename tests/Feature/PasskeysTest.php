@@ -103,9 +103,9 @@ test('passkey login requires two factor verification when enabled', function () 
     (new RequireTwoFactorForPasskeyLogin)->handle(new UserLoggedInEvent('web', $user, false));
 
     expect(session('auth.two_factor.pending_id'))->toBe($user->id);
-    
+
     expect(session('auth.two_factor.remember'))->toBeFalse();
-    
+
     expect(session('auth.two_factor.expires_at'))->not()->toBeNull();
 
     expect(Auth::guard('web')->check())->toBeFalse();

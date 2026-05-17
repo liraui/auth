@@ -8,7 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notifiable as HasNotifications;
+use Laravel\Passkeys\Contracts\PasskeyUser;
+use Laravel\Passkeys\PasskeyAuthenticatable as HasPasskeyAuthenticatable;
 use Laravolt\Avatar\Avatar;
 use LiraUi\Auth\Concerns\HasEmailVerification;
 use LiraUi\Auth\Tests\Database\Factories\UserFactory;
@@ -27,12 +29,13 @@ use LiraUi\Auth\Tests\Database\Factories\UserFactory;
  * @method static User create(array $attributes = [])
  * @method static User|null find($id)
  */
-class User extends Authenticatable
+class User extends Authenticatable implements PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
     use HasEmailVerification,
         HasFactory,
-        Notifiable;
+        HasNotifications,
+        HasPasskeyAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
