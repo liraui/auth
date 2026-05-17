@@ -5,6 +5,7 @@ import { usePage } from '@inertiajs/react';
 import { BrowserSessionsForm } from '../../components/forms/browser-sessions-form';
 import { ChangePasswordForm } from '../../components/forms/change-password-form';
 import { DeleteAccountForm } from '../../components/forms/delete-account-form';
+import { PasskeysForm } from '../../components/forms/passkeys-form';
 import { ProfileInformationForm } from '../../components/forms/profile-information-form';
 import { TwoFactorForm } from '../../components/forms/two-factor-form';
 
@@ -18,6 +19,7 @@ export default function Settings() {
                 <ProfileInformationForm />
                 <ChangePasswordForm />
                 <TwoFactorForm />
+                <PasskeysForm />
                 <BrowserSessionsForm />
                 <DeleteAccountForm />
             </div>

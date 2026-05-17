@@ -2,6 +2,7 @@
 
 namespace LiraUi\Auth\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,12 @@ use Jenssegers\Agent\Agent;
 use LiraUi\Auth\Contracts\BrowserSessionInvalidated;
 use LiraUi\Auth\Contracts\ChangesUserPassword;
 use LiraUi\Auth\Contracts\ConfirmsTwoFactor;
+use LiraUi\Auth\Contracts\DeletesPasskey;
 use LiraUi\Auth\Contracts\DeletesUser;
 use LiraUi\Auth\Contracts\DisablesTwoFactor;
 use LiraUi\Auth\Contracts\EnablesTwoFactor;
 use LiraUi\Auth\Contracts\InvalidatesBrowserSession;
+use LiraUi\Auth\Contracts\PasskeyDeleted;
 use LiraUi\Auth\Contracts\PasswordChanged;
 use LiraUi\Auth\Contracts\ProfileUpdated;
 use LiraUi\Auth\Contracts\ShowRecoveryCodes;
@@ -24,8 +27,10 @@ use LiraUi\Auth\Contracts\TwoFactorDisabled;
 use LiraUi\Auth\Contracts\TwoFactorEnabled;
 use LiraUi\Auth\Contracts\UpdatesProfile;
 use LiraUi\Auth\Http\Requests\ChangePasswordRequest;
+use LiraUi\Auth\Http\Requests\ConfirmPasskeyPasswordRequest;
 use LiraUi\Auth\Http\Requests\ConfirmTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\DeleteAccountRequest;
+use LiraUi\Auth\Http\Requests\DeletePasskeyRequest;
 use LiraUi\Auth\Http\Requests\DisableTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\EnableTwoFactorRequest;
 use LiraUi\Auth\Http\Requests\InvalidateBrowserSessionRequest;
@@ -56,7 +61,7 @@ class ProfileController extends Controller
     )]
     public function showProfile(): InertiaResponse
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $sessions = DB::table('sessions')
@@ -88,7 +93,7 @@ class ProfileController extends Controller
 
         $emailChanged = $this->otacStore->identifier('user:'.$user->id.':email-update')->retrieve();
 
-        /** @var \Carbon\Carbon|null $emailChangeExpiresIn */
+        /** @var Carbon|null $emailChangeExpiresIn */
         $emailChangeExpiresIn = $emailChanged['expires'] ?? null;
 
         if ($emailChanged !== null) {
@@ -101,6 +106,15 @@ class ProfileController extends Controller
                 'expiresIn' => $emailChangeExpiresIn?->diffForHumans(),
             ],
             'twoFactorEnabled' => ! is_null($user->two_factor_secret) && ! is_null($user->two_factor_confirmed_at),
+            'passkeys' => $user->passkeys()
+                ->get(['id', 'name', 'last_used_at'])
+                ->map(fn ($passkey) => [
+                    'id' => $passkey->id,
+                    'name' => $passkey->name,
+                    'last_used_at' => $passkey->last_used_at?->diffForHumans(),
+                ])
+                ->values()
+                ->toArray(),
             'sessions' => $sessions,
         ]);
     }
@@ -172,7 +186,7 @@ class ProfileController extends Controller
     )]
     public function showRecoveryCodes(ShowRecoveryCodesRequest $request): Response
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         /** @var string $decrypted */
@@ -188,6 +202,30 @@ class ProfileController extends Controller
         }
 
         return app(ShowRecoveryCodes::class)->toResponse($request, $recoveryCodes);
+    }
+
+    #[Post(
+        uri: '/profile/passkeys/confirm-password',
+        name: 'profile.passkeys.confirm-password',
+        middleware: ['web', 'auth', 'verified', 'throttle:5,1']
+    )]
+    public function confirmPasskeyPassword(ConfirmPasskeyPasswordRequest $request): RedirectResponse
+    {
+        $request->session()->put('auth.password_confirmed_at', time());
+
+        return back();
+    }
+
+    #[Delete(
+        uri: '/profile/passkeys/{passkey}',
+        name: 'profile.passkeys.destroy',
+        middleware: ['web', 'auth', 'verified', 'throttle:5,1']
+    )]
+    public function deletePasskey(DeletePasskeyRequest $request, DeletesPasskey $deleter): RedirectResponse
+    {
+        $deleter->delete($request);
+
+        return app(PasskeyDeleted::class)->toResponse($request);
     }
 
     #[Delete(

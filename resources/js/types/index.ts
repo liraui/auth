@@ -15,6 +15,12 @@ export interface BrowserSession {
     last_active: string;
 }
 
+export interface Passkey {
+    id: number;
+    name: string;
+    last_used_at: string | null;
+}
+
 export interface UseTwoFactorReturn {
     twoFactorEnabled: boolean;
     showConfirmDialog: boolean;
@@ -31,6 +37,7 @@ export interface UseTwoFactorReturn {
 
 export interface TwoFactorPageProps {
     twoFactorEnabled: boolean;
+    passkeys: Passkey[];
     flash?: {
         type: 'success' | 'error' | 'warning' | 'info';
         message: string;

@@ -20,6 +20,7 @@
         "inertiajs/inertia-laravel": "^2.0.10",
         "jenssegers/agent": "^2.6",
         "laravolt/avatar": "^6.3.1",
+        "laravel/passkeys": "^0.2",
         "laravel/wayfinder": "^0.1.12",
         "pragmarx/google2fa": "^9.0",
         "spatie/laravel-route-attributes": "^1.25"
@@ -63,6 +64,7 @@
         "npm": {
             "dependencies": {
                 "qrcode.react": "^4.2.0",
+                "@laravel/passkeys": "^0.2",
                 "@laravel/vite-plugin-wayfinder": "^0.1.3"
             }
         }

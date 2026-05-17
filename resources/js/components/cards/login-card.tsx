@@ -5,9 +5,41 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { Form, Link } from '@inertiajs/react';
+import { Form, Link, router } from '@inertiajs/react';
+import { usePasskeyVerify } from '@laravel/passkeys/react';
+import { FingerprintIcon } from 'lucide-react';
+import { toast } from 'sonner';
+
+type PasskeyVerifyResponse = {
+    type?: 'success';
+    name?: string;
+    message?: string;
+    redirect?: string;
+    user?: {
+        name?: string;
+    };
+};
 
 export function LoginCard() {
+    const {
+        verify: verifyPasskey,
+        isLoading: isPasskeyLoading,
+        error: passkeyError,
+        isSupported: isPasskeySupported,
+    } = usePasskeyVerify({
+        onSuccess: (response: PasskeyVerifyResponse) => {
+            if (response.type === 'success') {
+                toast.success(response.message, {
+                    position: 'bottom-center',
+                });
+            }
+
+            if (response.redirect) {
+                router.visit(response.redirect);
+            }
+        },
+    });
+
     return (
         <div className="w-sm">
             <div className="outline-border/50 from-border/70 to-border/70 relative m-4 h-full w-full overflow-hidden rounded-2xl bg-linear-to-br via-transparent via-50% p-px outline outline-offset-4">
@@ -36,6 +68,7 @@ export function LoginCard() {
                                                 placeholder="a@example.com"
                                                 name="email"
                                                 autoFocus
+                                                autoComplete="email webauthn"
                                                 aria-invalid={!!errors.email}
                                                 aria-describedby={errors.email ? 'email-error' : undefined}
                                             />
@@ -58,12 +91,17 @@ export function LoginCard() {
                                                 type="password"
                                                 placeholder="•••••••••"
                                                 name="password"
-                                                aria-invalid={!!errors.password}
-                                                aria-describedby={errors.password ? 'password-error' : undefined}
+                                                aria-invalid={!!(errors.password || passkeyError)}
+                                                aria-describedby={errors.password ? 'password-error' : passkeyError ? 'passkey-error' : undefined}
                                             />
                                             {errors.password && (
                                                 <span id="password-error" className="text-destructive text-sm" role="alert">
                                                     {errors.password}
+                                                </span>
+                                            )}
+                                            {passkeyError && !errors.password && (
+                                                <span id="passkey-error" className="text-destructive text-sm" role="alert">
+                                                    {passkeyError}
                                                 </span>
                                             )}
                                         </div>
@@ -84,9 +122,26 @@ export function LoginCard() {
                                             </div>
                                         </div>
                                     </div>
-                                    <Button tabIndex={4} type="submit" className="w-full" disabled={processing}>
-                                        {processing && <Spinner />} Login
-                                    </Button>
+                                    <div className="flex items-center gap-x-2">
+                                        <Button tabIndex={4} type="submit" className="flex-1" disabled={processing}>
+                                            {processing && <Spinner />} Login
+                                        </Button>
+                                        {isPasskeySupported && (
+                                            <Button
+                                                tabIndex={5}
+                                                type="button"
+                                                variant="outline"
+                                                size="icon"
+                                                disabled={isPasskeyLoading}
+                                                onClick={() => {
+                                                    verifyPasskey();
+                                                }}
+                                                aria-label="Sign in with passkey"
+                                            >
+                                                {isPasskeyLoading ? <Spinner /> : <FingerprintIcon />}
+                                            </Button>
+                                        )}
+                                    </div>
                                 </>
                             )}
                         </Form>
